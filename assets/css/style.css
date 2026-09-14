@@ -1073,13 +1073,15 @@ button { font: inherit; color: inherit; }
 }
 .check a { color: var(--brand-600); text-decoration: underline; text-underline-offset: 2px; }
 
+/* Información básica de protección de datos: es obligatoria, así que tiene
+   que poder leerse. A --ink-400 se quedaba en 3.89:1, por debajo de AA. */
 .form__note {
   font-size: var(--fs-micro);
   line-height: 1.6;
-  color: var(--ink-400);
+  color: var(--ink-500);
   margin: 0;
 }
-.form__note strong { color: var(--ink-500); font-weight: 600; }
+.form__note strong { color: var(--ink-800); font-weight: 600; }
 
 .form__ok {
   margin: 0;
