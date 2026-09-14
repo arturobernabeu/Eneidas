@@ -1,0 +1,8 @@
+{
+  "files.associations": { "*.css": "css" },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "css.lint.unknownAtRules": "ignore"
+}

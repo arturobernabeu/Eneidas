@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+
+# Configuración local de Claude Code
+.claude/settings.local.json
+
+# Skills de terceros instaladas: reproducibles desde skills-lock.json.
+# Se versionan el lockfile y las skills propias del proyecto, no las descargadas.
+.agents/
+.claude/skills/*
+!.claude/skills/seccion-landing/
