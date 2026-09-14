@@ -614,7 +614,7 @@
           </li>
         </ul>
       </div>
-      <form class="form reveal" id="form" novalidate>
+      <form class="form reveal" id="form" action="/enviar.php" method="post" novalidate>
         <div class="form__row">
           <div class="field">
             <label for="nombre">Nombre</label>
@@ -655,6 +655,10 @@
           <label for="web">No rellenes este campo</label>
           <input type="text" id="web" name="web" tabindex="-1" autocomplete="off">
         </div>
+
+        <!-- Milisegundos desde que se cargó el formulario. El servidor
+             descarta los envíos demasiado rápidos para ser humanos. -->
+        <input type="hidden" id="tiempo" name="tiempo" value="0">
         <p class="form__note">
           <strong>Responsable:</strong> Ana María Fernández Chaves («Eneidas Psicología»).
           <strong>Finalidad:</strong> gestionar el envío de comunicaciones y la gestión administrativa derivada.

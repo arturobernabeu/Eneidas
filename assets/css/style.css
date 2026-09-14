@@ -1745,3 +1745,10 @@ button { font: inherit; color: inherit; }
     padding-block: .9rem;
   }
 }
+
+/* Mismo bloque de aviso del formulario, en rojo cuando el envío falla */
+.form__ok--error {
+  background: #FBEDEA;
+  border-color: #E8C4BC;
+  color: #8C3B2A;
+}

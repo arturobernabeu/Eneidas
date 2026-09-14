@@ -386,12 +386,59 @@
       return;
     }
 
-    // Punto de integración: aquí se conectaría el envío real
-    // (fetch a un endpoint, Formspree, EmailJS, etc.)
-    formOk.hidden = false;
-    form.reset();
-    formOk.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    enviar();
   });
+
+  /* --- Envío real a enviar.php --------------------------------------- */
+
+  var cargado = Date.now();
+  var boton = form.querySelector('button[type="submit"]');
+  var etiquetaBoton = boton ? boton.innerHTML : '';
+
+  function avisar(texto, esError) {
+    formOk.textContent = texto;
+    formOk.classList.toggle('form__ok--error', Boolean(esError));
+    formOk.hidden = false;
+    formOk.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+  }
+
+  function enviar() {
+    var campoTiempo = document.getElementById('tiempo');
+    if (campoTiempo) campoTiempo.value = String(Date.now() - cargado);
+
+    if (boton) {
+      boton.disabled = true;
+      boton.textContent = 'Enviando…';
+    }
+    formOk.hidden = true;
+
+    fetch(form.getAttribute('action') || 'enviar.php', {
+      method: 'POST',
+      body: new FormData(form)
+    })
+      .then(function (r) {
+        return r.json().catch(function () { return { ok: false }; });
+      })
+      .then(function (data) {
+        if (data && data.ok) {
+          avisar('Gracias por escribirnos. Hemos recibido tu solicitud y te responderemos muy pronto.', false);
+          form.reset();
+          cargado = Date.now();          // reinicia el contador de tiempo
+        } else {
+          avisar((data && data.error) ||
+            'No hemos podido enviar tu solicitud. Escríbenos a eneidaspsicologia@gmail.com o llámanos al 614 18 88 45.', true);
+        }
+      })
+      .catch(function () {
+        avisar('No hemos podido conectar. Comprueba tu conexión o llámanos al 614 18 88 45.', true);
+      })
+      .then(function () {
+        if (boton) {
+          boton.disabled = false;
+          boton.innerHTML = etiquetaBoton;
+        }
+      });
+  }
 
   /* ---------------------------------------------------------------
      9. Año dinámico en el footer
