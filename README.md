@@ -68,8 +68,9 @@ eneidas/
 - **Paleta**: azul sereno `#77BAE7` de la marca original, petróleo `#16333F`
   para el texto y los fondos oscuros, arena `#FDD79A` como acento cálido y papel
   `#FBF8F4` de fondo.
-- **Tipografía**: Montserrat en toda la página (300/400/500/600/700 e itálica
-  400), desde Google Fonts. Una sola familia, sin serif de titulares.
+- **Tipografía**: Montserrat (300–700 e itálica 400) en toda la página, más
+  Bricolage Grotesque en el rótulo de marca. **Autoalojadas**: la web no hace
+  ninguna petición a terceros.
 - **Responsive**: mobile-first en la práctica, con puntos de ruptura en 1100px,
   980px, 720px y 420px. Menú lateral deslizante por debajo de 980px.
 - **Accesibilidad**: enlace de salto al contenido, foco visible, `aria` en los

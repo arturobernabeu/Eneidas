@@ -1,9 +1,4 @@
-
-
-**Bricolage Grotesque** se usa solo en el rótulo de marca (`--font-brand`),
-también autoalojada: un único fichero variable de 40 KB que cubre los pesos
-600 y 700. Al ser más estrecha que Montserrat, el rótulo sube a 1.2rem y el
-tracking de las versalitas a .18em.# Análisis de marca — eneidaspsicologia.com
+# Análisis de marca — eneidaspsicologia.com
 
 Extraído del sitio original el 14/09/2026. Base para las decisiones de diseño
 de la landing.
@@ -69,7 +64,19 @@ Ajustes derivados de usar una sola sans geométrica:
 | `h1–h4` | interlínea 1.16 | Ascendentes altas; 1.08 las pisaba |
 | `h1–h4` | tracking −.025em | Una geométrica pide más tracking negativo en display |
 | `--fs-hero` / `--fs-h2` | −25% | Montserrat lee mucho mayor y más pesada que un serif |
-| Rótulo de marca | 1.15rem / 700 / −.01em | Como wordmark necesita peso, no tamaño |
+| Rótulo de marca | 1.2rem / 700 / −.015em | Como wordmark necesita peso, no tamaño |
+
+### Bricolage Grotesque, solo para el rótulo
+
+El rótulo de marca usa una segunda familia, **Bricolage Grotesque**
+(`--font-brand`), también autoalojada: un único fichero variable de 40 KB que
+cubre los pesos 600 y 700, los dos que emplea el rótulo.
+
+Al ser más estrecha que Montserrat, el nombre sube a 1.2rem y el tracking de
+las versalitas a .18em, para mantener el mismo color tipográfico que tenía.
+
+Es la única excepción a la familia única: el resto de la página sigue en
+Montserrat.
 
 Las dos itálicas de la página (el «cuidar» del hero y las citas de Opiniones)
 usan la variante itálica real: sin ella el navegador sintetizaría una falsa
