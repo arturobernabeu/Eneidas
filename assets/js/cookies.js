@@ -98,8 +98,8 @@
       'Puedes aceptarlas, rechazar las no necesarias o consultar la ' +
       '<a href="' + POLICY_URL + '">política de cookies</a>.</p>' +
       '<div class="cookie__actions">' +
-        '<button class="btn btn--primary" type="button" data-cookie="all">Aceptar todas</button>' +
-        '<button class="btn btn--ghost" type="button" data-cookie="necessary">Solo las necesarias</button>' +
+        '<button class="btn btn--primary" type="button" data-cookie="all">Aceptar</button>' +
+        '<button class="btn btn--ghost" type="button" data-cookie="necessary">Rechazar</button>' +
       '</div>';
 
     document.body.appendChild(banner);

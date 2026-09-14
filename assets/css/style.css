@@ -1687,8 +1687,16 @@ button { font: inherit; color: inherit; }
   margin-bottom: 1.25rem;
 }
 .cookie__text a { color: var(--brand-700); text-decoration: underline; text-underline-offset: 2px; }
+/* Rechazar tiene que verse tan claramente como aceptar. El borde por defecto
+   de .btn--ghost (--line) daba 1,21:1 sobre el blanco del aviso: parecía texto
+   suelto junto a un botón sólido, que es el patrón oscuro que sanciona la AEPD.
+   Ancho idéntico (flex-basis 0) para que ninguno domine al otro. */
 .cookie__actions { display: flex; flex-wrap: wrap; gap: .6rem; }
-.cookie__actions .btn { flex: 1 1 auto; }
+.cookie__actions .btn { flex: 1 1 0; min-width: 10rem; }
+.cookie .btn--ghost {
+  border-color: var(--ink-800);
+  color: var(--ink-800);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .cookie { animation: none; }
