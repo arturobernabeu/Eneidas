@@ -107,25 +107,16 @@
 
     <div class="legal__tablewrap">
       <table class="legal__table">
-        <caption>Cookies necesarias</caption>
+        <caption>Necesarias — siempre activas</caption>
         <thead>
-          <tr><th scope="col">Cookie</th><th scope="col">Duración</th><th scope="col">Función</th></tr>
+          <tr><th scope="col">Nombre</th><th scope="col">Tipo</th><th scope="col">Duración</th><th scope="col">Función</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>CookieConsent</td>
+            <td>eneidas.consent</td>
+            <td>Almacenamiento local (propia)</td>
             <td>12 meses</td>
-            <td>Almacena el estado de consentimiento de cookies del usuario para el dominio actual.</td>
-          </tr>
-          <tr>
-            <td>cookielawinfo-checkbox-necessary</td>
-            <td>1 día</td>
-            <td>Determina si el visitante ha aceptado la casilla de consentimiento de cookies.</td>
-          </tr>
-          <tr>
-            <td>rc::a, rc::b, rc::c</td>
-            <td>Persistente</td>
-            <td>Se utiliza para distinguir entre humanos y bots. Esto es beneficioso para la web con el objeto de elaborar informes válidos sobre el uso de su web.</td>
+            <td>Guarda la decisión que has tomado sobre las cookies, para no volver a preguntártela en cada visita. No identifica a nadie ni se envía a ningún servidor.</td>
           </tr>
         </tbody>
       </table>
@@ -133,19 +124,37 @@
 
     <div class="legal__tablewrap">
       <table class="legal__table">
-        <caption>Cookies publicitarias</caption>
+        <caption>Analíticas — solo si las aceptas</caption>
         <thead>
-          <tr><th scope="col">Cookie</th><th scope="col">Duración</th><th scope="col">Función</th></tr>
+          <tr><th scope="col">Nombre</th><th scope="col">Tipo</th><th scope="col">Duración</th><th scope="col">Función</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>NID (Google)</td>
-            <td>6 meses</td>
-            <td>Registra una identificación única que identifica el dispositivo de un usuario que vuelve. La identificación se utiliza para los anuncios específicos.</td>
+            <td>_ga</td>
+            <td>Cookie de terceros (Google Analytics)</td>
+            <td>2 años</td>
+            <td>Distingue a los visitantes entre sí para poder contar cuántas personas diferentes visitan la web.</td>
+          </tr>
+          <tr>
+            <td>_ga_&lt;id&gt;</td>
+            <td>Cookie de terceros (Google Analytics)</td>
+            <td>2 años</td>
+            <td>Mantiene el estado de la sesión para saber qué páginas se han visitado dentro de una misma visita.</td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <p>Las cookies analíticas <strong>no se instalan hasta que las aceptas</strong>:
+    si eliges «Solo las necesarias», el script de Google Analytics ni siquiera se
+    descarga. Tenemos desactivadas sus funciones publicitarias, de modo que los
+    datos no se usan para remarketing ni para elaborar perfiles.</p>
+
+    <p>Google Analytics es un servicio de Google LLC, cuyos servidores están en
+    Estados Unidos. Esa transferencia se ampara en el Marco de Privacidad de Datos
+    UE-EE. UU. Puedes consultar la
+    <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">política de cookies de Google</a>
+    para más detalle.</p>
 
     <h2>Tu configuración actual</h2>
 
@@ -180,6 +189,7 @@
 </svg>
 
 <script src="../assets/js/cookies.js" defer></script>
+<script src="../assets/js/analytics.js" defer></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
