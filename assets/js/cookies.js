@@ -81,7 +81,12 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  var POLICY_URL = '/politica-de-cookies/';
+  /* Ruta relativa a la raíz del sitio, declarada en data-root del <body>.
+     Así funciona igual servido en la raíz de un dominio que en un
+     subdirectorio, como hace GitHub Pages. */
+  function raiz() {
+    return (document.body && document.body.getAttribute('data-root')) || '.';
+  }
 
   function build() {
     banner = document.createElement('aside');
@@ -96,7 +101,7 @@
       '<p class="cookie__title" id="cookieTitle">Cookies</p>' +
       '<p class="cookie__text" id="cookieText">Utilizamos cookies propias y de terceros para analizar la navegación y mejorar nuestros servicios. ' +
       'Puedes aceptarlas, rechazar las no necesarias o consultar la ' +
-      '<a href="' + POLICY_URL + '">política de cookies</a>.</p>' +
+      '<a href="' + raiz() + '/politica-de-cookies/">política de cookies</a>.</p>' +
       '<div class="cookie__actions">' +
         '<button class="btn btn--primary" type="button" data-cookie="all">Aceptar</button>' +
         '<button class="btn btn--ghost" type="button" data-cookie="necessary">Rechazar</button>' +
