@@ -37,7 +37,7 @@ blanco puro por un papel cálido.
 --ink-800:  #16333F;   /* texto principal, header oscuro, footer */
 --ink-500:  #4A6572;   /* texto de apoyo */
 --sand-200: #FDD79A;   /* subrayado del hero, filetes */
---mist:     #EDF0FA;   /* bandas de sección */
+--mist:     #E3EBF4;   /* bandas de sección */
 --paper:    #FBF8F4;   /* fondo general */
 ```
 
@@ -67,10 +67,12 @@ Ajustes derivados de usar una sola sans geométrica:
 | Rótulo de marca | 1.15rem / 700 / −.01em | Como wordmark necesita peso, no tamaño |
 
 Las dos itálicas de la página (el «cuidar» del hero y las citas de Opiniones)
-cargan la variante real 1,400 de Google Fonts: sin ella el navegador
-sintetizaría una falsa itálica inclinando la redonda.
+usan la variante itálica real: sin ella el navegador sintetizaría una falsa
+itálica inclinando la redonda.
 
-El contraste serif/sans da jerarquía sin necesidad de recargar con color.
+**Autoalojada.** Se sirve desde el propio dominio, no desde el CDN de Google,
+para no transmitir la IP del visitante a un tercero antes del consentimiento.
+Son dos ficheros variables, no seis estáticos: el roman cubre 300-700 en 37 KB.
 
 ## 4. Secciones del original y su equivalente
 
@@ -89,11 +91,13 @@ El contraste serif/sans da jerarquía sin necesidad de recargar con color.
 
 ## 4 bis. Logotipo
 
-El cliente entregó `assets/img/logo_real.jpg`: 1938×1098 px, 774 KB, **con el 81%
+El cliente entregó el logotipo como JPEG de 1938×1098 px y 774 KB, **con el 81%
 del lienzo en margen blanco vacío** y sin canal alfa. Inservible tal cual sobre
 la cabecera translúcida o el pie oscuro, donde habría mostrado un recuadro blanco.
 
-Recursos derivados, todos recortados a la caja real del arte y con transparencia:
+El original no se versiona por peso y por no usarlo ninguna página; se conserva
+en el historial de git (commit inicial). Recursos derivados, todos recortados a
+la caja real del arte y con transparencia:
 
 | Archivo | Origen en el master | Uso |
 |---|---|---|
@@ -128,7 +132,14 @@ retocar: es el activo de marca, no una decisión de la landing.
 
 ## 7. Pendiente de confirmar con el cliente
 
-- URLs reales de Facebook e Instagram (en la landing apuntan al dominio raíz).
-- Textos de aviso legal, privacidad y cookies.
-- Endpoint de envío del formulario.
-- Si ofrecen terapia online (se menciona en el hero como reclamo; confirmar).
+- **Endpoint de envío del formulario** y buzón de destino.
+- **Si ofrecen terapia online.** El hero lo anuncia («Terapia presencial y
+  online») a partir de una suposición mía, no de un dato de la web original.
+  Si no es cierto hay que corregirlo: es una afirmación comercial.
+- Foto propia para la sección Metodología: la actual es de archivo y no
+  representa al centro.
+- Si se publica el bloque del RAT con los datos identificativos de cada
+  psicóloga, hoy omitido de la política de privacidad.
+
+Resueltos: direcciones y teléfonos, perfiles sociales, y los textos de aviso
+legal, privacidad y cookies.

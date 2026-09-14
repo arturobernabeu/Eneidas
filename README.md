@@ -31,13 +31,15 @@ eneidas/
 │  ├─ img/
 │  │  ├─ equipo/               Retratos del equipo
 │  │  ├─ hero/                 Imágenes de cabecera
-│  │  ├─ logo_real.jpg         Original entregado por el cliente (master)
 │  │  ├─ logo-mark.png         Isotipo, transparente — usado en cabecera y pie
 │  │  └─ logo-full.png         Lockup completo, transparente — para uso externo
 │  ├─ icons/                   Favicons generados desde el isotipo
-│  └─ fonts/                   Fuentes autoalojadas (vacío: se usa Google Fonts)
-├─ aviso-legal/index.html      Se sirve en /aviso-legal/
-├─ politica-de-cookies/index.html   Se sirve en /politica-de-cookies/
+│  └─ fonts/                   Montserrat variable autoalojada (2 ficheros)
+├─ 404.html
+├─ favicon.ico
+├─ aviso-legal/index.html            Se sirve en /aviso-legal/
+├─ politica-de-privacidad/index.html Se sirve en /politica-de-privacidad/
+├─ politica-de-cookies/index.html    Se sirve en /politica-de-cookies/
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ docs/
