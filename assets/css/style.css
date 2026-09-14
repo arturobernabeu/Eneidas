@@ -1479,6 +1479,17 @@ button { font: inherit; color: inherit; }
 @media (max-width: 980px) {
   .topbar__list li:first-child { display: none; }
 
+  /* backdrop-filter crea un bloque contenedor para los descendientes
+     position:fixed. Como el <nav> es hijo del header, su inset:0 se resolvía
+     contra la caja del header (68px de alto) en lugar de contra la ventana:
+     el panel quedaba de 68px con 108px de padding y los enlaces fuera de
+     vista. En móvil el cristal esmerilado no aporta, así que fondo sólido. */
+  .header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--paper);
+  }
+
   .burger { display: block; }
 
   .nav {
@@ -1714,4 +1725,26 @@ button { font: inherit; color: inherit; }
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/* ---------------------------------------------------------------
+   11. AJUSTES DE MÓVIL PARA LAS PÁGINAS LEGALES
+   --------------------------------------------------------------- */
+@media (max-width: 620px) {
+  /* La ficha de datos tenía la etiqueta a 12rem fijos: a 375px dejaba
+     ~120px para valores como el número de colegiada. A una columna. */
+  .legal__card dl {
+    grid-template-columns: 1fr;
+    gap: .15rem;
+  }
+  .legal__card dt { margin-top: .9rem; }
+  .legal__card dt:first-child { margin-top: 0; }
+
+  /* Rótulo y enlace de vuelta van muy justos a 375px: que el enlace baje
+     a una segunda línea en vez de comprimir el rótulo. */
+  .legal-header__inner {
+    flex-wrap: wrap;
+    gap: .5rem 1rem;
+    padding-block: .9rem;
+  }
 }
