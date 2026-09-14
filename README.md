@@ -14,6 +14,13 @@ npx --yes serve . -l 5173
 
 Luego visita <http://localhost:5173>.
 
+## Qué falta
+
+Lista completa con indicaciones en
+[`docs/pendientes.md`](docs/pendientes.md). Lo que bloquea la publicación:
+el formulario no envía, el buzón de destino y el hosting con sus
+redirecciones.
+
 ## Antes de desplegar
 
 Las URLs legales (`/politica-de-cookies/`) coinciden con las del sitio actual y
@@ -43,6 +50,7 @@ eneidas/
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ docs/
+│  ├─ pendientes.md            Qué falta y cómo abordarlo
 │  ├─ analisis-marca.md        Paleta, tipografía y contenido extraídos
 │  └─ redirecciones.md         Mapa 301 de las ~34 URLs del WordPress actual
 ├─ .claude/
