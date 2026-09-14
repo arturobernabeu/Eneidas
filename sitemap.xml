@@ -11,6 +11,11 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://www.eneidaspsicologia.com/politica-de-privacidad/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.eneidaspsicologia.com/politica-de-cookies/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

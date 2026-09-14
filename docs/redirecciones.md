@@ -17,8 +17,9 @@ con la actual y **no necesitan redirección**:
 | `/politica-de-cookies/` | Se mantiene igual |
 | `/` | Se mantiene igual |
 
-`/aviso-legal/` es nueva: antes era un PDF en el dominio del proveedor de
-protección de datos (`protecciondedatosencadiz.com`), no en este sitio.
+`/aviso-legal/` y `/politica-de-privacidad/` son nuevas: antes eran PDF en el
+dominio del proveedor de protección de datos (`protecciondedatosencadiz.com`),
+no en este sitio.
 
 ## Mapa de redirecciones 301
 
@@ -67,7 +68,7 @@ Los 13 tratamientos tienen ahora su contenido en el panel de `#tratamientos`.
 | `/como-afecta-el-covid-19-a-las-parejas/` | `/` | Entrada de blog |
 | `/deteccion-y-prevencion-de-una-conducta-suicida/` | `/` | Entrada de blog |
 | `/taller-de-mindfulness-online/` | `/` | Entrada de blog |
-| `/informacion-detallada/` | `/aviso-legal/` | Información RGPD del formulario |
+| `/informacion-detallada/` | `/politica-de-privacidad/` | Información RGPD del formulario |
 
 ## Decisiones que conviene tomar antes
 
@@ -80,8 +81,8 @@ la pena recuperarlas como páginas propias en lugar de redirigirlas.
 una tarjeta sin biografía. Mismo razonamiento.
 
 **`/informacion-detallada/`** contenía la información RGPD ampliada que enlaza el
-formulario de contacto. Apuntarla al aviso legal es un parche: lo correcto es la
-política de privacidad, que todavía no existe.
+formulario de contacto. Ya redirige a `/politica-de-privacidad/`, que es su
+equivalente correcto.
 
 ## Implementación según hosting
 
