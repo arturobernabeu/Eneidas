@@ -34,6 +34,18 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Bricolage Grotesque — solo para el rótulo de marca.
+   Fichero variable único que cubre los pesos 600 y 700. Autoalojada por el
+   mismo motivo que Montserrat: no dar la IP del visitante a un tercero. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url("../fonts/bricolage-grotesque.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ---------------------------------------------------------------
    1. TOKENS — Paleta extraída de eneidaspsicologia.com y refinada
    --------------------------------------------------------------- */
@@ -69,6 +81,7 @@
 
   /* Tipografía */
   --font-body: "Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-brand: "Bricolage Grotesque", "Montserrat", system-ui, sans-serif;
 
   /* Escala recalibrada para Montserrat: es mucho más ancha y pesada que un
      serif de display, así que los titulares bajan ~25% respecto a la anterior. */
@@ -369,16 +382,18 @@ button { font: inherit; color: inherit; }
 .brand:hover .brand__mark { transform: scale(1.04); }
 .brand__text { display: flex; flex-direction: column; line-height: 1.12; }
 .brand__text strong {
-  font-size: 1.15rem;
+  font-family: var(--font-brand);
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: -.01em;
+  letter-spacing: -.015em;
   color: var(--ink-800);
 }
 .brand__text em {
+  font-family: var(--font-brand);
   font-style: normal;
-  font-size: .58rem;
+  font-size: .6rem;
   font-weight: 600;
-  letter-spacing: .16em; /* Montserrat es ancha: menos tracking para no desbordar */
+  letter-spacing: .18em; /* Bricolage es más estrecha que Montserrat: más aire */
   text-transform: uppercase;
   color: var(--ink-400);
 }

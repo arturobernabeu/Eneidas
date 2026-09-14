@@ -1,4 +1,9 @@
-# Análisis de marca — eneidaspsicologia.com
+
+
+**Bricolage Grotesque** se usa solo en el rótulo de marca (`--font-brand`),
+también autoalojada: un único fichero variable de 40 KB que cubre los pesos
+600 y 700. Al ser más estrecha que Montserrat, el rótulo sube a 1.2rem y el
+tracking de las versalitas a .18em.# Análisis de marca — eneidaspsicologia.com
 
 Extraído del sitio original el 14/09/2026. Base para las decisiones de diseño
 de la landing.

@@ -41,7 +41,7 @@ eneidas/
 │  │  ├─ logo-mark.png         Isotipo, transparente — usado en cabecera y pie
 │  │  └─ logo-full.png         Lockup completo, transparente — para uso externo
 │  ├─ icons/                   Favicons generados desde el isotipo
-│  └─ fonts/                   Montserrat variable autoalojada (2 ficheros)
+│  └─ fonts/                   Montserrat y Bricolage, autoalojadas (3 ficheros)
 ├─ 404.html
 ├─ favicon.ico
 ├─ aviso-legal/index.html            Se sirve en /aviso-legal/
