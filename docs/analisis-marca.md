@@ -133,9 +133,6 @@ retocar: es el activo de marca, no una decisión de la landing.
 ## 7. Pendiente de confirmar con el cliente
 
 - **Endpoint de envío del formulario** y buzón de destino.
-- **Si ofrecen terapia online.** El hero lo anuncia («Terapia presencial y
-  online») a partir de una suposición mía, no de un dato de la web original.
-  Si no es cierto hay que corregirlo: es una afirmación comercial.
 - Foto propia para la sección Metodología: la actual es de archivo y no
   representa al centro.
 - Si se publica el bloque del RAT con los datos identificativos de cada
