@@ -193,8 +193,8 @@ analítica y simplifica el cumplimiento.
 **Estado:** «Un espacio para cuidar de ti». Emocionalmente correcto, pero no
 incluye «psicología» ni «Sevilla».
 
-**Contrapeso:** el `<title>` sí las lleva («Psicólogas en Sevilla | Centro de
-Psicología Eneidas») y Google lo pondera mucho. El impacto real es moderado.
+**Contrapeso:** el `<title>` es solo «Centro de Psicología Eneidas», por decisión
+de marca, así que no aporta la palabra clave «Sevilla». El impacto real es moderado.
 
 **Qué hacer:** es una decisión de marca, no técnica. Si preferís priorizar
 posicionamiento sobre tono, algo como «Psicología en Sevilla para cuidar de ti»
