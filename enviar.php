@@ -187,7 +187,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errores[] = 'Introduce un email válido.';
 }
 
-$MOTIVOS = ['Terapia individual', 'Terapia de pareja', 'Terapia de familia', 'Terapia de grupo', 'Otra consulta'];
+$MOTIVOS = ['Terapia individual', 'Terapia de pareja', 'Terapia de familia', 'Otra consulta'];
 if (!in_array($motivo, $MOTIVOS, true)) {
     $errores[] = 'Selecciona un motivo de consulta.';
 }
