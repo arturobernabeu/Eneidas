@@ -1,7 +1,7 @@
 /* =====================================================================
    Centro de Psicología Eneidas — main.js
    1. Header sticky  2. Menú móvil  3. Smooth scroll  4. Scrollspy
-   5. Reveal on scroll  6. Acordeones  7. Pestañas  8. Formulario  9. Año
+   5. Reveal on scroll  6. Acordeones  7. Pestañas  8. Formulario  9. Año  10. Pila de fotos
    ===================================================================== */
 (function () {
   'use strict';
@@ -444,5 +444,117 @@
      9. Año dinámico en el footer
      --------------------------------------------------------------- */
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---------------------------------------------------------------
+     10. Pila de fotos del hero — avance automático cada 3 s
+     El avance lo da el final de la animación del punto activo (CSS),
+     así que pausar la animación pausa también el carrusel.
+     --------------------------------------------------------------- */
+  var stack = document.getElementById('stack');
+
+  if (stack) {
+    var cards = stack.querySelectorAll('.stack__card');
+    var dotsBox = document.getElementById('stackDots');
+    var pauseBtn = document.getElementById('stackPause');
+    var total = cards.length;
+    var current = 0;
+    var dots = [];
+
+    if (reduced) stack.classList.add('is-static');
+
+    /* Cada tarjeta recibe su profundidad (--d): 0 es la del frente */
+    function layout() {
+      Array.prototype.forEach.call(cards, function (c, i) {
+        var d = (i - current + total) % total;
+        c.style.setProperty('--d', d);
+        c.classList.toggle('is-hidden', d > 2);
+        c.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
+      });
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === current);
+        dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+      });
+    }
+
+    function next() {
+      var leaving = cards[current];
+      current = (current + 1) % total;
+      if (reduced) { layout(); return; }
+      leaving.classList.add('is-leaving');
+      layout();
+      setTimeout(function () { leaving.classList.remove('is-leaving'); }, 700);
+    }
+
+    function prev() {
+      current = (current - 1 + total) % total;
+      var entering = cards[current];
+      if (!reduced) {
+        entering.classList.add('is-leaving', 'no-anim');   // arranca fuera de cuadro
+        void entering.offsetWidth;
+        entering.classList.remove('is-leaving', 'no-anim');
+      }
+      layout();
+    }
+
+    Array.prototype.forEach.call(cards, function (c, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'stack__dot';
+      dot.setAttribute('aria-label', 'Ver foto ' + (i + 1) + ' de ' + total);
+      dot.addEventListener('click', function () {
+        if (i === (current + 1) % total) next();
+        else if (i !== current) { current = i; layout(); }
+      });
+      dotsBox.appendChild(dot);
+      dots.push(dot);
+    });
+    layout();
+
+    dotsBox.addEventListener('animationend', function (e) {
+      if (e.animationName === 'stack-fill') next();
+    });
+    document.getElementById('stackNext').addEventListener('click', next);
+    document.getElementById('stackPrev').addEventListener('click', prev);
+    stack.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') prev();
+      else if (e.key === 'ArrowRight') next();
+    });
+
+    /* Deslizar con el dedo */
+    var startX = null;
+    stack.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+    stack.addEventListener('pointerup', function (e) {
+      if (startX === null) return;
+      var dx = e.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 40) (dx < 0 ? next : prev)();
+    });
+    stack.addEventListener('pointercancel', function () { startX = null; });
+
+    /* Pausa a petición (WCAG 2.2.2) */
+    pauseBtn.addEventListener('click', function () {
+      var paused = stack.classList.toggle('is-paused');
+      pauseBtn.setAttribute('aria-label', paused ? 'Reanudar carrusel' : 'Pausar carrusel');
+      pauseBtn.querySelector('use').setAttribute('href', paused ? '#i-play' : '#i-pause');
+    });
+
+    /* Pausa automática: puntero encima, foco por teclado dentro o fuera de pantalla */
+    var holds = { over: false, focus: false, away: false };
+    function hold(key, on) {
+      holds[key] = on;
+      stack.classList.toggle('is-hold', holds.over || holds.focus || holds.away);
+    }
+    stack.addEventListener('mouseenter', function () { hold('over', true); });
+    stack.addEventListener('mouseleave', function () { hold('over', false); });
+    stack.addEventListener('focusin', function (e) {
+      hold('focus', e.target.matches(':focus-visible'));   // un clic de ratón no cuenta
+    });
+    stack.addEventListener('focusout', function () { hold('focus', false); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        hold('away', !entries[0].isIntersecting);
+      }, { threshold: 0.3 }).observe(stack);
+    }
+  }
 
 })();

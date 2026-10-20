@@ -1298,33 +1298,117 @@ button { font: inherit; color: inherit; }
   max-width: 14ch;
 }
 
+/* --- Pila de fotos del hero ---
+   Las fotos se apilan como copias reveladas, cada una desplazada arriba a la
+   derecha de la anterior. Cada 3 s la del frente sale deslizándose y la
+   siguiente pasa al frente. El avance lo marca el final de la animación del
+   punto activo (--stack-ms): pausar la animación pausa también el avance,
+   sin temporizadores en JS. */
 .hero__media { position: relative; margin: 0; }
-.hero__frame {
-  position: relative;
-  aspect-ratio: 4 / 4.6;
-  border-radius: 280px 280px var(--r-xl) var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--sh-lg);
+.stack {
+  --stack-ms: 3000ms;
+  --dx: 16px;
+  --dy: -14px;
+  padding: 28px 32px 0 0;     /* hueco para las tarjetas de atrás */
 }
-.hero__frame::after {
-  content: "";
+.stack__deck { position: relative; aspect-ratio: 5 / 4; touch-action: pan-y; }
+.stack__card {
   position: absolute;
   inset: 0;
-  background: linear-gradient(200deg, rgba(119, 186, 231, .18), transparent 55%);
+  margin: 0;
+  padding: 6px;
+  background: var(--paper-2);
+  border-radius: calc(var(--r-lg) + 6px);
+  box-shadow: var(--sh-md);
+  z-index: calc(20 - var(--d));
+  transform: translate(calc(var(--d) * var(--dx)), calc(var(--d) * var(--dy)));
+  filter: brightness(calc(1 - var(--d) * .07));
+  transition: transform .7s var(--ease), opacity .7s var(--ease), filter .7s var(--ease);
 }
-/* Al espejar la foto el rótulo quedó pegado al borde izquierdo. El recorte de
-   cover (13% del ancho) se desplaza casi todo a la derecha, y el zoom del hover
-   se ancla a la izquierda para que no se coma la primera letra. */
-.hero__frame img {
+.stack__card[aria-hidden="false"] { box-shadow: var(--sh-lg); }
+.stack__card.is-hidden { opacity: 0; }
+.stack__card img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 20% center;
-  transform-origin: left center;
-  transform: scale(1.02);
-  transition: transform 1.1s var(--ease);
+  border-radius: var(--r-lg);
 }
-.hero__media:hover .hero__frame img { transform: scale(1.07); }
+/* Salida (y entrada, al ir hacia atrás): desliza a la izquierda con un giro leve */
+.stack__card.is-leaving {
+  z-index: 30;
+  opacity: 0;
+  transform: translate(-72%, 6%) rotate(-7deg);
+}
+.stack__card.no-anim { transition: none; }
+
+.stack__ui {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+.stack__dots { display: flex; align-items: center; gap: .1rem; }
+.stack__dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 22px;        /* zona táctil; el trazo visible es el ::before */
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.stack__dot::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--ink-400);
+  opacity: .35;
+  transition: width var(--t-med), opacity var(--t-fast);
+}
+.stack__dot:hover::before { opacity: .75; }
+.stack__dot.is-active::before { width: 26px; opacity: .22; background: var(--brand-600); }
+.stack__dot.is-active::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 13px);
+  width: 26px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--brand-500);
+  transform-origin: left center;
+  animation: stack-fill var(--stack-ms) linear forwards;
+}
+@keyframes stack-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.stack__ctrl { display: flex; gap: .5rem; }
+.stack__btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--paper-2);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-800);
+  font-size: 1.05rem;
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-press);
+}
+.stack__btn:hover { background: var(--ink-800); color: #fff; }
+.stack__btn:active { transform: scale(.94); }
+.stack__btn .ico--flip { transform: scaleX(-1); }
+
+/* Pausa: a petición, con el puntero encima, con foco por teclado o fuera de pantalla */
+.stack.is-paused .stack__dot.is-active::after,
+.stack.is-hold .stack__dot.is-active::after { animation-play-state: paused; }
+
+/* Sin movimiento: sin avance automático y cambio de foto directo */
+.stack.is-static .stack__card { transition: none; }
+.stack.is-static .stack__dot.is-active::after { animation: none; transform: scaleX(1); }
+.stack.is-static .stack__pause { display: none; }
 
 /* --- Metodología (split) --- */
 .split {
@@ -1627,7 +1711,7 @@ button { font: inherit; color: inherit; }
   .brand__text strong { font-size: 1.3rem; }
 
   .hero__facts { gap: 1.5rem 2rem; }
-  .hero__frame { aspect-ratio: 4 / 4.2; border-radius: 200px 200px var(--r-lg) var(--r-lg); }
+  .stack { --dx: 10px; --dy: -9px; padding: 18px 20px 0 0; }
 
   .form__row { grid-template-columns: 1fr; }
 
