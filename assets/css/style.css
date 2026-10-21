@@ -536,7 +536,16 @@ button { font: inherit; color: inherit; }
 }
 .card__title { font-size: var(--fs-h3); }
 .card__text { font-size: var(--fs-small); color: var(--ink-500); flex: 1; }
-.card__cta { align-self: flex-start; margin-top: .4rem; }
+.card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--brand-600);
+  transition: gap var(--t-fast), color var(--t-fast);
+}
+.card__link:hover { gap: .8em; color: var(--ink-800); }
 
 /* --- Tratamientos: índice + panel de detalle --- */
 .treat {
