@@ -90,7 +90,7 @@ Son dos ficheros variables, no seis estáticos: el roman cubre 300-700 en 37 KB.
 
 | Original                          | Landing nueva                        |
 |-----------------------------------|--------------------------------------|
-| Topbar con dirección y teléfono   | `.topbar` (se conserva)              |
+| Topbar con dirección y teléfono   | Eliminada; los datos van en el footer |
 | Slider de bienvenida              | Hero asimétrico con datos clave      |
 | Servicios (4 bloques)             | `#servicios` — 4 tarjetas            |
 | 13 páginas de tratamiento         | `#tratamientos` — índice + panel      |

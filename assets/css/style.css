@@ -311,42 +311,6 @@ button { font: inherit; color: inherit; }
 .btn--lg { padding: .95em 1.9em; font-size: .95rem; }
 .btn--block { width: 100%; }
 
-/* --- Topbar --- */
-.topbar {
-  background: var(--ink-800);
-  color: rgba(255, 255, 255, .68);
-  font-size: var(--fs-micro);
-  letter-spacing: .02em;
-}
-.topbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  min-height: 42px;
-}
-.topbar__list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .4rem 1.75rem;
-}
-.topbar__list li { display: inline-flex; align-items: center; gap: .45em; }
-.topbar .ico { font-size: 1.15em; color: var(--brand-300); }
-.topbar a { transition: color var(--t-fast); }
-.topbar a:hover { color: #fff; }
-.topbar__social { display: flex; gap: .35rem; }
-.topbar__social a {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  font-size: 1.05rem;
-  transition: background var(--t-fast), color var(--t-fast);
-}
-.topbar__social a:hover { background: rgba(255, 255, 255, .12); color: #fff; }
-
 /* --- Tooltip breve para iconos sin texto (data-tip) ---
    Solo con puntero real: en táctil el :hover se queda pegado tras tocar. */
 @media (hover: hover) {
@@ -1649,7 +1613,6 @@ button { font: inherit; color: inherit; }
 }
 
 @media (max-width: 980px) {
-  .topbar__list li:first-child { display: none; }
 
   /* backdrop-filter crea un bloque contenedor para los descendientes
      position:fixed. Como el <nav> es hijo del header, su inset:0 se resolvía
@@ -1704,9 +1667,6 @@ button { font: inherit; color: inherit; }
 
 @media (max-width: 720px) {
   :root { --header-h: 68px; }
-
-  .topbar__list { gap: .3rem 1.1rem; }
-  .topbar__list li:nth-child(3) { display: none; }
 
   .brand__text strong { font-size: 1.3rem; }
 
