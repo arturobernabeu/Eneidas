@@ -79,6 +79,8 @@
   --paper: #FBF8F4;       /* papel cálido */
   --paper-2: #FFFFFF;
   --mist: #E3EBF4;        /* bruma lavanda, profundizada para que corte sobre papel */
+  --sky: #CBE2F2;         /* azul cielo: banda azul bien visible entre secciones */
+  --sand-100: #F8E8CB;    /* arena cálida, derivada del acento #FDD79A */
   --line: rgba(18, 44, 56, .10);
   --line-strong: rgba(18, 44, 56, .16);
   --line-light: rgba(255, 255, 255, .16);
@@ -208,6 +210,17 @@ button { font: inherit; color: inherit; }
    superior para que el corte se lea incluso en pantallas de bajo contraste. */
 .section--mist {
   background: var(--mist);
+  border-block: 1px solid var(--line-strong);
+}
+
+/* Bandas de color para que cada sección se lea como un bloque propio:
+   cielo (azul) y arena (cálida) alternan con papel y con las oscuras. */
+.section--sky {
+  background: var(--sky);
+  border-block: 1px solid var(--line-strong);
+}
+.section--sand {
+  background: var(--sand-100);
   border-block: 1px solid var(--line-strong);
 }
 
