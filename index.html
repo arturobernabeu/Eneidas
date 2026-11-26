@@ -598,36 +598,34 @@
 <!-- ===================== EQUIPO ===================== -->
 <section class="section section--ink" id="equipo">
   <div class="wrap">
-    <header class="section__head reveal">
+    <header class="section__head section__head--wide reveal">
       <p class="eyebrow eyebrow--light"><span class="eyebrow__line"></span> Equipo</p>
-      <h2 class="section__title">Conoce a las personas<br>que formamos este gran equipo</h2>
+      <h2 class="section__title">Conoce a nuestro equipo de psicólogas</h2>
+      <p class="section__lead">En el <strong>Centro de Psicología Eneidas</strong> contamos con un equipo de profesionales comprometidas con ofrecer una atención psicológica cercana, rigurosa y adaptada a las necesidades de cada persona.</p>
     </header>
     <div class="team">
+      <!-- equipo:tarjetas -->
       <article class="member reveal">
-        <a class="member__link" href="equipo/alicia-rodriguez-aguilar.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/alicia.jpg" alt="Alicia Rodríguez Aguilar" width="400" height="480" loading="lazy"></div></a>
+        <a class="member__link" href="equipo/alicia-rodriguez-aguilar.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/alicia.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
         <h3 class="member__name"><a href="equipo/alicia-rodriguez-aguilar.html">Alicia Rodríguez Aguilar</a></h3>
-        <p class="member__role">Psicóloga · Nº Colegiada AN09190</p>
       </article>
       <article class="member reveal">
-        <a class="member__link" href="equipo/ana-fernandez-chaves.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/ana.jpg" alt="Ana Fernández Chaves" width="400" height="480" loading="lazy"></div></a>
+        <a class="member__link" href="equipo/ana-fernandez-chaves.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/ana.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
         <h3 class="member__name"><a href="equipo/ana-fernandez-chaves.html">Ana Fernández Chaves</a></h3>
-        <p class="member__role">Psicóloga · Nº Colegiada AN07176</p>
       </article>
       <article class="member reveal">
-        <a class="member__link" href="equipo/berta-bejarano-garcia.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/berta.jpg" alt="Berta Bejarano García" width="400" height="480" loading="lazy"></div></a>
+        <a class="member__link" href="equipo/berta-bejarano-garcia.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/berta.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
         <h3 class="member__name"><a href="equipo/berta-bejarano-garcia.html">Berta Bejarano García</a></h3>
-        <p class="member__role">Psicóloga · Nº Colegiada AN06100</p>
       </article>
       <article class="member reveal">
-        <a class="member__link" href="equipo/pilar-naranjo-gonzalez-quevedo.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/pilar.jpg" alt="Pilar Naranjo González-Quevedo" width="400" height="480" loading="lazy"></div></a>
-        <h3 class="member__name"><a href="equipo/pilar-naranjo-gonzalez-quevedo.html">Pilar Naranjo González-Quevedo</a></h3>
-        <p class="member__role">Psicóloga · Nº Colegiada AN07736</p>
+        <a class="member__link" href="equipo/pilar-naranjo-gonzalez-quevedo.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/pilar.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
+        <h3 class="member__name"><a href="equipo/pilar-naranjo-gonzalez-quevedo.html">Pilar Naranjo González&#8209;Quevedo</a></h3>
       </article>
       <article class="member reveal">
-        <a class="member__link" href="equipo/carmen-nunez-benitez.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/carmen.jpg" alt="Carmen Núñez Benítez" width="400" height="480" loading="lazy"></div></a>
+        <a class="member__link" href="equipo/carmen-nunez-benitez.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/carmen.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
         <h3 class="member__name"><a href="equipo/carmen-nunez-benitez.html">Carmen Núñez Benítez</a></h3>
-        <p class="member__role">Psicóloga · Nº Colegiada AN10799</p>
       </article>
+      <!-- /equipo:tarjetas -->
     </div>
   </div>
 </section>
@@ -817,6 +815,7 @@
           <input type="email" id="email" name="email" autocomplete="email" required>
           <small class="field__error" data-error-for="email"><span></span></small>
         </div>
+        <div class="form__row">
         <div class="field">
           <label for="motivo">Motivo de consulta</label>
           <select id="motivo" name="motivo" required>
@@ -827,6 +826,18 @@
             <option>Otra consulta</option>
           </select>
           <small class="field__error" data-error-for="motivo"><span></span></small>
+        </div>
+        <div class="field">
+          <label for="psicologa">Psicóloga <span class="field__opt">(opcional)</span></label>
+          <select id="psicologa" name="psicologa">
+            <option value="">Sin preferencia</option>
+            <option data-slug="alicia-rodriguez-aguilar">Alicia Rodríguez Aguilar</option>
+            <option data-slug="ana-fernandez-chaves">Ana Fernández Chaves</option>
+            <option data-slug="berta-bejarano-garcia">Berta Bejarano García</option>
+            <option data-slug="pilar-naranjo-gonzalez-quevedo">Pilar Naranjo González-Quevedo</option>
+            <option data-slug="carmen-nunez-benitez">Carmen Núñez Benítez</option>
+          </select>
+        </div>
         </div>
         <div class="field">
           <label for="mensaje">Mensaje</label>

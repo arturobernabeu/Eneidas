@@ -173,6 +173,7 @@ $telefono = limpiar($_POST['telefono'] ?? '', 30);
 $email    = limpiar($_POST['email']    ?? '', 150);
 $motivo   = limpiar($_POST['motivo']   ?? '', 60);
 $mensaje  = limpiar($_POST['mensaje']  ?? '', 3000);
+$psicologa = limpiar($_POST['psicologa'] ?? '', 80);
 $acepta   = isset($_POST['privacidad']) && $_POST['privacidad'] !== '';
 
 $errores = [];
@@ -195,6 +196,16 @@ if (!$acepta) {
     $errores[] = 'Debes aceptar la Política de Privacidad.';
 }
 
+// Psicóloga preferida: campo opcional. Un valor que no esté en la lista se
+// trata como «sin preferencia» en lugar de rechazar la solicitud.
+$PSICOLOGAS = [
+    'Alicia Rodríguez Aguilar', 'Ana Fernández Chaves', 'Berta Bejarano García',
+    'Pilar Naranjo González-Quevedo', 'Carmen Núñez Benítez',
+];
+if (!in_array($psicologa, $PSICOLOGAS, true)) {
+    $psicologa = '';
+}
+
 if ($errores) {
     responder(false, 422, implode(' ', $errores));
 }
@@ -204,13 +215,14 @@ if ($errores) {
    6. Envío
    ------------------------------------------------------------------ */
 
-$asunto = sin_saltos('Solicitud de cita: ' . $motivo);
+$asunto = sin_saltos('Solicitud de cita: ' . $motivo . ($psicologa !== '' ? ' · ' . $psicologa : ''));
 
 $cuerpo = "Nueva solicitud desde el formulario de la web.\n\n"
         . "Nombre:   {$nombre}\n"
         . "Teléfono: {$telefono}\n"
         . "Email:    {$email}\n"
-        . "Motivo:   {$motivo}\n\n"
+        . "Motivo:   {$motivo}\n"
+        . 'Psicóloga: ' . ($psicologa !== '' ? $psicologa : 'Sin preferencia') . "\n\n"
         . "Mensaje:\n"
         . ($mensaje !== '' ? $mensaje : '(sin mensaje)') . "\n\n"
         . "---\n"

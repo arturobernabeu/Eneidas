@@ -162,12 +162,20 @@ def section(num, sid, title, inner):
 {inner}
       </section>'''
 
-def member(o):
-    return f'''      <article class="member">
-        <a class="member__link" href="{o['slug']}.html" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/{o['img']}.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
-        <h3 class="member__name"><a href="{o['slug']}.html">{o['name']}</a></h3>
-        <p class="member__role">Psicóloga · Nº Colegiada {o['col']}</p>
-      </article>'''
+def cita(p):
+    """Enlace a la solicitud de cita con la psicóloga ya elegida en el formulario."""
+    return f"index.html?psicologa={p['slug']}#contacto"
+
+def card(o, home=False):
+    """Tarjeta de psicóloga (foto + nombre), igual en la portada y en «resto del equipo».
+    Foto y nombre enlazan a la ficha; la foto queda fuera del tabulador para no
+    repetir el mismo enlace dos veces."""
+    ficha = f"equipo/{o['slug']}.html" if home else f"{o['slug']}.html"
+    nombre = o['name'].replace('-', '&#8209;')   # guion que no parte «González-Quevedo»
+    return f"""      <article class="member reveal">
+        <a class="member__link" href="{ficha}" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/{o['img']}.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
+        <h3 class="member__name"><a href="{ficha}">{nombre}</a></h3>
+      </article>"""
 
 def page(p):
     title = f"{p['name']}, psicóloga en Sevilla | Centro de Psicología Eneidas"
@@ -219,7 +227,7 @@ def page(p):
     toc = '\n'.join(f'        <li><a href="#{sid}">{t}</a></li>' for sid, t, _ in secs)
     facts = '\n'.join(f'          <div><dt>{k}</dt><dd>{v}</dd></div>'
                       for k, v in [('Titulación', 'Psicóloga Sanitaria'), ('Nº de colegiada', p['col'])] + p['facts'])
-    others = '\n'.join(member(o) for o in P if o is not p)
+    others = '\n'.join(card(o) for o in P if o is not p)
     knows = ', '.join('"%s"' % c for c in p['chips'])
 
     return f'''<!DOCTYPE html>
@@ -289,7 +297,7 @@ def page(p):
 {chips}
       </ul>
       <div class="profile__actions">
-        <a class="btn btn--primary btn--lg" href="index.html#contacto">Solicitar cita con {p['first']} <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        <a class="btn btn--primary btn--lg" href="{cita(p)}">Solicitar cita con {p['first']} <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         <a class="btn btn--ghost btn--lg" href="{wa(p)}" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"></use></svg> Escríbenos por WhatsApp</a>
       </div>
     </div>
@@ -315,7 +323,7 @@ def page(p):
     </div>
     <aside class="profile__card" aria-labelledby="ficha-titulo">
       <h2 id="ficha-titulo">En consulta</h2>
-      <a class="btn btn--primary btn--block" href="index.html#contacto">Solicitar cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+      <a class="btn btn--primary btn--block" href="{cita(p)}">Solicitar cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
       <a class="profile__card-wa" href="{wa(p)}" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"></use></svg> o escríbenos por WhatsApp</a>
       <dl class="profile__facts">
 {facts}
@@ -330,7 +338,7 @@ def page(p):
     <h2 class="section__title">¿Quieres empezar con {p['first']}?</h2>
     <p class="section__lead">Cuéntanos qué te ocurre y te orientaremos sin compromiso.</p>
     <div class="profile__actions">
-      <a class="btn btn--primary btn--lg" href="index.html#contacto">Solicitar cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+      <a class="btn btn--primary btn--lg" href="{cita(p)}">Solicitar cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
       <a class="btn btn--ghost btn--lg" href="tel:+{TEL}"><svg class="ico" aria-hidden="true"><use href="#i-phone"></use></svg> 614 18 88 45</a>
     </div>
   </div>
@@ -343,7 +351,7 @@ def page(p):
       <p class="eyebrow eyebrow--light"><span class="eyebrow__line"></span> Equipo</p>
       <h2 class="section__title">Conoce al resto del equipo</h2>
     </header>
-    <div class="team team--compact">
+    <div class="team">
 {others}
     </div>
   </div>
@@ -359,7 +367,7 @@ def page(p):
 
 <!-- ===================== BARRA DE CITA (MÓVIL) ===================== -->
 <div class="profile-bar">
-  <a class="btn btn--primary profile-bar__cta" href="index.html#contacto">Solicitar cita con {p['first']}</a>
+  <a class="btn btn--primary profile-bar__cta" href="{cita(p)}">Solicitar cita con {p['first']}</a>
 </div>
 
 <!-- ===================== SPRITE SVG ===================== -->
@@ -376,7 +384,20 @@ def up(h):
     # Las fichas viven en /equipo/: lo que apunta a la raíz sube un nivel
     return re.sub(r'(href|src)="((?:assets/|favicon\.ico|index\.html|aviso-legal/|politica-de-[\w-]+/)[^"]*)"', r'\1="../\2"', h)
 
+INI, FIN = '<!-- equipo:tarjetas -->', '<!-- /equipo:tarjetas -->'
+
+def actualizar_portada():
+    """Reescribe las tarjetas del equipo en index.html, entre las marcas INI y FIN."""
+    ruta = os.path.join(ROOT, 'index.html')
+    raw = io.open(ruta, encoding='utf-8', newline='').read()
+    nl = '\r\n' if '\r\n' in raw else '\n'
+    a, b = raw.index(INI) + len(INI), raw.index(FIN)
+    bloque = '\n' + '\n'.join(card(p, home=True) for p in P) + '\n      '
+    io.open(ruta, 'w', encoding='utf-8', newline='').write(raw[:a] + bloque.replace('\n', nl) + raw[b:])
+    print('ok index.html (tarjetas del equipo)')
+
 if __name__ == '__main__':
+    actualizar_portada()
     os.makedirs(os.path.join(ROOT, 'equipo'), exist_ok=True)
     for p in P:
         io.open(os.path.join(ROOT, 'equipo', p['slug'] + '.html'), 'w', encoding='utf-8', newline='\n').write(up(page(p)))

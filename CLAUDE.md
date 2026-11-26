@@ -18,7 +18,8 @@ assets/js/main.js       Interacciones (menú, scroll, acordeón, formulario)
 assets/img/             Imágenes locales (equipo, hero)
 assets/icons/           Favicons
 equipo/                 Fichas individuales del equipo (GENERADAS, no editar a mano)
-tools/generar-fichas.py Genera equipo/*.html: `python tools/generar-fichas.py`
+tools/generar-fichas.py Genera equipo/*.html y las tarjetas del equipo de index.html
+                        (entre <!-- equipo:tarjetas -->): `python tools/generar-fichas.py`
 docs/                   Documentación del proyecto y del análisis de marca
 .claude/                Configuración de Claude Code (agentes, skills, comandos)
 ```

@@ -2,6 +2,7 @@
    Centro de Psicología Eneidas — main.js
    1. Header sticky  2. Menú móvil  3. Smooth scroll  4. Scrollspy
    5. Reveal on scroll  6. Acordeones  7. Pestañas  8. Formulario  9. Año  10. Pila de fotos
+   11. Psicóloga preferida
    ===================================================================== */
 (function () {
   'use strict';
@@ -558,6 +559,19 @@
         hold('away', !entries[0].isIntersecting);
       }, { threshold: 0.3 }).observe(stack);
     }
+  }
+
+  /* ---------------------------------------------------------------
+     11. Psicóloga preferida en el formulario
+     Los botones «Solicitar cita» de cada ficha llegan con
+     ?psicologa=slug: se deja elegida en el desplegable.
+     --------------------------------------------------------------- */
+  var selPsicologa = document.getElementById('psicologa');
+  var desdeFicha = new URLSearchParams(window.location.search).get('psicologa');
+
+  if (selPsicologa && desdeFicha) {
+    var opt = selPsicologa.querySelector('option[data-slug="' + desdeFicha + '"]');
+    if (opt) selPsicologa.value = opt.value;
   }
 
 })();
