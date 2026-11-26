@@ -459,94 +459,78 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 
   /* ---------------------------------------------------------------
-     10. Pila de fotos del hero — avance automático cada 3 s
-     El avance lo da el final de la animación del punto activo (CSS),
-     así que pausar la animación pausa también el carrusel.
+     10. Carrusel del hero (canto rodado) — avance automático cada 6,5 s
+     El avance lo da el final de la animación de la barra (CSS), así
+     que pausar la animación pausa también el carrusel.
      --------------------------------------------------------------- */
-  var stack = document.getElementById('stack');
+  var pebble = document.getElementById('pebble');
 
-  if (stack) {
-    var cards = stack.querySelectorAll('.stack__card');
-    var dotsBox = document.getElementById('stackDots');
-    var pauseBtn = document.getElementById('stackPause');
-    var total = cards.length;
+  if (pebble) {
+    var slides = pebble.querySelectorAll('.pebble__slide');
+    var fill = document.getElementById('pebbleFill');
+    var numEl = document.getElementById('pebbleNum');
+    var pauseBtn = document.getElementById('pebblePause');
+    var total = slides.length;
     var current = 0;
-    var dots = [];
+    var prevTimer = null;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
 
-    if (reduced) stack.classList.add('is-static');
+    document.getElementById('pebbleTotal').textContent = pad(total);
+    if (reduced) pebble.classList.add('is-static');
 
-    /* Cada tarjeta recibe su profundidad (--d): 0 es la del frente */
-    function layout() {
-      Array.prototype.forEach.call(cards, function (c, i) {
-        var d = (i - current + total) % total;
-        c.style.setProperty('--d', d);
-        c.classList.toggle('is-hidden', d > 2);
-        c.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
-      });
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle('is-active', i === current);
-        dot.setAttribute('aria-current', i === current ? 'true' : 'false');
-      });
+    function restartFill() {
+      if (reduced) return;
+      fill.classList.remove('is-running');
+      void fill.offsetWidth;
+      fill.classList.add('is-running');
     }
 
-    function next() {
-      var leaving = cards[current];
-      current = (current + 1) % total;
-      if (reduced) { layout(); return; }
-      leaving.classList.add('is-leaving');
-      layout();
-      setTimeout(function () { leaving.classList.remove('is-leaving'); }, 700);
-    }
-
-    function prev() {
-      current = (current - 1 + total) % total;
-      var entering = cards[current];
+    function go(i) {
+      i = (i + total) % total;
+      if (i === current) return;
+      var old = slides[current];
+      clearTimeout(prevTimer);
+      Array.prototype.forEach.call(slides, function (s) { s.classList.remove('is-prev'); });
+      old.classList.remove('is-active');
       if (!reduced) {
-        entering.classList.add('is-leaving', 'no-anim');   // arranca fuera de cuadro
-        void entering.offsetWidth;
-        entering.classList.remove('is-leaving', 'no-anim');
+        old.classList.add('is-prev');           // se queda debajo mientras entra la nueva
+        prevTimer = setTimeout(function () { old.classList.remove('is-prev'); }, 1400);
       }
-      layout();
+      current = i;
+      slides[i].classList.add('is-active');
+      Array.prototype.forEach.call(slides, function (s, k) {
+        s.setAttribute('aria-hidden', k === current ? 'false' : 'true');
+      });
+      numEl.textContent = pad(current + 1);
+      restartFill();
     }
 
-    Array.prototype.forEach.call(cards, function (c, i) {
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'stack__dot';
-      dot.setAttribute('aria-label', 'Ver foto ' + (i + 1) + ' de ' + total);
-      dot.addEventListener('click', function () {
-        if (i === (current + 1) % total) next();
-        else if (i !== current) { current = i; layout(); }
-      });
-      dotsBox.appendChild(dot);
-      dots.push(dot);
+    restartFill();
+    fill.addEventListener('animationend', function (e) {
+      if (e.animationName === 'pebble-fill') go(current + 1);
     });
-    layout();
-
-    dotsBox.addEventListener('animationend', function (e) {
-      if (e.animationName === 'stack-fill') next();
-    });
-    document.getElementById('stackNext').addEventListener('click', next);
-    document.getElementById('stackPrev').addEventListener('click', prev);
-    stack.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') prev();
-      else if (e.key === 'ArrowRight') next();
+    document.getElementById('pebbleNext').addEventListener('click', function () { go(current + 1); });
+    document.getElementById('pebblePrev').addEventListener('click', function () { go(current - 1); });
+    pebble.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') go(current - 1);
+      else if (e.key === 'ArrowRight') go(current + 1);
     });
 
     /* Deslizar con el dedo */
+    var frame = document.getElementById('pebbleFrame');
     var startX = null;
-    stack.addEventListener('pointerdown', function (e) { startX = e.clientX; });
-    stack.addEventListener('pointerup', function (e) {
+    frame.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+    frame.addEventListener('pointerup', function (e) {
       if (startX === null) return;
       var dx = e.clientX - startX;
       startX = null;
-      if (Math.abs(dx) > 40) (dx < 0 ? next : prev)();
+      if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
     });
-    stack.addEventListener('pointercancel', function () { startX = null; });
+    frame.addEventListener('pointercancel', function () { startX = null; });
 
     /* Pausa a petición (WCAG 2.2.2) */
     pauseBtn.addEventListener('click', function () {
-      var paused = stack.classList.toggle('is-paused');
+      var paused = pebble.classList.toggle('is-paused');
       pauseBtn.setAttribute('aria-label', paused ? 'Reanudar carrusel' : 'Pausar carrusel');
       pauseBtn.querySelector('use').setAttribute('href', paused ? '#i-play' : '#i-pause');
     });
@@ -555,18 +539,37 @@
     var holds = { over: false, focus: false, away: false };
     function hold(key, on) {
       holds[key] = on;
-      stack.classList.toggle('is-hold', holds.over || holds.focus || holds.away);
+      pebble.classList.toggle('is-hold', holds.over || holds.focus || holds.away);
     }
-    stack.addEventListener('mouseenter', function () { hold('over', true); });
-    stack.addEventListener('mouseleave', function () { hold('over', false); });
-    stack.addEventListener('focusin', function (e) {
+    pebble.addEventListener('mouseenter', function () { hold('over', true); });
+    pebble.addEventListener('mouseleave', function () { hold('over', false); });
+    pebble.addEventListener('focusin', function (e) {
       hold('focus', e.target.matches(':focus-visible'));   // un clic de ratón no cuenta
     });
-    stack.addEventListener('focusout', function () { hold('focus', false); });
+    pebble.addEventListener('focusout', function () { hold('focus', false); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         hold('away', !entries[0].isIntersecting);
-      }, { threshold: 0.3 }).observe(stack);
+      }, { threshold: 0.3 }).observe(pebble);
+    }
+
+    /* Paralaje suave de la silueta de línea y la forma de fondo (solo con ratón) */
+    var hero = document.getElementById('inicio');
+    if (hero && !reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var raf = null;
+      hero.addEventListener('pointermove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = null;
+          var r = hero.getBoundingClientRect();
+          pebble.style.setProperty('--px', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3));
+          pebble.style.setProperty('--py', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3));
+        });
+      });
+      hero.addEventListener('pointerleave', function () {
+        pebble.style.setProperty('--px', 0);
+        pebble.style.setProperty('--py', 0);
+      });
     }
   }
 

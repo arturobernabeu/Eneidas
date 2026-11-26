@@ -189,23 +189,28 @@
       </div>
     </div>
     <div class="hero__media reveal">
-      <div class="stack" id="stack" role="group" aria-roledescription="carrusel" aria-label="Fotografías del centro">
-        <div class="stack__deck" id="stackDeck">
-          <figure class="stack__card" style="--d:0"><picture><source srcset="assets/img/hero/sala-5.webp" type="image/webp"><img src="assets/img/hero/sala-5.jpg" alt="Sala de consulta luminosa con un sillón azul, un sillón rosa y un cuadro de una mujer con mariposas" width="1120" height="840" fetchpriority="high"></picture></figure>
-          <figure class="stack__card" style="--d:1" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-1.webp" type="image/webp"><img src="assets/img/hero/sala-1.jpg" alt="Consulta con escritorio blanco, dos sillas grises y un sillón verde agua" width="1120" height="840" loading="lazy"></picture></figure>
-          <figure class="stack__card" style="--d:2" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-6.webp" type="image/webp"><img src="assets/img/hero/sala-6.jpg" alt="Consulta con mesa de cristal, alfombra, sillón rosa y una estantería con un busto decorativo" width="1120" height="840" loading="lazy"></picture></figure>
-          <figure class="stack__card is-hidden" style="--d:3" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-7.webp" type="image/webp"><img src="assets/img/hero/sala-7.jpg" alt="Despacho con grandes estores, mesa de cristal, sillón azul y estantería con libros" width="1120" height="840" loading="lazy"></picture></figure>
-          <figure class="stack__card is-hidden" style="--d:4" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-8.webp" type="image/webp"><img src="assets/img/hero/sala-8.jpg" alt="Sala amplia con ventanales cubiertos por estores, mesa de trabajo al fondo y un sillón azul" width="1120" height="840" loading="lazy"></picture></figure>
-          <figure class="stack__card is-hidden" style="--d:5" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-3.webp" type="image/webp"><img src="assets/img/hero/sala-3.jpg" alt="Pequeña consulta con mesa blanca, sillas grises, lámpara de pie y un cuadro enmarcado" width="1120" height="840" loading="lazy"></picture></figure>
-          <figure class="stack__card is-hidden" style="--d:6" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-4.webp" type="image/webp"><img src="assets/img/hero/sala-4.jpg" alt="Sala de espera con sillones grises, sillas y plantas" width="1120" height="840" loading="lazy"></picture></figure>
-          <figure class="stack__card is-hidden" style="--d:7" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-2.webp" type="image/webp"><img src="assets/img/hero/sala-2.jpg" alt="Zona de entrada del centro con una planta, un armario blanco y sillas de espera" width="765" height="1020" loading="lazy"></picture></figure>
+      <div class="pebble" id="pebble" role="group" aria-roledescription="carrusel" aria-label="Fotografías del centro">
+        <div class="pebble__stage">
+          <span class="pebble__glow" aria-hidden="true"></span>
+          <span class="pebble__line" aria-hidden="true"></span>
+          <div class="pebble__frame" id="pebbleFrame">
+            <figure class="pebble__slide is-active"><picture><source srcset="assets/img/hero/sala-5.webp" type="image/webp"><img src="assets/img/hero/sala-5.jpg" alt="Sala de consulta luminosa con un sillón azul, un sillón rosa y un cuadro de una mujer con mariposas" width="1120" height="840" fetchpriority="high"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-1.webp" type="image/webp"><img src="assets/img/hero/sala-1.jpg" alt="Consulta con escritorio blanco, dos sillas grises y un sillón verde agua" width="1120" height="840" loading="lazy"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-6.webp" type="image/webp"><img src="assets/img/hero/sala-6.jpg" alt="Consulta con mesa de cristal, alfombra, sillón rosa y una estantería con un busto decorativo" width="1120" height="840" loading="lazy"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-7.webp" type="image/webp"><img src="assets/img/hero/sala-7.jpg" alt="Despacho con grandes estores, mesa de cristal, sillón azul y estantería con libros" width="1120" height="840" loading="lazy"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-8.webp" type="image/webp"><img src="assets/img/hero/sala-8.jpg" alt="Sala amplia con ventanales cubiertos por estores, mesa de trabajo al fondo y un sillón azul" width="1120" height="840" loading="lazy"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-3.webp" type="image/webp"><img src="assets/img/hero/sala-3.jpg" alt="Pequeña consulta con mesa blanca, sillas grises, lámpara de pie y un cuadro enmarcado" width="1120" height="840" loading="lazy"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-4.webp" type="image/webp"><img src="assets/img/hero/sala-4.jpg" alt="Sala de espera con sillones grises, sillas y plantas" width="1120" height="840" loading="lazy"></picture></figure>
+            <figure class="pebble__slide" aria-hidden="true"><picture><source srcset="assets/img/hero/sala-2.webp" type="image/webp"><img src="assets/img/hero/sala-2.jpg" alt="Zona de entrada del centro con una planta, un armario blanco y sillas de espera" width="765" height="1020" loading="lazy"></picture></figure>
+          </div>
         </div>
-        <div class="stack__ui">
-          <div class="stack__dots" id="stackDots"></div>
-          <div class="stack__ctrl">
-            <button class="stack__btn stack__pause" id="stackPause" type="button" aria-label="Pausar carrusel"><svg class="ico" aria-hidden="true"><use href="#i-pause"></use></svg></button>
-            <button class="stack__btn" id="stackPrev" type="button" aria-label="Foto anterior"><svg class="ico ico--flip" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-            <button class="stack__btn" id="stackNext" type="button" aria-label="Foto siguiente"><svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <div class="pebble__ui">
+          <p class="pebble__count"><strong id="pebbleNum">01</strong> / <span id="pebbleTotal">08</span></p>
+          <span class="pebble__bar" aria-hidden="true"><span class="pebble__fill" id="pebbleFill"></span></span>
+          <div class="pebble__ctrl">
+            <button class="pebble__btn pebble__pause" id="pebblePause" type="button" aria-label="Pausar carrusel"><svg class="ico" aria-hidden="true"><use href="#i-pause"></use></svg></button>
+            <button class="pebble__btn" id="pebblePrev" type="button" aria-label="Foto anterior"><svg class="ico ico--flip" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+            <button class="pebble__btn" id="pebbleNext" type="button" aria-label="Foto siguiente"><svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
           </div>
         </div>
       </div>

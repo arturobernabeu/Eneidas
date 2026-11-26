@@ -1331,117 +1331,161 @@ button { font: inherit; color: inherit; }
   gap: .9rem;
 }
 
-/* --- Pila de fotos del hero ---
-   Las fotos se apilan como copias reveladas, cada una desplazada arriba a la
-   derecha de la anterior. Cada 3 s la del frente sale deslizándose y la
-   siguiente pasa al frente. El avance lo marca el final de la animación del
-   punto activo (--stack-ms): pausar la animación pausa también el avance,
-   sin temporizadores en JS. */
+/* --- Carrusel del hero: canto rodado ---
+   Las fotos se ven dentro de una forma orgánica, como un canto rodado, que
+   cambia de contorno muy despacio. Cada una se aleja muy despacio (Ken
+   Burns) y la siguiente entra fundiéndose desde un leve desenfoque. El avance
+   lo marca el final de la animación de la barra (--pebble-ms): pausar la
+   animación pausa también el avance, sin temporizadores en JS. */
 .hero__media { position: relative; margin: 0; }
-.stack {
-  --stack-ms: 3000ms;
-  --dx: 16px;
-  --dy: -14px;
-  padding: 28px 32px 0 0;     /* hueco para las tarjetas de atrás */
+.pebble {
+  --pebble-ms: 6500ms;
+  --pebble-fade: 1.4s;
+  --pebble-off: 14px;   /* desplazamiento de la silueta de línea */
+  --px: 0;               /* puntero sobre el hero (-1…1), para el paralaje */
+  --py: 0;
+  width: min(100%, 460px);
+  margin-inline: auto;
 }
-.stack__deck { position: relative; aspect-ratio: 5 / 4; touch-action: pan-y; }
-.stack__card {
+.pebble__stage { position: relative; }
+.pebble__glow {
+  position: absolute;
+  left: -16%;
+  bottom: -9%;
+  width: 72%;
+  aspect-ratio: 1;
+  border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%;
+  background: var(--sand-200);
+  opacity: .5;
+  transform: translate(calc(var(--px) * -16px), calc(var(--py) * -12px));
+  transition: transform .9s var(--ease);
+  animation: pebble-morph 18s ease-in-out infinite alternate;
+}
+@keyframes pebble-morph {
+  to { border-radius: 44% 56% 42% 58% / 56% 44% 58% 42%; }
+}
+.pebble__line {
+  position: absolute;
+  inset: calc(var(--pebble-off) * -1) calc(var(--pebble-off) * -1) var(--pebble-off) var(--pebble-off);
+  border: 1.5px solid var(--brand-300);
+  border-radius: 46% 54% 40% 60% / 52% 42% 58% 48%;
+  transform: translate(calc(var(--px) * 8px), calc(var(--py) * 6px));
+  transition: transform .9s var(--ease);
+  animation: pebble-line 22s ease-in-out infinite alternate;
+}
+@keyframes pebble-line {
+  to { border-radius: 64% 36% 54% 46% / 44% 54% 46% 56%; }
+}
+.pebble__frame {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 38% 62% 58% 42% / 42% 40% 60% 58%;
+  background: var(--mist);
+  box-shadow: var(--sh-lg);
+  transform: translateZ(0);   /* Safari: recorta bien las fotos animadas */
+  touch-action: pan-y;
+  animation: pebble-shape 20s ease-in-out infinite alternate;
+}
+@keyframes pebble-shape {
+  to { border-radius: 60% 40% 44% 56% / 56% 38% 62% 44%; }
+}
+.pebble__slide {
   position: absolute;
   inset: 0;
   margin: 0;
-  padding: 6px;
-  background: var(--paper-2);
-  border-radius: calc(var(--r-lg) + 6px);
-  box-shadow: var(--sh-md);
-  z-index: calc(20 - var(--d));
-  transform: translate(calc(var(--d) * var(--dx)), calc(var(--d) * var(--dy)));
-  filter: brightness(calc(1 - var(--d) * .07));
-  transition: transform .7s var(--ease), opacity .7s var(--ease), filter .7s var(--ease);
+  opacity: 0;
+  filter: blur(14px);
+  transition: opacity var(--pebble-fade) var(--ease), filter var(--pebble-fade) var(--ease);
 }
-.stack__card[aria-hidden="false"] { box-shadow: var(--sh-lg); }
-.stack__card.is-hidden { opacity: 0; }
-.stack__card img {
+.pebble__slide.is-active { z-index: 2; opacity: 1; filter: none; }
+.pebble__slide.is-prev { z-index: 1; opacity: 1; filter: none; transition: none; }
+.pebble__slide img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--r-lg);
+  transform: scale(1.09);
+  transform-origin: var(--o, 50% 50%);
 }
-/* Salida (y entrada, al ir hacia atrás): desliza a la izquierda con un giro leve */
-.stack__card.is-leaving {
-  z-index: 30;
-  opacity: 0;
-  transform: translate(-72%, 6%) rotate(-7deg);
+.pebble__slide:nth-child(4n+1) img { --o: 35% 40%; }
+.pebble__slide:nth-child(4n+2) img { --o: 65% 55%; }
+.pebble__slide:nth-child(4n+3) img { --o: 50% 30%; }
+.pebble__slide:nth-child(4n+4) img { --o: 40% 65%; }
+.pebble__slide.is-active img,
+.pebble__slide.is-prev img {
+  animation: pebble-zoom calc(var(--pebble-ms) + var(--pebble-fade)) linear forwards;
 }
-.stack__card.no-anim { transition: none; }
+@keyframes pebble-zoom {
+  from { transform: scale(1.09); }
+  to { transform: scale(1); }
+}
 
-.stack__ui {
+.pebble__ui {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  margin-top: 1.4rem;
+  margin-top: calc(1.4rem + var(--pebble-off));
 }
-.stack__dots { display: flex; align-items: center; gap: .1rem; }
-.stack__dot {
+.pebble__count {
+  margin: 0;
+  font-family: var(--font-brand);
+  font-size: var(--fs-small);
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-400);
+  white-space: nowrap;
+}
+.pebble__count strong { font-weight: 600; color: var(--ink-800); }
+.pebble__bar {
   position: relative;
-  display: grid;
-  place-items: center;
-  width: 22px;        /* zona táctil; el trazo visible es el ::before */
-  height: 24px;
-  padding: 0;
-  border: 0;
-  background: none;
-}
-.stack__dot::before {
-  content: "";
-  width: 7px;
-  height: 7px;
+  flex: 1;
+  height: 2px;
+  overflow: hidden;
   border-radius: var(--r-pill);
-  background: var(--ink-400);
-  opacity: .35;
-  transition: width var(--t-med), opacity var(--t-fast);
+  background: var(--line-strong);
 }
-.stack__dot:hover::before { opacity: .75; }
-.stack__dot.is-active::before { width: 26px; opacity: .22; background: var(--brand-600); }
-.stack__dot.is-active::after {
-  content: "";
+.pebble__fill {
   position: absolute;
-  left: calc(50% - 13px);
-  width: 26px;
-  height: 7px;
-  border-radius: var(--r-pill);
+  inset: 0;
   background: var(--brand-500);
+  transform: scaleX(0);
   transform-origin: left center;
-  animation: stack-fill var(--stack-ms) linear forwards;
 }
-@keyframes stack-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.pebble__fill.is-running { animation: pebble-fill var(--pebble-ms) linear forwards; }
+@keyframes pebble-fill { to { transform: scaleX(1); } }
 
-.stack__ctrl { display: flex; gap: .5rem; }
-.stack__btn {
+.pebble__ctrl { display: flex; gap: .4rem; }
+.pebble__btn {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: var(--r-pill);
-  background: var(--paper-2);
+  background: transparent;
   border: 1px solid var(--line-strong);
   color: var(--ink-800);
-  font-size: 1.05rem;
-  transition: background var(--t-fast), color var(--t-fast), transform var(--t-press);
+  font-size: 1rem;
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast), transform var(--t-press);
 }
-.stack__btn:hover { background: var(--ink-800); color: #fff; }
-.stack__btn:active { transform: scale(.94); }
-.stack__btn .ico--flip { transform: scaleX(-1); }
+.pebble__btn:hover { background: var(--ink-800); border-color: var(--ink-800); color: var(--paper-2); }
+.pebble__btn:active { transform: scale(.94); }
+.pebble__btn .ico--flip { transform: scaleX(-1); }
 
 /* Pausa: a petición, con el puntero encima, con foco por teclado o fuera de pantalla */
-.stack.is-paused .stack__dot.is-active::after,
-.stack.is-hold .stack__dot.is-active::after { animation-play-state: paused; }
+.pebble.is-paused .pebble__fill,
+.pebble.is-hold .pebble__fill,
+.pebble.is-paused .pebble__slide img,
+.pebble.is-hold .pebble__slide img { animation-play-state: paused; }
 
-/* Sin movimiento: sin avance automático y cambio de foto directo */
-.stack.is-static .stack__card { transition: none; }
-.stack.is-static .stack__dot.is-active::after { animation: none; transform: scaleX(1); }
-.stack.is-static .stack__pause { display: none; }
+/* Sin movimiento: sin avance automático, sin zoom ni desenfoque */
+.pebble.is-static .pebble__glow { animation: none; transform: none; }
+.pebble.is-static .pebble__line { transform: none; animation: none; }
+.pebble.is-static .pebble__frame { animation: none; }
+.pebble.is-static .pebble__slide { transition: none; filter: none; }
+.pebble.is-static .pebble__slide img { animation: none; transform: none; }
+.pebble.is-static .pebble__fill { animation: none; transform: scaleX(1); }
+.pebble.is-static .pebble__pause { display: none; }
 
 /* --- Metodología (split) --- */
 .split {
@@ -1773,7 +1817,7 @@ button { font: inherit; color: inherit; }
 
   .brand__text strong { font-size: 1.3rem; }
 
-  .stack { --dx: 10px; --dy: -9px; padding: 18px 20px 0 0; }
+  .pebble { --pebble-off: 10px; }
 
   .form__row { grid-template-columns: 1fr; }
 
