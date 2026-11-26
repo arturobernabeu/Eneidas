@@ -1411,6 +1411,21 @@ button { font: inherit; color: inherit; }
   align-items: start;
 }
 .split__aside { position: sticky; top: calc(var(--header-h) + 2rem); }
+.method-cta {
+  margin-top: 2rem;
+  padding: clamp(1.4rem, 2.6vw, 2rem);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+}
+.method-cta__text {
+  margin-bottom: 1.1rem;
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  color: var(--ink-800);
+}
+.method-cta__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
 .split__img {
   margin: 2.25rem 0 0;
   border-radius: var(--r-lg);
@@ -1713,6 +1728,7 @@ button { font: inherit; color: inherit; }
 
 @media (max-width: 420px) {
   .hero__actions .btn { width: 100%; }
+  .method-cta__actions .btn { width: 100%; }
   .quote::before { font-size: 4rem; }
 }
 
