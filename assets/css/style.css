@@ -215,19 +215,43 @@ button { font: inherit; color: inherit; }
 }
 
 /* Bandas de color para que cada sección se lea como un bloque propio:
-   cielo (azul) y arena (cálida) alternan con papel y con las oscuras. */
+   cielo (azul) y arena (cálida) alternan con papel y con las oscuras.
+   Cada banda es un degradado irregular: 2-3 manchas difuminadas de su misma
+   familia de color sobre el tono base. Las posiciones salen de --g1…--g3,
+   y .section--flip las refleja para que dos bandas del mismo color no
+   repitan el mismo dibujo. */
+.section {
+  --g1: 6% 0%;
+  --g2: 96% 100%;
+  --g3: 72% 18%;
+}
+.section--flip {
+  --g1: 94% 0%;
+  --g2: 4% 100%;
+  --g3: 28% 22%;
+}
 .section--sky {
-  background: var(--sky);
+  background:
+    radial-gradient(55% 75% at var(--g1), color-mix(in srgb, var(--brand-300) 45%, transparent), transparent 72%),
+    radial-gradient(50% 70% at var(--g2), color-mix(in srgb, var(--mist) 90%, transparent), transparent 70%),
+    radial-gradient(35% 55% at var(--g3), color-mix(in srgb, var(--brand-100) 60%, transparent), transparent 70%),
+    var(--sky);
   border-block: 1px solid var(--line-strong);
 }
 .section--sand {
-  background: var(--sand-100);
+  background:
+    radial-gradient(55% 75% at var(--g2), color-mix(in srgb, var(--sand-200) 55%, transparent), transparent 72%),
+    radial-gradient(50% 70% at var(--g1), color-mix(in srgb, var(--paper) 85%, transparent), transparent 70%),
+    radial-gradient(35% 55% at var(--g3), color-mix(in srgb, var(--sand-300) 22%, transparent), transparent 70%),
+    var(--sand-100);
   border-block: 1px solid var(--line-strong);
 }
 
 .section--ink {
   background:
-    radial-gradient(120% 90% at 85% 0%, rgba(119, 186, 231, .22), transparent 58%),
+    radial-gradient(70% 90% at var(--g3), color-mix(in srgb, var(--brand-400) 24%, transparent), transparent 62%),
+    radial-gradient(55% 80% at var(--g2), color-mix(in srgb, var(--brand-600) 38%, transparent), transparent 70%),
+    radial-gradient(40% 60% at var(--g1), color-mix(in srgb, var(--ink-700) 80%, transparent), transparent 70%),
     var(--ink-800);
   color: rgba(255, 255, 255, .78);
 }
@@ -1527,7 +1551,9 @@ button { font: inherit; color: inherit; }
 /* --- Contacto --- */
 .section--contact {
   background:
-    radial-gradient(100% 80% at 10% 0%, rgba(119, 186, 231, .20), transparent 60%),
+    radial-gradient(70% 85% at 8% 0%, color-mix(in srgb, var(--brand-400) 22%, transparent), transparent 62%),
+    radial-gradient(55% 75% at 94% 100%, color-mix(in srgb, var(--brand-600) 40%, transparent), transparent 70%),
+    radial-gradient(40% 60% at 70% 30%, color-mix(in srgb, var(--ink-800) 70%, transparent), transparent 70%),
     var(--ink-700);
   color: rgba(255, 255, 255, .75);
 }
