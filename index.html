@@ -958,9 +958,12 @@
           </p>
         </details>
 
+        <!-- El value de la casilla identifica la versión de este texto. Si se
+             cambia la redacción, cambia el value y añade la versión nueva a
+             $CONSENTIMIENTOS en enviar.php: cada correo registra lo aceptado. -->
         <div class="field field--check">
           <label class="check">
-            <input type="checkbox" id="privacidad" name="privacidad" required>
+            <input type="checkbox" id="privacidad" name="privacidad" value="2026-11" required>
             <span>Acepto que Eneidas trate mis datos, incluidos los de salud que decida compartir, para gestionar mi solicitud de cita. He leído la <a href="politica-de-privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.</span>
           </label>
           <small class="field__error" data-error-for="privacidad"><span></span></small>

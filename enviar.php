@@ -39,6 +39,20 @@ $REMITENTE_NOMBRE = 'Web Eneidas';
 // hosting con su dominio provisional, añádelo aquí y quítalo al publicar.
 $ORIGENES = ['eneidaspsicologia.com', 'www.eneidaspsicologia.com'];
 
+// Registro del consentimiento (art. 7.1 RGPD: hay que poder demostrarlo).
+// Cada versión del texto de la casilla de index.html, por su value. Si se
+// cambia la redacción, NO se edita la existente: se añade una versión nueva
+// y se cambia el value de la casilla. Así cada correo conserva lo que la
+// persona aceptó realmente.
+$CONSENTIMIENTOS = [
+    '2026-11' => 'Acepto que Eneidas trate mis datos, incluidos los de salud que decida compartir, para gestionar mi solicitud de cita. He leído la Política de Privacidad.',
+];
+// Versión de la política de privacidad publicada (su «Última actualización»).
+$VERSION_POLITICA = 'noviembre de 2026';
+
+// Fechas del registro en hora peninsular, sea cual sea la del servidor.
+date_default_timezone_set('Europe/Madrid');
+
 // Segundos mínimos entre cargar el formulario y enviarlo. Por debajo, la
 // solicitud se envía igualmente con «[Revisar]» en el asunto: con el
 // autocompletado del navegador una persona puede tardar muy poco.
@@ -184,6 +198,7 @@ $email    = limpiar($_POST['email']    ?? '', 150);
 $mensaje  = limpiar($_POST['mensaje']  ?? '', 3000);   // «¿En qué podemos ayudarte?», opcional
 $psicologa = limpiar($_POST['psicologa'] ?? '', 80);
 $acepta   = isset($_POST['privacidad']) && $_POST['privacidad'] !== '';
+$version_consentimiento = limpiar($_POST['privacidad'] ?? '', 20);
 
 $errores = [];
 
@@ -229,8 +244,15 @@ $cuerpo = "Nueva solicitud desde el formulario de la web.\n\n"
         . 'Psicóloga: ' . ($psicologa !== '' ? $psicologa : 'Sin preferencia') . "\n\n"
         . "¿En qué podemos ayudarte?\n"
         . ($mensaje !== '' ? $mensaje : '(no lo ha indicado)') . "\n\n"
-        . "---\n"
-        . 'Recibido: ' . date('d/m/Y H:i') . "\n";
+        . "--- Consentimiento ---\n"
+        . 'Aceptado: sí, ' . date('d/m/Y H:i:s') . " (hora de Madrid, según el servidor)\n"
+        . 'Texto aceptado: ' . (isset($CONSENTIMIENTOS[$version_consentimiento])
+            ? '«' . $CONSENTIMIENTOS[$version_consentimiento] . '» (versión ' . $version_consentimiento . ')'
+            : 'versión no registrada (' . ($version_consentimiento !== '' ? $version_consentimiento : 'sin identificar') . '): revisar el formulario') . "\n"
+        . 'Política de privacidad vigente: versión de ' . $VERSION_POLITICA . "\n"
+        . 'Origen: formulario de ' . sin_saltos($_SERVER['HTTP_HOST'] ?? 'la web') . "\n"
+        . "\n"
+        . "Conserva este correo: es la prueba del consentimiento.\n";
 
 $cabeceras = [
     'From: ' . sin_saltos($REMITENTE_NOMBRE) . ' <' . sin_saltos($REMITENTE) . '>',

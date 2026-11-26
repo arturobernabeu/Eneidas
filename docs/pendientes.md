@@ -75,11 +75,17 @@ snippets para Apache, Netlify, Vercel y nginx. GitHub Pages no admite 301.
 
 **Hecho:** información básica plegada bajo el formulario; casilla de
 consentimiento explícito que menciona los datos de salud, sin premarcar; el log
-del servidor no guarda el email del visitante.
+del servidor no guarda el email del visitante. Cada correo de solicitud
+incluye un **registro del consentimiento** (fecha y hora del servidor, texto
+exacto aceptado con su versión, versión de la política y dominio de origen);
+las versiones del texto viven en `$CONSENTIMIENTOS` de `enviar.php` y el
+`value` de la casilla indica cuál se mostró.
 
 **Pendiente de validar con el DPO** (`dpo@finchasociados.com`):
 
 - Los textos nuevos de la casilla y de la información básica.
+- Que el registro del consentimiento en el correo es prueba suficiente (art. 7.1)
+  o si hace falta algo más (p. ej. la IP), y **cuánto tiempo** conservar esos correos.
 - La **Política de Privacidad** no menciona: datos de salud (art. 9), un **plazo
   de conservación** concreto de las solicitudes, el derecho a **retirar el
   consentimiento**, ni qué **encargados de tratamiento** intervienen (hosting y correo).
