@@ -707,6 +707,10 @@ button { font: inherit; color: inherit; }
   border-left: 4px solid var(--sand-500);
   border-radius: 0 var(--r-sm) var(--r-sm) 0;
 }
+/* «Ver otras áreas»: lo crea main.js al final de cada panel. Solo hace
+   falta en móvil, donde la tira de áreas queda muy por encima del texto. */
+.treat__back { display: none; }
+
 .treat__label {
   font-size: var(--fs-micro);
   font-weight: 600;
@@ -1779,6 +1783,21 @@ button { font: inherit; color: inherit; }
     white-space: nowrap;
   }
   .treat__tab::after { display: none; }
+  .treat__back {
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+    min-height: 44px;
+    margin-top: 1.25rem;
+    padding: 0 1.1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-pill);
+    background: var(--paper-2);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--brand-700);
+    cursor: pointer;
+  }
   .treat__tab::before { display: none; }
   .treat__tab .ico { display: none; }
   .treat__tab.is-active {

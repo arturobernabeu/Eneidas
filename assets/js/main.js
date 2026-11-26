@@ -1,8 +1,8 @@
 /* =====================================================================
    Centro de Psicología Eneidas — main.js
    1. Header sticky  2. Menú móvil  3. Smooth scroll  4. Scrollspy
-   5. Reveal on scroll  6. Acordeones  7. Pestañas  8. Formulario  9. Año  10. Pila de fotos
-   11. Psicóloga preferida
+   5. Reveal on scroll  6. Acordeones  7. Pestañas  8. Formulario (envío a enviar.php)
+   9. Año  10. Carrusel del hero  11. Psicóloga preferida
    ===================================================================== */
 (function () {
   'use strict';
@@ -124,6 +124,11 @@
     if (section) sections.push({ link: link, el: section });
   });
 
+  // Contacto no tiene enlace en el menú (se llega por «Pedir cita»): al
+  // llegar a esa sección no se resalta ninguno, en vez de quedarse «FAQ».
+  var contacto = document.getElementById('contacto');
+  if (contacto && sections.length) sections.push({ link: null, el: contacto });
+
   function spy() {
     var pos = window.scrollY + header.offsetHeight + 120;
     var current = sections[0];
@@ -133,7 +138,7 @@
     });
 
     navLinks.forEach(function (l) { l.classList.remove('is-active'); });
-    if (current) current.link.classList.add('is-active');
+    if (current && current.link) current.link.classList.add('is-active');
   }
   window.addEventListener('scroll', spy, { passive: true });
   spy();
@@ -333,6 +338,28 @@
     };
     abrirDesdeHash();
     window.addEventListener('hashchange', abrirDesdeHash);
+
+    /* «Ver otras áreas» al final de cada panel (solo se ve en móvil, ver
+       CSS): los textos ocupan varias pantallas y la tira de áreas queda
+       muy arriba. Lleva de vuelta a la tira con el foco en el área activa. */
+    Array.prototype.forEach.call(document.querySelectorAll('.treat__panel'), function (panel) {
+      var back = document.createElement('button');
+      back.type = 'button';
+      back.className = 'treat__back';
+      back.innerHTML = '<svg class="ico ico--up" aria-hidden="true"><use href="#i-arrow"></use></svg> Ver otras áreas';
+      back.addEventListener('click', function () {
+        var top = tablist.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 16;
+        window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+        var active = tablist.querySelector('[aria-selected="true"]');
+        if (active) {
+          active.focus({ preventScroll: true });
+          // Centra el área activa en la tira horizontal
+          var a = active.getBoundingClientRect(), t = tablist.getBoundingClientRect();
+          tablist.scrollLeft += a.left - t.left - (t.width - a.width) / 2;
+        }
+      });
+      panel.appendChild(back);
+    });
   }
 
   /* ---------------------------------------------------------------

@@ -6,15 +6,22 @@ Réplica moderna de `https://www.eneidaspsicologia.com/` en HTML5 + CSS3 + JS va
 ## Stack
 
 Sin build, sin dependencias, sin framework. Se abre `index.html` directamente
-o se sirve con cualquier servidor estático. Las únicas peticiones externas son
-las fuentes de Google Fonts.
+o se sirve con cualquier servidor estático (el formulario necesita PHP). Las
+fuentes están autoalojadas en `assets/fonts/`: la web no hace peticiones a
+terceros.
 
 ## Estructura
 
 ```
-index.html              Documento único de la landing
+index.html              Portada (landing)
+404.html                Página de error
+aviso-legal/, politica-de-privacidad/, politica-de-cookies/
+                        Páginas legales (carpeta + index.html)
+enviar.php              Recibe el formulario y envía el correo (requiere PHP)
+sitemap.xml, robots.txt SEO
 assets/css/style.css    Hoja de estilos completa (tokens + componentes)
-assets/js/main.js       Interacciones (menú, scroll, acordeón, formulario)
+assets/js/main.js       Interacciones (menú, scroll, pestañas, carrusel, formulario)
+assets/js/enlaces-locales.js  Solo en file://: añade index.html a los enlaces a carpetas
 assets/img/             Imágenes locales (equipo, hero)
 assets/icons/           Favicons
 equipo/                 Fichas individuales del equipo (GENERADAS, no editar a mano)
@@ -51,5 +58,8 @@ de contacto están transcritos de la web original. **No inventar datos nuevos**
 
 ## Formulario
 
-`main.js` valida en cliente pero **no envía nada**. El punto de integración está
-marcado con un comentario en el handler de `submit` (bloque 8).
+`main.js` (bloque 8) valida en cliente y envía con `fetch` a `enviar.php`, que
+revalida, aplica el antispam y manda el correo con `mail()`; responde JSON
+`{"ok":true}` o `{"ok":false,"error":"…"}`. Antes de publicar, revisar el bloque
+CONFIGURACIÓN de `enviar.php` (destino, remitente, orígenes permitidos). En
+GitHub Pages y en servidores estáticos el envío siempre falla: no hay PHP.
