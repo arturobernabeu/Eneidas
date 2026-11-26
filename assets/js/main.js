@@ -327,7 +327,7 @@
       },
       privacidad: {
         test: function (v, el) { return el.checked; },
-        msg: 'Debes aceptar la Política de Privacidad.'
+        msg: 'Necesitamos tu consentimiento para gestionar la solicitud.'
       }
     };
 

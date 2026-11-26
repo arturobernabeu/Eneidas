@@ -188,7 +188,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errores[] = 'Introduce un email válido.';
 }
 if (!$acepta) {
-    $errores[] = 'Debes aceptar la Política de Privacidad.';
+    $errores[] = 'Necesitamos tu consentimiento para gestionar la solicitud.';
 }
 
 // Psicóloga preferida: campo opcional. Un valor que no esté en la lista se
@@ -240,7 +240,8 @@ $enviado = @mail(
 );
 
 if (!$enviado) {
-    error_log('[eneidas] mail() falló para ' . $email);
+    // Sin datos del visitante: el log del servidor no es lugar para ellos.
+    error_log('[eneidas] mail() no pudo entregar una solicitud del formulario');
     responder(false, 500, 'No hemos podido enviar tu solicitud. Escríbenos a eneidaspsicologia@gmail.com o llámanos al 614 18 88 45.');
 }
 

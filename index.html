@@ -919,20 +919,25 @@
         <!-- Milisegundos desde que se cargó el formulario. El servidor
              descarta los envíos demasiado rápidos para ser humanos. -->
         <input type="hidden" id="tiempo" name="tiempo" value="0">
-        <p class="form__note">
-          <strong>Responsable:</strong> Ana María Fernández Chaves («Eneidas Psicología»).
-          <strong>Finalidad:</strong> gestionar el envío de comunicaciones y la gestión administrativa derivada.
-          <strong>Legitimación:</strong> consentimiento del interesado.
-          <strong>Destinatarios:</strong> no se prevén cesiones; existe encargado de tratamiento.
-          <strong>Derechos:</strong> acceder, rectificar, suprimir, cancelación, oposición y portabilidad.
-          Puedes consultar la información ampliada en nuestra
-          <a href="politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>.
-        </p>
+        <!-- Primera capa de información (art. 13 RGPD / art. 11 LOPDGDD).
+             Va plegada para no recargar el formulario, pero no debe quitarse. -->
+        <details class="form__legal">
+          <summary>Información básica sobre protección de datos</summary>
+          <p class="form__note">
+            <strong>Responsables:</strong> las psicólogas del centro («Eneidas Psicología»), como corresponsables: Ana María Fernández Chaves, Alicia Rodríguez Aguilar, Berta Bejarano García, Pilar Naranjo González-Quevedo y Carmen Núñez Benítez.
+            <strong>Finalidad:</strong> atender tu solicitud de cita o de información y contactar contigo.
+            <strong>Legitimación:</strong> tu consentimiento.
+            <strong>Destinatarios:</strong> no se ceden datos a terceros, salvo obligación legal.
+            <strong>Derechos:</strong> acceso, rectificación, supresión, oposición, limitación y portabilidad, y retirar tu consentimiento en cualquier momento, escribiendo a <a href="mailto:dpo@finchasociados.com">dpo@finchasociados.com</a>.
+            Información ampliada en nuestra
+            <a href="politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>.
+          </p>
+        </details>
 
         <div class="field field--check">
           <label class="check">
             <input type="checkbox" id="privacidad" name="privacidad" required>
-            <span>He leído y acepto la <a href="politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a></span>
+            <span>Acepto que Eneidas trate mis datos, incluidos los de salud que decida compartir, para gestionar mi solicitud de cita. He leído la <a href="politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>.</span>
           </label>
           <small class="field__error" data-error-for="privacidad"><span></span></small>
         </div>

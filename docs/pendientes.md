@@ -1,171 +1,117 @@
 # Tareas pendientes
 
-Estado a 14/09/2026. Documentos relacionados:
+Estado a 26/11/2026. Cada punto tiene su issue en GitHub, con la misma
+categoría como etiqueta. Documentos relacionados:
 [`redirecciones.md`](redirecciones.md) (mapa 301) y
 [`analisis-marca.md`](analisis-marca.md) (paleta, tipografía, logotipo).
 
-La web está terminada a nivel de diseño, contenido y código. Lo que queda es
-casi todo **infraestructura y decisiones del centro**, no desarrollo.
+Lo que queda es sobre todo **infraestructura, validación legal y contenido que
+debe aportar el centro**; el desarrollo está prácticamente cerrado.
 
 ---
 
 ## 🔴 Bloqueantes — impiden publicar
 
-### 1. El formulario no envía
+### B1. Probar el envío del formulario en el hosting
 
-**Estado:** valida en cliente y muestra «gracias», pero no hay endpoint. Cada
-solicitud de cita se pierde en silencio. Es el CTA principal de la web.
+**Estado:** el formulario envía a `enviar.php` (validación en servidor, trampa
+antispam, tiempo mínimo de cumplimentación y límite de 5 envíos/hora por IP).
+**No se ha podido probar**: necesita un servidor con PHP y correo.
 
-**Dónde:** `assets/js/main.js`, línea 389, comentario «Punto de integración».
+**Campos que se envían:** `nombre`, `telefono`, `email`, `psicologa` (opcional) y
+`mensaje` («¿En qué podemos ayudarte?», opcional). Más `web` (trampa) y `tiempo`.
 
-**Campos que se enviarían:** `nombre`, `telefono`, `email`, `psicologa` (opcional) y
-`mensaje` («¿En qué podemos ayudarte?», opcional).
-Más `web`, que es la trampa antispam y debe descartarse en el servidor.
+**Antes de la prueba, en `enviar.php` → CONFIGURACIÓN:**
 
-**Opciones, de mejor a peor:**
+- `$DESTINO`: el buzón que recibe las solicitudes (ver B2).
+- `$REMITENTE`: una dirección **que exista en el propio dominio**
+  (`web@eneidaspsicologia.com`). Si no existe, muchos servidores rechazan el envío.
+- `$ORIGENES`: quitar `localhost:5173` al publicar.
 
-| Opción | Valoración |
-|---|---|
-| Script propio (PHP o función serverless) en hosting UE, envío por SMTP autenticado | ✅ **Recomendado.** Los datos no salen de vuestro servidor, sin terceros, sin contrato de encargado |
-| Formspree, Netlify Forms | Funciona, pero añade un encargado de tratamiento en EE. UU. que hay que contratar y declarar |
-| EmailJS | ❌ **Descartar.** La clave va en el JavaScript público: cualquiera puede usar vuestra cuenta |
-| `mailto:` | ❌ **Descartar.** UX pésima y expone el correo a los rastreadores |
+**Para que los mensajes no acaben en spam (DNS del dominio):** SPF que autorice
+al servidor del hosting, DKIM activado y DMARC al menos con `p=none`. Si el
+hosting lo permite, mejor **SMTP autenticado** que `mail()`.
 
-**Qué necesito para hacerlo:** saber el hosting. Con PHP son unas 40 líneas.
+**Prueba de aceptación (con la web en su dominio y con HTTPS):**
 
-**Al implementarlo, no olvidar:** descartar los envíos con el campo `web`
-relleno, limitar la frecuencia por IP, y escapar el contenido antes de
-componer el correo.
+1. Envío completo con psicóloga elegida → llega, asunto «Solicitud de cita: [psicóloga]», sin caer en spam.
+2. Envío sin psicóloga ni mensaje → llega con «Sin preferencia» y «(no lo ha indicado)».
+3. Responder al correo → la respuesta va al email del paciente (Reply-To).
+4. Tildes y eñes correctas en asunto y cuerpo.
+5. Desde una ficha, «Solicitar cita» → el formulario llega con la psicóloga elegida.
+6. Seis envíos seguidos desde la misma conexión → el sexto muestra el aviso de límite.
+7. Cabeceras del correo recibido con `spf=pass` y `dkim=pass`.
 
----
+### B2. Buzón de destino profesional
 
-### 2. Buzón de destino
+**Estado:** el destino es `eneidaspsicologia@gmail.com`, cuenta **gratuita**.
 
-**Estado:** el destino previsto es `eneidaspsicologia@gmail.com`, una cuenta
-**gratuita** de Gmail.
-
-**El problema:** el campo libre «¿En qué podemos ayudarte?» invita a contar el
-motivo de consulta, que en un centro de psicología son datos de salud — categoría especial del artículo 9 del RGPD.
-Gmail gratuito **no tiene contrato de encargado de tratamiento**: el Data
-Privacy Framework ampara a Google Workspace de pago, no a una cuenta personal.
+**El problema:** el campo «¿En qué podemos ayudarte?» invita a contar el motivo
+de consulta, que son datos de salud (categoría especial, art. 9 RGPD). Gmail
+gratuito **no tiene contrato de encargado de tratamiento**.
 
 **Recomendación:** buzón profesional en la UE con dominio propio
-(`contacto@eneidaspsicologia.com`). Lo incluye cualquier hosting español;
-Infomaniak o Mailfence lo dan con servidores en Europa y contrato firmado.
+(`contacto@eneidaspsicologia.com`), con contrato de encargado firmado.
 
-**Alternativa que reduce el riesgo sin cambiar de infraestructura:** quitar del
-formulario el campo libre «¿En qué podemos ayudarte?», dejando solo nombre,
-teléfono y franja horaria. Así deja de recoger datos de salud —pasa a ser una
-petición de llamada— y la conversación clínica ocurre por teléfono, donde ya
-existen las garantías del ejercicio profesional. Es aplicar el principio de
-minimización del artículo 5.1.c.
+**Alternativa sin cambiar de infraestructura:** quitar el campo libre y dejar
+solo nombre y teléfono, de modo que el formulario sea una petición de llamada
+(minimización, art. 5.1.c).
 
----
+### B3. Hosting y redirecciones 301
 
-### 3. Hosting y redirecciones 301
+**Estado:** sin decidir. El WordPress actual tiene ~34 URLs indexadas.
 
-**Estado:** sin decidir. El WordPress actual tiene ~34 URLs indexadas y la web
-nueva es una sola página: 31 de ellas darán 404.
-
-**Ya resuelto:** `/politica-de-cookies/` y `/` conservan su URL exacta, porque
-las páginas legales se sirven como índice de directorio. No necesitan
-redirección en ningún hosting.
+**Ya resuelto sin redirección:** `/` y `/politica-de-cookies/` conservan su URL.
 
 **Qué hacer:** elegir hosting y aplicar el mapa de
-[`redirecciones.md`](redirecciones.md), que trae los snippets ya escritos para
-Apache, Netlify, Vercel y nginx.
+[`redirecciones.md`](redirecciones.md), que incluye las 5 fichas antiguas
+(`/ana-fernandez-chaves/` → `/equipo/ana-fernandez-chaves.html`…) y trae los
+snippets para Apache, Netlify, Vercel y nginx. GitHub Pages no admite 301.
 
-**Aviso:** GitHub Pages no admite redirecciones de servidor. Si el
-posicionamiento importa, conviene otro proveedor.
+### B4. Política de privacidad y textos del formulario (validar con el DPO)
 
----
+**Hecho:** información básica plegada bajo el formulario; casilla de
+consentimiento explícito que menciona los datos de salud, sin premarcar; el log
+del servidor no guarda el email del visitante.
 
-## 🟡 Decisiones del centro
+**Pendiente de validar con el DPO** (`dpo@finchasociados.com`):
 
-### 4. La tabla de cookies no corresponde con esta web
+- Los textos nuevos de la casilla y de la información básica.
+- La **Política de Privacidad** no menciona: datos de salud (art. 9), un **plazo
+  de conservación** concreto de las solicitudes, el derecho a **retirar el
+  consentimiento**, ni qué **encargados de tratamiento** intervienen (hosting y correo).
 
-**Estado:** la política de cookies reproduce el texto literal de la web actual,
-que describe las cookies del **WordPress**: `CookieConsent`,
-`cookielawinfo-checkbox-necessary`, `rc::a/b/c` de reCAPTCHA y `NID` de Google.
+### B5. Acuerdo de corresponsabilidad
 
-**Esta web no instala ninguna de las cuatro.** Y a la vez la tabla omite lo
-único que sí guarda: la clave `eneidas.consent` en `localStorage`, que registra
-la decisión sobre cookies durante un año.
+**Estado:** la web presenta a las cinco psicólogas como **corresponsables** del
+tratamiento (art. 26 RGPD), con el DPO como punto de contacto común. La política
+las lista con su nº de colegiada y el domicilio del centro, sin NIF ni contactos
+personales.
 
-Es un desajuste en ambas direcciones: declara de más y de menos.
+**Qué hacer:** firmar entre las cinco un **acuerdo de corresponsabilidad** que
+reparta las obligaciones, reflejarlo en el registro de actividades y confirmar
+con el DPO si deben figurar los NIF (hoy solo consta el de Ana María, en el aviso legal).
 
-**Qué hacer:** decidir primero si habrá analítica (punto 9) y reescribir
-entonces la tabla de `politica-de-cookies/index.html` para que refleje la
-realidad. Si no hay analítica, la tabla se reduce a una sola fila.
+### B6. Revisar el aviso legal
 
----
+**Estado:** `aviso-legal/index.html` se reconstruyó a partir de un PDF cuyo
+texto salía sin tildes ni eñes; se restauraron a mano. Los datos críticos (NIF,
+N.I.C.A. 53610, colegiada AN07176) llegaron intactos.
 
-### 5. Datos personales del equipo en la política de privacidad
-
-**Estado:** el PDF original incluye un bloque con **NIF, teléfonos móviles
-personales y correos privados** de las cinco psicólogas. **No lo he publicado.**
-
-**Motivo:** exponer NIF y móviles particulares en una web abierta es innecesario
-para informar al usuario, es material de scraping, y resulta contradictorio
-dentro de la propia política de privacidad.
-
-**Cómo está resuelto ahora:** la página remite al delegado de protección de
-datos (`dpo@finchasociados.com`) para consultar el registro de actividades.
-
-**Qué hacer:** confirmar con la asesoría. Si insisten en publicarlo íntegro, se
-añade en un minuto.
+**Qué hacer:** que el proveedor de protección de datos lo revise antes de publicar.
 
 ---
 
-### 6. Foto de la sección Metodología
+## 🟡 Aportación del centro — contenido o decisiones
 
-**Estado:** `assets/img/hero/consulta.jpg` es una foto de archivo de manos
-manchadas de pintura, heredada de un taller del blog. No representa al centro.
+### A1. Completar las fichas del equipo
 
-El `alt` ya es honesto («Manos de un grupo de personas unidas, cubiertas de
-pintura de colores»), pero la imagen sigue sin encajar.
-
-**Qué hacer:** enviar una foto propia del interior del centro. Formato
-apaisado, mínimo 1000×600. Si no hay ninguna, mejor retirar la imagen que
-dejar una de archivo.
-
----
-
-### 7. Validar el aviso legal
-
-**Estado:** reconstruido a partir del PDF de `protecciondedatosencadiz.com`,
-cuyas fuentes con codificación personalizada impedían extraer el texto limpio:
-salía completo pero **sin una sola tilde ni ñ**, y con `1»` por `1ª`.
-
-Restauré esos caracteres a mano. En español la restauración es determinista y
-los datos críticos (NIF 77801755T, N.I.C.A. 53610, colegiada AN07176) son ASCII
-y llegaron intactos.
-
-**Qué hacer:** que vuestro proveedor de protección de datos revise
-`aviso-legal/index.html` antes de publicar. Es un documento con efectos
-legales reconstruido por un tercero.
-
-**Nota resuelta:** la aparente contradicción de direcciones no lo era. Avda.
-Eduardo Dato nº 44 es el domicilio de Ana María como responsable del
-tratamiento; Av. Blas Infante, 6 es la consulta. Ambas correctas.
-
----
-
-### 8. Blog y fichas del equipo
-
-**Blog:** desaparecen 3 entradas y 2 categorías. Redirigirlas todas a la
-portada es lo rápido, pero Google trata la redirección masiva a home como
-*soft 404*. Si reciben visitas, compensa recuperarlas.
-
-**Fichas del equipo:** ya existen en `equipo/nombre-apellidos.html`, con
-presentación, formación, experiencia, especialidades, metodología y botón de
-cita. El texto es el «Sobre mí» de la web antigua; lo que no constaba ahí está
-marcado en cada página con un recuadro **«Pendiente de completar»**, que no
-debe llegar a publicarse.
+Las fichas (`equipo/*.html`) muestran recuadros **«Pendiente de completar»**
+que no deben publicarse. Se rellenan editando `tools/generar-fichas.py` y
+ejecutando `python tools/generar-fichas.py`.
 
 | Persona | Falta |
 |---|---|
-| Todas | Foto actualizada (vertical 4:5, mínimo 900×1125 px) |
 | Alicia | Titulación y formación complementaria · trayectoria y años de experiencia · especialidades |
 | Ana | Titulación y centros de formación · trayectoria y años de experiencia |
 | Berta | Titulación y formación complementaria · años de experiencia y centros |
@@ -174,99 +120,91 @@ debe llegar a publicarse.
 
 **Confirmar además:** que siguen vigentes las sesiones de 50 minutos y la
 primera cita gratuita de media hora (Alicia, Berta, Carmen), y si se quieren
-publicar el móvil, email y Doctoralia personales que tenían las fichas antiguas.
+publicar el móvil, email y Doctoralia personales de las fichas antiguas.
+
+**Fotos:** ver issue #4. Formato vertical 4:5, mínimo 900×1125 px.
+
+### A2. Texto de Psico-Oncología
+
+Es la única de las 14 áreas de Tratamientos que conserva el texto antiguo.
+
+### A3. Foto de la sección Metodología
+
+`assets/img/hero/consulta.jpg` es una foto de archivo (manos con pintura) que no
+representa al centro. Sustituir por una foto propia apaisada (mín. 1000×600) o retirarla.
+
+### A4. Política de cookies
+
+Describe las cookies del WordPress (`CookieConsent`, reCAPTCHA, `NID`), que esta
+web **no instala**, y omite lo que sí guarda: la clave `eneidas.consent` en
+`localStorage`. Reescribir la tabla cuando se decida la analítica (M1).
+
+### A5. Blog antiguo
+
+Desaparecen 3 entradas y 2 categorías. Decidir si se recuperan como páginas o
+se redirigen; la redirección masiva a portada cuenta como *soft 404*.
+
+### A6. Sección Colaboradores
+
+Ver issue #3.
 
 ---
 
 ## 🟢 Mejoras
 
-### 9. Analítica
+### M1. Analítica respetando el consentimiento
 
-**Estado:** no hay ninguna instalada. La infraestructura de consentimiento sí
-está lista.
+No hay ninguna. Si se añade, debe cargarse desde
+`window.eneidasConsent.onGranted(…)` (`assets/js/cookies.js`), nunca en el HTML.
+Una opción sin cookies (Plausible, Matomo autoalojado) simplifica el cumplimiento.
 
-**Cómo añadirla correctamente:** el script **no** debe ir en el HTML, porque se
-cargaría antes de que el usuario decida y el aviso de cookies sería decorativo
-—que es exactamente lo que sanciona la AEPD. Debe engancharse a la API:
+### M2. Palabras clave en el `<h1>`
 
-```js
-window.eneidasConsent.onGranted(function () {
-  // cargar aquí el script de analítica
-});
-```
+«Un espacio para cuidar de ti» no incluye «psicología» ni «Sevilla». Decisión de
+marca; una alternativa: «Psicología en Sevilla para cuidar de ti».
 
-Definida en `assets/js/cookies.js`, línea 47.
+### M3. Versionado de CSS y JS
 
-**Sugerencia:** si solo queréis saber cuánta gente visita la web, una
-alternativa sin cookies (Plausible, Matomo autoalojado) evita el banner para
-analítica y simplifica el cumplimiento.
+Quien ya visitó la web puede quedarse con un `main.js` o `style.css` antiguo en
+caché. Añadir un número de versión a las rutas (`main.js?v=2`) al publicar cambios.
 
----
+### M4. Páginas legales como archivos sueltos
 
-### 10. El `<h1>` no contiene palabras clave
+Pasar `aviso-legal/`, `politica-de-privacidad/` y `politica-de-cookies/` a
+archivos `.html` con el menú completo, como las fichas. Permitiría eliminar
+`assets/js/enlaces-locales.js`. `/politica-de-cookies/` necesitaría una 301.
 
-**Estado:** «Un espacio para cuidar de ti». Emocionalmente correcto, pero no
-incluye «psicología» ni «Sevilla».
+### M5. Antispam de segundo nivel
 
-**Contrapeso:** el `<title>` es solo «Centro de Psicología Eneidas», por decisión
-de marca, así que no aporta la palabra clave «Sevilla». El impacto real es moderado.
-
-**Qué hacer:** es una decisión de marca, no técnica. Si preferís priorizar
-posicionamiento sobre tono, algo como «Psicología en Sevilla para cuidar de ti»
-cubre ambas cosas.
+Ya hay trampa, tiempo mínimo y límite por IP. Solo si aun así llega spam:
+siguiente paso, un captcha accesible como último recurso.
 
 ---
 
-### 11. Antispam de segundo nivel
+## 🔵 Verificación
 
-**Estado:** hay una trampa (honeypot) en el formulario, que detiene a la gran
-mayoría de bots.
+### V1. Repaso visual pendiente
 
-**Qué hacer:** solo si al publicar llega spam de todos modos. La siguiente
-medida sin perjudicar la accesibilidad es limitar la frecuencia por IP en el
-servidor; los captchas visuales se dejan como último recurso.
+Revisado en navegador durante el desarrollo: fichas, Equipo, Tratamientos,
+Metodología, FAQ y formulario, en escritorio y a 375 px. **Falta:** aviso de
+cookies (aparece y no vuelve tras decidir), páginas legales en móvil y una
+prueba en un móvil real (táctil).
 
----
+### V2. Safari y Firefox
 
-## 🔵 Verificación pendiente
-
-### 12. Repaso visual completo
-
-**Importante:** todo lo verificado durante el desarrollo ha sido **estático** —
-balanceo de etiquetas, rutas, llaves CSS, sintaxis JS, contraste calculado.
-La web **no se ha revisado renderizada** salvo el menú móvil.
-
-Ya se detectó así un fallo grave: el menú móvil era invisible porque el
-`backdrop-filter` del header convertía el panel `position: fixed` en hijo de una
-caja de 68px. Ese tipo de defecto no lo detecta ningún chequeo estático.
-
-**Qué revisar, con `npx --yes serve . -l 5173`:**
-
-| Zona | Qué comprobar |
-|---|---|
-| Tratamientos | Cambiar de pestaña: el panel debe crecer y encoger con suavidad |
-| FAQ | Abrir preguntas seguidas: cada clic cierra otra |
-| Aviso de cookies | Aparece al primer acceso; «Solo las necesarias» lo cierra y no vuelve |
-| Formulario | Enviar vacío: los errores abren su fila sin dar un tirón |
-| Móvil 375px | Índice de Tratamientos como tira horizontal, menú lateral |
-| Táctil | Los botones deben hundirse al pulsar |
-| Páginas legales | Ficha de datos a una columna; cabecera sin comprimir el rótulo |
-
-### 13. Navegadores
-
-Sin probar en Safari ni Firefox. Los puntos de riesgo son la animación del
-acordeón (Web Animations API, elegida precisamente por compatibilidad) y
-`grid-template-rows` animado en los errores del formulario.
+Sin probar. Puntos de riesgo: animación del acordeón (Web Animations API),
+`grid-template-rows` animado en los errores del formulario y `backdrop-filter`.
 
 ---
 
 ## Resueltos
 
+- Formulario con envío propio (`enviar.php`), campo de psicóloga y consentimiento explícito
+- Fichas individuales del equipo y sección Equipo renovada
+- Textos nuevos de Tratamientos (14 áreas), Metodología (4 enfoques) y FAQ (10 preguntas)
 - Dirección, teléfono y perfiles de Facebook e Instagram
 - Aviso legal, política de privacidad y política de cookies publicadas
 - Tipografía autoalojada: cero peticiones a terceros
-- Logotipo real recortado, con transparencia y favicon multiformato
-- Tarjeta de compartición 1200×630
-- Datos estructurados con `MedicalBusiness` y `FAQPage`
+- Logotipo real, favicon multiformato y tarjeta de compartición 1200×630
+- Datos estructurados `MedicalBusiness`, `FAQPage` y `Person`
 - Menú móvil
-- Afirmación de «terapia online» retirada del hero por no estar respaldada

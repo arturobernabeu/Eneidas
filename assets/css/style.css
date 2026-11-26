@@ -1153,7 +1153,10 @@ button { font: inherit; color: inherit; }
 .field.has-error .field__error { grid-template-rows: 1fr; opacity: 1; }
 
 .field--check { gap: .5rem; }
-.check {
+/* .field label pone las etiquetas en versalitas; la casilla es una frase y
+   necesita más especificidad para volver a texto normal. */
+.check,
+.field label.check {
   display: flex;
   align-items: flex-start;
   gap: .65rem;
@@ -1183,6 +1186,32 @@ button { font: inherit; color: inherit; }
   margin: 0;
 }
 .form__note strong { color: var(--ink-800); font-weight: 600; }
+.form__note a { color: var(--brand-700); text-decoration: underline; text-underline-offset: 2px; }
+
+/* Información básica de protección de datos, plegada */
+.form__legal summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--brand-700);
+  cursor: pointer;
+  list-style: none;
+}
+.form__legal summary::-webkit-details-marker { display: none; }
+.form__legal summary::before {
+  content: "";
+  width: .45em;
+  height: .45em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--t-fast);
+}
+.form__legal[open] summary::before { transform: rotate(45deg); }
+.form__legal summary:hover { color: var(--ink-800); }
+.form__legal .form__note { margin-top: .6rem; }
 
 .form__ok {
   margin: 0;
