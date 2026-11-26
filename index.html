@@ -62,10 +62,10 @@
       "areaServed": { "@type": "City", "name": "Sevilla" },
       "knowsAbout": [
         "Ansiedad", "Depresión", "Dependencia emocional", "Autoestima e inseguridad",
-        "Duelo", "Ira y falta de control de impulsos",
-        "Hipocondría y trastornos psicosomáticos", "Pensamientos obsesivos",
-        "Falta de habilidades sociales", "Adicciones", "Trastornos de personalidad",
-        "Mindfulness", "Psico-Oncología"
+        "Duelo", "Ira y dificultades en el control de impulsos",
+        "Hipocondría (ansiedad por la salud) y síntomas psicosomáticos", "Pensamientos obsesivos",
+        "Habilidades sociales y dificultades en las relaciones personales", "Adicciones", "Trastornos de personalidad",
+        "Mindfulness (atención plena)", "Psico-Oncología", "Trauma psicológico y terapia EMDR"
       ],
       "availableService": [
         { "@type": "MedicalTherapy", "name": "Terapia individual", "description": "Adultos y adolescentes." },
@@ -168,7 +168,7 @@
       </div>
       <ul class="hero__facts reveal">
         <li><strong>5</strong><span>psicólogas colegiadas</span></li>
-        <li><strong>13</strong><span>áreas de tratamiento</span></li>
+        <li><strong>14</strong><span>áreas de tratamiento</span></li>
         <li><strong>3</strong><span>enfoques terapéuticos</span></li>
       </ul>
     </div>
@@ -240,129 +240,270 @@
     </header>
     <div class="treat reveal">
       <div class="treat__index" role="tablist" aria-label="Áreas de tratamiento" aria-orientation="vertical">
-        <button class="treat__tab is-active" role="tab" id="t-ansiedad" aria-controls="p-ansiedad" aria-selected="true" tabindex="0">Ansiedad<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-depresion" aria-controls="p-depresion" aria-selected="false" tabindex="-1">Depresión<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-dependencia" aria-controls="p-dependencia" aria-selected="false" tabindex="-1">Dependencia emocional<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab is-active" role="tab" id="t-adicciones" aria-controls="p-adicciones" aria-selected="true" tabindex="0">Adicciones<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-ansiedad" aria-controls="p-ansiedad" aria-selected="false" tabindex="-1">Ansiedad<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         <button class="treat__tab" role="tab" id="t-autoestima" aria-controls="p-autoestima" aria-selected="false" tabindex="-1">Autoestima e inseguridad<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-dependencia" aria-controls="p-dependencia" aria-selected="false" tabindex="-1">Dependencia emocional<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-depresion" aria-controls="p-depresion" aria-selected="false" tabindex="-1">Depresión<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         <button class="treat__tab" role="tab" id="t-duelo" aria-controls="p-duelo" aria-selected="false" tabindex="-1">Duelo<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-ira" aria-controls="p-ira" aria-selected="false" tabindex="-1">Ira y control de impulsos<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-psicosomatico" aria-controls="p-psicosomatico" aria-selected="false" tabindex="-1">Hipocondría y psicosomáticos<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-obsesivos" aria-controls="p-obsesivos" aria-selected="false" tabindex="-1">Pensamientos obsesivos<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         <button class="treat__tab" role="tab" id="t-sociales" aria-controls="p-sociales" aria-selected="false" tabindex="-1">Habilidades sociales<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-adicciones" aria-controls="p-adicciones" aria-selected="false" tabindex="-1">Adicciones<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-        <button class="treat__tab" role="tab" id="t-personalidad" aria-controls="p-personalidad" aria-selected="false" tabindex="-1">Trastornos de personalidad<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-psicosomatico" aria-controls="p-psicosomatico" aria-selected="false" tabindex="-1">Hipocondría y psicosomáticos<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-ira" aria-controls="p-ira" aria-selected="false" tabindex="-1">Ira y control de impulsos<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         <button class="treat__tab" role="tab" id="t-mindfulness" aria-controls="p-mindfulness" aria-selected="false" tabindex="-1">Mindfulness<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-obsesivos" aria-controls="p-obsesivos" aria-selected="false" tabindex="-1">Pensamientos obsesivos<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         <button class="treat__tab" role="tab" id="t-oncologia" aria-controls="p-oncologia" aria-selected="false" tabindex="-1">Psico-Oncología<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-personalidad" aria-controls="p-personalidad" aria-selected="false" tabindex="-1">Trastornos de personalidad<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+        <button class="treat__tab" role="tab" id="t-trauma" aria-controls="p-trauma" aria-selected="false" tabindex="-1">Trauma<svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
       </div>
       <div class="treat__stage">
-        <article class="treat__panel" role="tabpanel" id="p-ansiedad" aria-labelledby="t-ansiedad" tabindex="0">
+        <article class="treat__panel" role="tabpanel" id="p-adicciones" aria-labelledby="t-adicciones" tabindex="0">
+          <h3 class="treat__title">Adicciones</h3>
+          <p class="treat__text">Las <strong>adicciones</strong> se caracterizan por la dificultad para controlar el consumo de determinadas sustancias o la realización de ciertas conductas, a pesar de las consecuencias negativas que pueden generar en la vida de la persona.</p>
+          <p class="treat__text">Aunque inicialmente el consumo o la conducta pueden estar relacionados con la búsqueda de placer, la curiosidad o el alivio del malestar emocional, con el tiempo pueden desarrollarse patrones problemáticos que afectan al bienestar psicológico, las relaciones personales, la salud y las actividades cotidianas.</p>
+          <p class="treat__text">Las <strong>adicciones</strong> son problemas complejos en los que intervienen factores psicológicos, biológicos y sociales. Su desarrollo no depende únicamente de la fuerza de voluntad, y pueden requerir una intervención profesional especializada.</p>
+          <p class="treat__label">Tipos de adicciones</p>
+          <ul class="treat__signs">
+            <li><strong>Adicciones a sustancias:</strong> relacionadas con el consumo problemático de alcohol, cannabis, cocaína, tabaco y otras sustancias.</li>
+            <li><strong>Adicciones comportamentales:</strong> relacionadas con determinadas conductas, como el juego patológico. También pueden aparecer patrones problemáticos de uso de videojuegos, compras, internet o dispositivos móviles, aunque no todos constituyen trastornos adictivos reconocidos.</li>
+          </ul>
+          <p class="treat__label">Señales de una posible adicción</p>
+          <ul class="treat__signs">
+            <li>Dificultad para controlar o reducir el consumo o la conducta.</li>
+            <li>Necesidad creciente de consumir o repetir determinados comportamientos.</li>
+            <li>Deseo intenso o preocupación frecuente por el consumo o la actividad.</li>
+            <li>Intentos repetidos y sin éxito de abandonar o limitar la conducta.</li>
+            <li>Abandono progresivo de responsabilidades, actividades o relaciones personales.</li>
+            <li>Continuación del consumo o comportamiento a pesar de sus consecuencias negativas.</li>
+            <li>Irritabilidad, ansiedad o malestar cuando no se puede consumir o realizar la actividad.</li>
+            <li>Utilización del consumo o de determinadas conductas para aliviar emociones desagradables.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> abordamos las conductas adictivas desde una perspectiva integradora, realizando una valoración individualizada de cada caso y trabajando los factores emocionales, cognitivos y conductuales que contribuyen al desarrollo y mantenimiento del problema. La intervención psicológica se orienta a mejorar el autocontrol, desarrollar estrategias para afrontar situaciones de riesgo, prevenir recaídas y favorecer la recuperación del bienestar personal.</p>
+          <p class="treat__note">En aquellos casos en los que la gravedad de la <strong>adicción</strong> requiere una atención más intensiva o especializada, orientamos a la persona hacia los recursos asistenciales más adecuados.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-ansiedad" aria-labelledby="t-ansiedad" tabindex="0" hidden>
           <h3 class="treat__title">Ansiedad</h3>
-          <p class="treat__text">La ansiedad es una emoción que todo el mundo experimenta ante la incertidumbre o la amenaza: es adaptativa y necesaria. El problema aparece cuando se vuelve demasiado intensa y frecuente y, lejos de ayudarte a adaptarte, te bloquea.</p>
-          <p class="treat__label">Señales frecuentes</p>
+          <p class="treat__text">La <strong>ansiedad</strong> es una respuesta natural de nuestro organismo ante situaciones que percibimos como amenazantes, estresantes o inciertas. En determinadas circunstancias, nos ayuda a mantenernos alerta y prepararnos para afrontar las dificultades.</p>
+          <p class="treat__text">Sin embargo, cuando la <strong>ansiedad</strong> es demasiado intensa, aparece con frecuencia o se mantiene en el tiempo, puede generar un malestar significativo e interferir en nuestra vida cotidiana, afectando al bienestar emocional, las relaciones personales y el desempeño de nuestras actividades habituales.</p>
+          <p class="treat__label">Síntomas de la ansiedad</p>
           <ul class="treat__signs">
-            <li>Preocupación constante e irritabilidad</li>
-            <li>Dificultad para concentrarte y conciliar el sueño</li>
-            <li>Tensión muscular, temblores o mareos</li>
-            <li>Pulsaciones elevadas y sudoración excesiva</li>
+            <li><strong>Síntomas psicológicos:</strong> preocupación excesiva o constante, sensación de nerviosismo o inquietud, dificultad para concentrarse, irritabilidad, miedo a perder el control y problemas para conciliar o mantener el sueño.</li>
+            <li><strong>Síntomas físicos:</strong> palpitaciones, sudoración, tensión muscular, temblores, mareos, molestias digestivas, sensación de falta de aire y respiración acelerada.</li>
           </ul>
-          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-        </article>
-        <article class="treat__panel" role="tabpanel" id="p-depresion" aria-labelledby="t-depresion" tabindex="0" hidden>
-          <h3 class="treat__title">Depresión</h3>
-          <p class="treat__text">Todo el mundo se siente decaído de vez en cuando y esos sentimientos suelen desaparecer en poco tiempo. La depresión es un trastorno del estado de ánimo cuyos síntomas persisten la mayor parte del día, casi todos los días, durante al menos dos semanas.</p>
-          <p class="treat__label">Señales frecuentes</p>
-          <ul class="treat__signs">
-            <li>Tristeza, ansiedad o sensación de vacío persistentes</li>
-            <li>Pérdida de interés o placer en lo que antes disfrutabas</li>
-            <li>Falta de energía y dificultad para concentrarte o decidir</li>
-            <li>Cambios en el sueño, el apetito o el peso</li>
-          </ul>
-          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-        </article>
-        <article class="treat__panel" role="tabpanel" id="p-dependencia" aria-labelledby="t-dependencia" tabindex="0" hidden>
-          <h3 class="treat__title">Dependencia emocional</h3>
-          <p class="treat__text">Un estado prolongado en el que la persona permanece en una situación de filiación extrema hacia su pareja por una gran necesidad de mantener el vínculo. Suele tener su origen en carencias afectivas: el saco del afecto parece tener un agujero y no termina nunca de llenarse.</p>
-          <p class="treat__label">Señales frecuentes</p>
-          <ul class="treat__signs">
-            <li>Sensación constante de necesitar a la otra persona</li>
-            <li>Miedo a estar solo o sola</li>
-            <li>Baja autoestima y sentimiento de inferioridad</li>
-            <li>Creencia irracional de no merecer nada mejor</li>
-          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> ofrecemos un tratamiento psicológico adaptado a las necesidades de cada persona, orientado a comprender qué está provocando y manteniendo la <strong>ansiedad</strong>, aprender estrategias para manejarla y recuperar progresivamente el bienestar y la calidad de vida.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
         <article class="treat__panel" role="tabpanel" id="p-autoestima" aria-labelledby="t-autoestima" tabindex="0" hidden>
           <h3 class="treat__title">Autoestima e inseguridad</h3>
-          <p class="treat__text">La autoestima es la percepción que tenemos de nosotros mismos a través de nuestros juicios de valor, emociones, pensamientos y tendencias de conducta. Una autoestima baja puede manifestarse de formas muy distintas.</p>
-          <p class="treat__label">Señales frecuentes</p>
+          <p class="treat__text">La <strong>autoestima</strong> es la valoración que hacemos de nosotros mismos y está relacionada con la forma en que nos percibimos, reconocemos nuestras capacidades y afrontamos nuestras dificultades. Una <strong>autoestima</strong> saludable nos permite aceptar nuestras fortalezas y limitaciones, confiar en nuestras capacidades y relacionarnos con los demás de manera más segura.</p>
+          <p class="treat__text">Cuando existen dificultades de <strong>autoestima</strong>, pueden aparecer sentimientos de <strong>inseguridad</strong>, dudas constantes sobre las propias capacidades, miedo al rechazo y una necesidad excesiva de aprobación por parte de los demás. Estas dificultades pueden afectar al bienestar emocional, las relaciones personales y la toma de decisiones.</p>
+          <p class="treat__label">Señales de baja autoestima e inseguridad</p>
           <ul class="treat__signs">
-            <li>Inseguridad y negatividad</li>
-            <li>Excesiva autoexigencia</li>
-            <li>Falta de autocontrol</li>
+            <li>Falta de confianza en uno mismo y en las propias capacidades.</li>
+            <li>Autocrítica excesiva y tendencia a centrarse en los errores.</li>
+            <li>Dificultad para reconocer los propios logros y cualidades.</li>
+            <li>Miedo al fracaso, al rechazo o a la valoración negativa de los demás.</li>
+            <li>Necesidad constante de aprobación y reconocimiento externo.</li>
+            <li>Dificultad para tomar decisiones y expresar opiniones.</li>
+            <li>Excesiva autoexigencia y perfeccionismo.</li>
+            <li>Tendencia a compararse negativamente con otras personas.</li>
+            <li>Dificultad para establecer límites y defender las propias necesidades.</li>
           </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> trabajamos las dificultades de <strong>autoestima e inseguridad</strong> desde un enfoque psicológico integrador, ayudando a identificar y modificar las creencias negativas sobre uno mismo, desarrollar una mayor confianza personal y aprender a relacionarse de forma más saludable con los demás. El objetivo es favorecer una <strong>autoestima</strong> más equilibrada, fortalecer la autonomía personal y mejorar el bienestar emocional.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-dependencia" aria-labelledby="t-dependencia" tabindex="0" hidden>
+          <h3 class="treat__title">Dependencia emocional</h3>
+          <p class="treat__text">La <strong>dependencia emocional</strong> se caracteriza por una necesidad excesiva de afecto, aprobación y seguridad en las relaciones personales, especialmente en las relaciones de pareja. Esta necesidad puede llevar a la persona a experimentar un miedo intenso a la pérdida de la relación, anteponer constantemente las necesidades de su pareja a las propias y tener dificultades para establecer límites saludables.</p>
+          <p class="treat__text">Aunque todos necesitamos afecto y conexión emocional, la <strong>dependencia</strong> se convierte en un problema cuando el bienestar personal depende en gran medida de la otra persona, generando inseguridad, sufrimiento emocional y dificultades para mantener relaciones equilibradas.</p>
+          <p class="treat__label">Señales de dependencia emocional</p>
+          <ul class="treat__signs">
+            <li>Miedo intenso a la soledad, al abandono o a la ruptura de la relación.</li>
+            <li>Necesidad constante de afecto, atención y aprobación de la pareja.</li>
+            <li>Baja autoestima e inseguridad personal.</li>
+            <li>Dificultad para tomar decisiones sin la aprobación de la otra persona.</li>
+            <li>Tendencia a anteponer las necesidades de la pareja a las propias.</li>
+            <li>Dificultad para establecer límites o expresar desacuerdos.</li>
+            <li>Sentimientos de culpa al priorizar las propias necesidades.</li>
+            <li>Tendencia a mantener relaciones insatisfactorias por miedo a la separación.</li>
+            <li>Abandono progresivo de intereses personales y relaciones sociales.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> abordamos la <strong>dependencia emocional</strong> desde una perspectiva integradora, trabajando la autoestima, la autonomía personal, los patrones de relación y las dificultades emocionales que pueden estar manteniendo esta <strong>dependencia</strong>. El objetivo es favorecer relaciones afectivas más saludables y equilibradas, basadas en la confianza, el respeto y el bienestar personal.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-depresion" aria-labelledby="t-depresion" tabindex="0" hidden>
+          <h3 class="treat__title">Depresión</h3>
+          <p class="treat__text">Sentirse triste, desanimado o sin energía en determinados momentos de la vida es algo habitual. Sin embargo, cuando estas sensaciones se mantienen en el tiempo, se intensifican y comienzan a afectar a nuestra vida cotidiana, pueden estar relacionadas con un problema de <strong>depresión</strong>.</p>
+          <p class="treat__text">La <strong>depresión</strong> es un trastorno del estado de ánimo que puede afectar a nuestra forma de sentir, pensar y actuar, dificultando las relaciones personales, el trabajo y las actividades diarias. No se trata simplemente de estar triste, sino de un problema de salud mental que puede generar un malestar significativo y que requiere una adecuada valoración profesional.</p>
+          <p class="treat__label">Síntomas de la depresión</p>
+          <ul class="treat__signs">
+            <li><strong>Síntomas emocionales:</strong> tristeza persistente, sensación de vacío, desesperanza, irritabilidad y sentimientos de culpa o inutilidad.</li>
+            <li><strong>Síntomas cognitivos:</strong> pensamientos negativos sobre uno mismo o el futuro, dificultades para concentrarse, recordar información o tomar decisiones.</li>
+            <li><strong>Síntomas físicos:</strong> cansancio, falta de energía, alteraciones del sueño y cambios en el apetito o el peso.</li>
+            <li><strong>Síntomas conductuales:</strong> pérdida de interés o placer por actividades que antes resultaban gratificantes, aislamiento social y disminución de la actividad cotidiana.</li>
+          </ul>
+          <p class="treat__text">En los casos de mayor gravedad, también pueden aparecer pensamientos relacionados con la muerte o el suicidio.</p>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> ofrecemos un tratamiento psicológico individualizado, orientado a comprender los factores que están influyendo en el estado de ánimo, modificar los patrones de pensamiento y comportamiento que mantienen el malestar y favorecer la recuperación del bienestar emocional y la calidad de vida.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
         <article class="treat__panel" role="tabpanel" id="p-duelo" aria-labelledby="t-duelo" tabindex="0" hidden>
           <h3 class="treat__title">Duelo</h3>
-          <p class="treat__text">Sobrellevar una pérdida puede ser uno de los mayores retos a los que nos enfrentamos. Aunque veamos la pérdida como una parte natural de la vida, el golpe y la confusión pueden dar lugar a largos periodos de tristeza.</p>
-          <p class="treat__label">El duelo puede aparecer ante</p>
+          <p class="treat__text">El <strong>duelo</strong> es un proceso natural de adaptación emocional que experimentamos ante la pérdida de una persona querida o de algo significativo en nuestra vida. Aunque habitualmente lo asociamos al fallecimiento de un ser querido, también puede aparecer ante una ruptura de pareja, la pérdida de un trabajo, cambios importantes en nuestra salud u otras situaciones que suponen una transformación significativa en nuestra vida.</p>
+          <p class="treat__text">Cada persona vive el <strong>duelo</strong> de manera diferente, dependiendo de sus circunstancias, del vínculo con aquello que ha perdido y de sus recursos personales. No existe una única forma de afrontarlo ni un tiempo determinado para superarlo.</p>
+          <p class="treat__label">Manifestaciones habituales del duelo</p>
           <ul class="treat__signs">
-            <li>La muerte de un ser querido</li>
-            <li>Una ruptura o un cambio en una relación, incluidas las amistades</li>
-            <li>Cambios en tu salud o en la de alguien cercano</li>
-            <li>La pérdida de un trabajo o un cambio de estilo de vida</li>
+            <li>Sentimientos de tristeza, vacío, soledad o añoranza.</li>
+            <li>Dificultad para aceptar o asimilar la pérdida.</li>
+            <li>Sentimientos de culpa, enfado o impotencia.</li>
+            <li>Ansiedad, incertidumbre o miedo ante el futuro.</li>
+            <li>Dificultades para concentrarse o tomar decisiones.</li>
+            <li>Alteraciones del sueño, del apetito o de los niveles de energía.</li>
+            <li>Pérdida de interés por actividades cotidianas.</li>
+            <li>Sensación de desorientación o dificultad para adaptarse a la nueva situación.</li>
           </ul>
+          <p class="treat__text">Aunque el <strong>duelo</strong> es una respuesta natural y no constituye por sí mismo un trastorno psicológico, en ocasiones el sufrimiento puede resultar especialmente intenso, prolongarse en el tiempo o dificultar significativamente la vida cotidiana.</p>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> ofrecemos acompañamiento psicológico durante los procesos de <strong>duelo</strong>, proporcionando un espacio seguro en el que expresar y comprender las emociones asociadas a la pérdida. Nuestro objetivo es ayudar a la persona a elaborar lo ocurrido, adaptarse a los cambios y recuperar progresivamente su bienestar emocional, integrando la pérdida en su historia personal sin necesidad de olvidar aquello que ha sido importante en su vida.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
-        <article class="treat__panel" role="tabpanel" id="p-ira" aria-labelledby="t-ira" tabindex="0" hidden>
-          <h3 class="treat__title">Ira y falta de control de impulsos</h3>
-          <p class="treat__text">Cuando cuesta controlar las emociones y el comportamiento aparece la tendencia a actuar demasiado rápido, de forma irreflexiva, sin poder frenar una vez que la acción se ha puesto en marcha. Aprender a manejar la ira permite afrontar las situaciones de una forma controlada.</p>
-          <p class="treat__label">Señales frecuentes</p>
+        <article class="treat__panel" role="tabpanel" id="p-sociales" aria-labelledby="t-sociales" tabindex="0" hidden>
+          <h3 class="treat__title">Habilidades sociales y dificultades en las relaciones personales</h3>
+          <p class="treat__text">Las <strong>habilidades sociales</strong> son un conjunto de capacidades que nos permiten relacionarnos con los demás, expresar nuestras emociones, opiniones y necesidades, establecer límites y afrontar diferentes situaciones sociales de manera adecuada.</p>
+          <p class="treat__text">Aunque relacionarnos con otras personas forma parte de nuestra vida cotidiana, no siempre resulta sencillo. En ocasiones, la inseguridad, el miedo al rechazo, las dificultades para comunicarnos o la falta de determinadas habilidades pueden generar malestar y afectar a nuestras relaciones personales, familiares, sociales o laborales.</p>
+          <p class="treat__text">Las <strong>habilidades sociales</strong> pueden aprenderse y desarrollarse a lo largo de la vida, favoreciendo una comunicación más segura, una mayor confianza personal y relaciones más satisfactorias.</p>
+          <p class="treat__label">Manifestaciones habituales de las dificultades en habilidades sociales</p>
           <ul class="treat__signs">
-            <li>Dificultad para resistir una tentación, impulso o deseo</li>
-            <li>Reacciones rápidas y desproporcionadas</li>
-            <li>Incapacidad de frenar la reacción una vez iniciada</li>
+            <li>Dificultad para iniciar o mantener conversaciones y relaciones sociales.</li>
+            <li>Inseguridad o incomodidad en determinadas situaciones sociales.</li>
+            <li>Miedo al rechazo, a las críticas o a la valoración negativa de los demás.</li>
+            <li>Dificultad para expresar opiniones, sentimientos o necesidades.</li>
+            <li>Problemas para establecer límites y decir «no» sin experimentar culpa.</li>
+            <li>Tendencia a evitar conflictos o dificultad para afrontar desacuerdos.</li>
+            <li>Dificultad para realizar o recibir críticas de manera constructiva.</li>
+            <li>Problemas para comunicarse de forma asertiva.</li>
+            <li>Evitación de determinadas situaciones sociales por inseguridad o temor.</li>
           </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> trabajamos el desarrollo de las <strong>habilidades sociales</strong> desde un enfoque psicológico integrador, ayudando a identificar las dificultades que interfieren en las relaciones personales y a desarrollar estrategias de comunicación, asertividad y resolución de conflictos. El objetivo es favorecer una mayor seguridad y confianza en las interacciones sociales, mejorar la capacidad para expresar las propias necesidades y construir relaciones más saludables y satisfactorias.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
         <article class="treat__panel" role="tabpanel" id="p-psicosomatico" aria-labelledby="t-psicosomatico" tabindex="0" hidden>
-          <h3 class="treat__title">Hipocondría y trastornos psicosomáticos</h3>
-          <p class="treat__text">La medicina psicosomática relaciona los malestares físicos con los conflictos emocionales. La separación entre cuerpo y mente es artificial: el sistema nervioso controla el funcionamiento del resto de sistemas, así que si está alterado generará inevitablemente síntomas físicos.</p>
+          <h3 class="treat__title">Hipocondría (ansiedad por la salud) y síntomas psicosomáticos</h3>
+          <p class="treat__text">La <strong>hipocondría</strong>, también conocida como <strong>ansiedad por la salud</strong>, se caracteriza por una preocupación excesiva y persistente por padecer o desarrollar una enfermedad grave. Esta preocupación puede mantenerse incluso cuando las exploraciones médicas no muestran alteraciones que la justifiquen, generando un malestar emocional significativo que afecta a la vida cotidiana.</p>
+          <p class="treat__text">Por otro lado, los <strong>síntomas psicosomáticos</strong> reflejan la estrecha relación que existe entre nuestro bienestar psicológico y físico. El estrés, la ansiedad y otras dificultades emocionales pueden influir en la aparición, intensidad o mantenimiento de determinadas molestias físicas, como dolores musculares, problemas digestivos, cefaleas o sensación de fatiga.</p>
+          <p class="treat__text">Estas molestias son reales y pueden generar un sufrimiento significativo, aunque los factores psicológicos contribuyan a su aparición o mantenimiento.</p>
+          <p class="treat__label">Manifestaciones habituales</p>
+          <ul class="treat__signs">
+            <li>Preocupación constante por padecer una enfermedad grave.</li>
+            <li>Interpretación de sensaciones corporales habituales como señales de una enfermedad.</li>
+            <li>Necesidad frecuente de comprobar el estado de salud o buscar información médica.</li>
+            <li>Búsqueda reiterada de tranquilidad mediante consultas médicas o pruebas diagnósticas.</li>
+            <li>Dificultad para sentirse tranquilo a pesar de recibir resultados médicos favorables.</li>
+            <li>Miedo intenso ante determinadas sensaciones o cambios corporales.</li>
+            <li>Molestias físicas que pueden intensificarse en situaciones de estrés o ansiedad.</li>
+            <li>Dificultad para concentrarse en otras actividades debido a las preocupaciones relacionadas con la salud.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> abordamos estas dificultades desde una perspectiva integradora, ayudando a comprender la relación entre los pensamientos, las emociones y las sensaciones físicas. La intervención psicológica se orienta a reducir la preocupación excesiva por la salud, modificar los patrones de interpretación y comprobación que mantienen la ansiedad y desarrollar estrategias para gestionar el malestar emocional y físico, favoreciendo una mejor calidad de vida.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-ira" aria-labelledby="t-ira" tabindex="0" hidden>
+          <h3 class="treat__title">Ira y dificultades en el control de impulsos</h3>
+          <p class="treat__text">La <strong>ira</strong> es una emoción natural que aparece cuando percibimos situaciones de injusticia, frustración, amenaza o cuando sentimos que nuestras necesidades no están siendo respetadas. Al igual que otras emociones, cumple una función adaptativa y no constituye un problema en sí misma.</p>
+          <p class="treat__text">Sin embargo, cuando la <strong>ira</strong> se experimenta de forma muy intensa o frecuente, o existen dificultades para regular las reacciones que provoca, puede generar malestar emocional, conflictos en las relaciones personales y consecuencias negativas en diferentes ámbitos de la vida.</p>
+          <p class="treat__text">Las dificultades en el <strong>control de impulsos</strong> pueden llevar a actuar de manera precipitada, sin valorar suficientemente las consecuencias de nuestras acciones, especialmente en situaciones de elevada intensidad emocional.</p>
+          <p class="treat__label">Manifestaciones habituales</p>
+          <ul class="treat__signs">
+            <li>Reacciones de enfado intensas o desproporcionadas ante determinadas situaciones.</li>
+            <li>Dificultad para manejar la frustración y los desacuerdos.</li>
+            <li>Irritabilidad frecuente y sensación de estar constantemente a la defensiva.</li>
+            <li>Respuestas impulsivas, como gritar, discutir o actuar sin pensar en las consecuencias.</li>
+            <li>Dificultad para detenerse y reflexionar antes de reaccionar.</li>
+            <li>Conflictos frecuentes en las relaciones personales, familiares o laborales.</li>
+            <li>Sentimientos de culpa o arrepentimiento después de determinadas reacciones.</li>
+            <li>Sensación de pérdida de control ante emociones intensas.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> trabajamos las dificultades relacionadas con la <strong>ira</strong> y el <strong>control de impulsos</strong> desde un enfoque psicológico integrador, ayudando a identificar las situaciones y los factores que desencadenan y mantienen estas respuestas, desarrollar estrategias de regulación emocional y mejorar la capacidad para afrontar los conflictos de manera más reflexiva y adaptativa. El objetivo no es eliminar la <strong>ira</strong>, sino aprender a gestionarla y expresar las emociones de una forma saludable, favoreciendo el autocontrol y las relaciones personales.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-mindfulness" aria-labelledby="t-mindfulness" tabindex="0" hidden>
+          <h3 class="treat__title">Mindfulness (atención plena)</h3>
+          <p class="treat__text">El <strong>mindfulness</strong>, también conocido como <strong>atención plena</strong>, es una práctica que consiste en prestar atención de manera consciente al momento presente, observando nuestros pensamientos, emociones y sensaciones físicas con una actitud de apertura y sin juzgarlos.</p>
+          <p class="treat__text">En nuestra vida cotidiana es habitual que nuestra atención se centre en preocupaciones sobre el futuro, experiencias del pasado o pensamientos que aparecen de manera automática. La práctica del <strong>mindfulness</strong> nos ayuda a tomar conciencia de estos procesos y a relacionarnos con nuestras experiencias de una forma más flexible y equilibrada.</p>
+          <p class="treat__text">Lejos de intentar dejar la mente en blanco o eliminar las emociones desagradables, el <strong>mindfulness</strong> nos enseña a reconocer lo que estamos experimentando, favoreciendo una mayor conciencia emocional y una respuesta más consciente ante las dificultades.</p>
+          <p class="treat__label">Beneficios de la práctica del mindfulness</p>
+          <ul class="treat__signs">
+            <li>Favorecer la atención y la concentración en el momento presente.</li>
+            <li>Desarrollar estrategias para gestionar el estrés y la ansiedad.</li>
+            <li>Mejorar la capacidad para reconocer y regular las emociones.</li>
+            <li>Reducir la tendencia a quedar atrapados en preocupaciones y pensamientos repetitivos.</li>
+            <li>Favorecer una actitud de mayor aceptación y menor autocrítica.</li>
+            <li>Desarrollar una mayor conciencia de las sensaciones corporales y las necesidades personales.</li>
+            <li>Aprender a responder de manera más reflexiva ante situaciones difíciles.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> incorporamos técnicas de <strong>mindfulness</strong> dentro de un enfoque terapéutico integrador, cuando resultan adecuadas para las necesidades de cada persona. Su práctica puede complementar el tratamiento de diferentes dificultades emocionales, ayudando a desarrollar una mayor conciencia de los pensamientos y emociones, mejorar la regulación emocional y favorecer el bienestar psicológico.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
         <article class="treat__panel" role="tabpanel" id="p-obsesivos" aria-labelledby="t-obsesivos" tabindex="0" hidden>
           <h3 class="treat__title">Pensamientos obsesivos</h3>
-          <p class="treat__text">Todos hemos tenido en algún momento una preocupación excesiva por un pensamiento que no hemos podido dejar de atender. Acude a la mente de manera inesperada, la invade, lo vivimos como negativo y perturbador y no encontramos las herramientas para desecharlo.</p>
-          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-        </article>
-        <article class="treat__panel" role="tabpanel" id="p-sociales" aria-labelledby="t-sociales" tabindex="0" hidden>
-          <h3 class="treat__title">Falta de habilidades sociales</h3>
-          <p class="treat__text">Somos seres sociales por naturaleza y necesitamos, en mayor o menor medida, de las interacciones con otras personas. El contacto humano es preciso para vincularnos afectivamente y, desde que nacemos, esa necesidad es una de las más importantes a cubrir.</p>
-          <p class="treat__label">Señales frecuentes</p>
+          <p class="treat__text">Los <strong>pensamientos obsesivos</strong> son ideas, imágenes o impulsos mentales que aparecen de forma repetitiva e involuntaria y que pueden generar ansiedad, miedo o un malestar emocional significativo. En muchas ocasiones, la persona los experimenta como pensamientos no deseados, difíciles de controlar y contrarios a sus propios valores o deseos.</p>
+          <p class="treat__text">Aunque todos podemos experimentar pensamientos intrusivos en determinados momentos, estos pueden convertirse en un problema cuando aparecen con frecuencia, generan un malestar intenso o interfieren en nuestra vida cotidiana.</p>
+          <p class="treat__text">En ocasiones, la persona intenta neutralizarlos mediante comprobaciones, búsqueda constante de seguridad, repetición de determinadas conductas o esfuerzos por evitar aquello que le genera ansiedad. Estas estrategias pueden proporcionar un alivio momentáneo, pero también contribuir a mantener el problema.</p>
+          <p class="treat__label">Manifestaciones habituales</p>
           <ul class="treat__signs">
-            <li>Fobia social y timidez patológica</li>
-            <li>Dificultad para iniciar o sostener una conversación</li>
+            <li>Aparición recurrente de pensamientos, imágenes o impulsos no deseados.</li>
+            <li>Dificultad para dejar de prestar atención a determinados pensamientos.</li>
+            <li>Preocupación excesiva por la posibilidad de que ocurra algo negativo.</li>
+            <li>Necesidad constante de analizar, comprobar o buscar seguridad.</li>
+            <li>Dudas persistentes y dificultad para tolerar la incertidumbre.</li>
+            <li>Miedo a perder el control o a actuar de manera contraria a los propios valores.</li>
+            <li>Intentos frecuentes de evitar, controlar o neutralizar determinados pensamientos.</li>
+            <li>Ansiedad, culpa o malestar emocional asociados a su aparición.</li>
+            <li>Dificultades para concentrarse o realizar actividades cotidianas debido a estas preocupaciones.</li>
           </ul>
-          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-        </article>
-        <article class="treat__panel" role="tabpanel" id="p-adicciones" aria-labelledby="t-adicciones" tabindex="0" hidden>
-          <h3 class="treat__title">Adicciones</h3>
-          <p class="treat__text">La conducta adictiva empieza siendo un comportamiento controlado y placentero, en el que la persona elige cómo, cuánto y cuándo. Con el tiempo el organismo desarrolla tolerancia y hay que elevar la dosis o la frecuencia para conseguir los mismos efectos.</p>
-          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-        </article>
-        <article class="treat__panel" role="tabpanel" id="p-personalidad" aria-labelledby="t-personalidad" tabindex="0" hidden>
-          <h3 class="treat__title">Trastornos de personalidad</h3>
-          <p class="treat__text">La personalidad es el patrón complejo de características psicológicas que nos define: con ella damos significado al entorno, construimos nuestra imagen e interactuamos. En un trastorno de personalidad ese patrón se vuelve inflexible y distorsionado, y surgen conflictos en lo laboral, familiar y social.</p>
-          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-        </article>
-        <article class="treat__panel" role="tabpanel" id="p-mindfulness" aria-labelledby="t-mindfulness" tabindex="0" hidden>
-          <h3 class="treat__title">Mindfulness</h3>
-          <p class="treat__text">¿Has vivido realmente el día de hoy? Si has dudado, es hora de volver al ahora. El mindfulness es una habilidad que nos permite aprender a vivir en el aquí y ahora, ofreciendo descanso a una mente llena de cavilaciones y preocupaciones.</p>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> abordamos los <strong>pensamientos obsesivos</strong> desde una perspectiva integradora, utilizando estrategias psicológicas adaptadas a las necesidades de cada persona. La intervención se orienta a comprender los mecanismos que mantienen estos pensamientos, reducir las conductas de evitación y comprobación y desarrollar una mayor tolerancia a la incertidumbre. El objetivo es disminuir el malestar emocional y conseguir que estos pensamientos dejen de interferir significativamente en la vida cotidiana.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
         <article class="treat__panel" role="tabpanel" id="p-oncologia" aria-labelledby="t-oncologia" tabindex="0" hidden>
           <h3 class="treat__title">Psico-Oncología</h3>
           <p class="treat__text">La sospecha o el diagnóstico de un cáncer genera ansiedad, miedo y un gran número de preocupaciones, tanto en la persona que lo vive como en su familia. Contar con apoyo y tratamiento psicológico desde el primer momento es fundamental en todas las fases del proceso.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-personalidad" aria-labelledby="t-personalidad" tabindex="0" hidden>
+          <h3 class="treat__title">Trastornos de personalidad</h3>
+          <p class="treat__text">La <strong>personalidad</strong> está formada por un conjunto de características, pensamientos, emociones y formas de comportamiento que influyen en cómo nos percibimos a nosotros mismos, nos relacionamos con los demás y afrontamos las diferentes situaciones de la vida.</p>
+          <p class="treat__text">Los <strong>trastornos de personalidad</strong> se caracterizan por patrones persistentes y poco flexibles de pensamiento, comportamiento y relación con los demás que pueden generar un malestar significativo o dificultades en diferentes ámbitos de la vida, como las relaciones personales, familiares, sociales o laborales.</p>
+          <p class="treat__text">Estos patrones pueden manifestarse de distintas maneras y con diferente intensidad, dependiendo de las características de cada persona y del tipo de trastorno.</p>
+          <p class="treat__label">Manifestaciones habituales</p>
+          <ul class="treat__signs">
+            <li>Dificultades para gestionar y regular las emociones.</li>
+            <li>Problemas persistentes en las relaciones personales y afectivas.</li>
+            <li>Inseguridad o dificultades relacionadas con la propia identidad y autoestima.</li>
+            <li>Formas rígidas de interpretar determinadas situaciones o comportamientos de los demás.</li>
+            <li>Dificultad para adaptarse a los cambios o afrontar situaciones de estrés.</li>
+            <li>Reacciones emocionales intensas o comportamientos impulsivos en algunos casos.</li>
+            <li>Miedo al abandono, desconfianza o dificultades para establecer vínculos estables.</li>
+            <li>Conflictos recurrentes en el ámbito familiar, social o laboral.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> abordamos los <strong>trastornos de personalidad</strong> desde una perspectiva integradora, adaptando la intervención psicológica a las características y necesidades de cada persona. El tratamiento se orienta a identificar y modificar los patrones de pensamiento, emocionales y conductuales que generan dificultades, favorecer la regulación emocional, mejorar las relaciones interpersonales y desarrollar estrategias de afrontamiento más adaptativas. El objetivo es promover un mayor bienestar psicológico, autonomía personal y calidad de vida.</p>
+          <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </article>
+        <article class="treat__panel" role="tabpanel" id="p-trauma" aria-labelledby="t-trauma" tabindex="0" hidden>
+          <h3 class="treat__title">Trauma psicológico y terapia EMDR</h3>
+          <p class="treat__text">El <strong>trauma psicológico</strong> puede aparecer cuando vivimos experiencias que nos desbordan emocionalmente y dejan una huella que continúa afectando a nuestro bienestar, nuestras relaciones y la forma en que nos percibimos a nosotros mismos y al mundo que nos rodea.</p>
+          <p class="treat__text">Estas experiencias pueden estar relacionadas con situaciones de violencia, abuso, accidentes, pérdidas traumáticas, experiencias de abandono o acontecimientos que hayan generado un intenso sentimiento de miedo, inseguridad o desprotección. Sin embargo, no todas las personas responden de la misma manera ante una experiencia difícil ni todas desarrollan un <strong>trauma psicológico</strong>.</p>
+          <p class="treat__text">En ocasiones, las consecuencias de estas experiencias pueden mantenerse en el tiempo, incluso cuando la situación que las provocó ya ha terminado, interfiriendo en la vida cotidiana y en el bienestar emocional.</p>
+          <p class="treat__label">Manifestaciones habituales del trauma psicológico</p>
+          <ul class="treat__signs">
+            <li>Recuerdos intrusivos o imágenes recurrentes relacionadas con experiencias difíciles.</li>
+            <li>Ansiedad, miedo o sensación constante de alerta.</li>
+            <li>Dificultad para regular las emociones.</li>
+            <li>Evitación de situaciones, lugares o recuerdos asociados a lo ocurrido.</li>
+            <li>Sentimientos de culpa, vergüenza o inseguridad.</li>
+            <li>Alteraciones del sueño y dificultades para relajarse.</li>
+            <li>Problemas de confianza y dificultades en las relaciones personales.</li>
+            <li>Creencias negativas sobre uno mismo o sobre los demás.</li>
+            <li>Sensación de desconexión emocional o dificultad para disfrutar de determinadas experiencias.</li>
+          </ul>
+          <p class="treat__text">En el <strong>Centro de Psicología Eneidas</strong> abordamos el <strong>trauma</strong> desde una perspectiva integradora, utilizando herramientas terapéuticas como <strong>EMDR</strong> (Desensibilización y Reprocesamiento por Movimientos Oculares), que favorece el procesamiento de experiencias traumáticas y ayuda a reducir el malestar emocional asociado a ellas.</p>
+          <p class="treat__text">La intervención psicológica se adapta a las necesidades y circunstancias de cada persona, con el objetivo de favorecer la recuperación de la sensación de seguridad, mejorar la regulación emocional y reducir la influencia que las experiencias traumáticas continúan teniendo en su vida cotidiana.</p>
           <a class="btn btn--primary treat__cta" href="#contacto">Pedir cita <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </article>
       </div>

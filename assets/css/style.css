@@ -657,6 +657,18 @@ button { font: inherit; color: inherit; }
   color: var(--ink-500);
   margin-bottom: 1.75rem;
 }
+.treat__text + .treat__text { margin-top: -.75rem; }
+.treat__text strong,
+.treat__note strong { font-weight: 600; color: var(--ink-800); }
+.treat__note {
+  margin: -.75rem 0 1.75rem;
+  padding: 1rem 1.25rem;
+  font-size: var(--fs-small);
+  color: var(--ink-700);
+  background: var(--sand-100);
+  border-left: 4px solid var(--sand-500);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
 .treat__label {
   font-size: var(--fs-micro);
   font-weight: 600;
