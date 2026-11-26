@@ -893,18 +893,6 @@
           <input type="email" id="email" name="email" autocomplete="email" required>
           <small class="field__error" data-error-for="email"><span></span></small>
         </div>
-        <div class="form__row">
-        <div class="field">
-          <label for="motivo">Motivo de consulta</label>
-          <select id="motivo" name="motivo" required>
-            <option value="">Selecciona una opción</option>
-            <option>Terapia individual</option>
-            <option>Terapia de pareja</option>
-            <option>Terapia de familia</option>
-            <option>Otra consulta</option>
-          </select>
-          <small class="field__error" data-error-for="motivo"><span></span></small>
-        </div>
         <div class="field">
           <label for="psicologa">Psicóloga <span class="field__opt">(opcional)</span></label>
           <select id="psicologa" name="psicologa">
@@ -916,10 +904,9 @@
             <option data-slug="carmen-nunez-benitez">Carmen Núñez Benítez</option>
           </select>
         </div>
-        </div>
         <div class="field">
-          <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos brevemente en qué podemos ayudarte"></textarea>
+          <label for="mensaje">¿En qué podemos ayudarte? <span class="field__opt">(opcional)</span></label>
+          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos brevemente qué te gustaría consultar"></textarea>
         </div>
 
         <!-- Trampa antispam: invisible y fuera del orden de tabulación.

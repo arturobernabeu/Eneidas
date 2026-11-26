@@ -100,7 +100,8 @@ if (trim($_POST['web'] ?? '') !== '') {
 /* ------------------------------------------------------------------
    3. Tiempo de cumplimentación
 
-   Nadie rellena nombre, teléfono, email y motivo en menos de 3 segundos.
+   Nadie rellena nombre, teléfono y email y marca la casilla de
+   privacidad en menos de 3 segundos.
    ------------------------------------------------------------------ */
 
 $transcurrido = (int) ($_POST['tiempo'] ?? 0);   // milisegundos
@@ -171,8 +172,7 @@ function sin_saltos($valor) {
 $nombre   = limpiar($_POST['nombre']   ?? '', 100);
 $telefono = limpiar($_POST['telefono'] ?? '', 30);
 $email    = limpiar($_POST['email']    ?? '', 150);
-$motivo   = limpiar($_POST['motivo']   ?? '', 60);
-$mensaje  = limpiar($_POST['mensaje']  ?? '', 3000);
+$mensaje  = limpiar($_POST['mensaje']  ?? '', 3000);   // «¿En qué podemos ayudarte?», opcional
 $psicologa = limpiar($_POST['psicologa'] ?? '', 80);
 $acepta   = isset($_POST['privacidad']) && $_POST['privacidad'] !== '';
 
@@ -186,11 +186,6 @@ if (!preg_match('/^[+\d][\d\s().-]{7,}$/', $telefono)) {
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errores[] = 'Introduce un email válido.';
-}
-
-$MOTIVOS = ['Terapia individual', 'Terapia de pareja', 'Terapia de familia', 'Otra consulta'];
-if (!in_array($motivo, $MOTIVOS, true)) {
-    $errores[] = 'Selecciona un motivo de consulta.';
 }
 if (!$acepta) {
     $errores[] = 'Debes aceptar la Política de Privacidad.';
@@ -215,16 +210,15 @@ if ($errores) {
    6. Envío
    ------------------------------------------------------------------ */
 
-$asunto = sin_saltos('Solicitud de cita: ' . $motivo . ($psicologa !== '' ? ' · ' . $psicologa : ''));
+$asunto = sin_saltos('Solicitud de cita' . ($psicologa !== '' ? ': ' . $psicologa : ''));
 
 $cuerpo = "Nueva solicitud desde el formulario de la web.\n\n"
-        . "Nombre:   {$nombre}\n"
-        . "Teléfono: {$telefono}\n"
-        . "Email:    {$email}\n"
-        . "Motivo:   {$motivo}\n"
+        . "Nombre:    {$nombre}\n"
+        . "Teléfono:  {$telefono}\n"
+        . "Email:     {$email}\n"
         . 'Psicóloga: ' . ($psicologa !== '' ? $psicologa : 'Sin preferencia') . "\n\n"
-        . "Mensaje:\n"
-        . ($mensaje !== '' ? $mensaje : '(sin mensaje)') . "\n\n"
+        . "¿En qué podemos ayudarte?\n"
+        . ($mensaje !== '' ? $mensaje : '(no lo ha indicado)') . "\n\n"
         . "---\n"
         . 'Recibido: ' . date('d/m/Y H:i') . "\n";
 

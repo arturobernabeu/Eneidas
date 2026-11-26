@@ -325,10 +325,6 @@
         test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
         msg: 'Introduce un email válido.'
       },
-      motivo: {
-        test: function (v) { return v !== ''; },
-        msg: 'Selecciona un motivo de consulta.'
-      },
       privacidad: {
         test: function (v, el) { return el.checked; },
         msg: 'Debes aceptar la Política de Privacidad.'

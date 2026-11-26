@@ -18,7 +18,8 @@ solicitud de cita se pierde en silencio. Es el CTA principal de la web.
 
 **Dónde:** `assets/js/main.js`, línea 389, comentario «Punto de integración».
 
-**Campos que se enviarían:** `nombre`, `telefono`, `email`, `motivo`, `mensaje`.
+**Campos que se enviarían:** `nombre`, `telefono`, `email`, `psicologa` (opcional) y
+`mensaje` («¿En qué podemos ayudarte?», opcional).
 Más `web`, que es la trampa antispam y debe descartarse en el servidor.
 
 **Opciones, de mejor a peor:**
@@ -43,8 +44,8 @@ componer el correo.
 **Estado:** el destino previsto es `eneidaspsicologia@gmail.com`, una cuenta
 **gratuita** de Gmail.
 
-**El problema:** el formulario recoge «motivo de consulta», que en un centro de
-psicología son datos de salud — categoría especial del artículo 9 del RGPD.
+**El problema:** el campo libre «¿En qué podemos ayudarte?» invita a contar el
+motivo de consulta, que en un centro de psicología son datos de salud — categoría especial del artículo 9 del RGPD.
 Gmail gratuito **no tiene contrato de encargado de tratamiento**: el Data
 Privacy Framework ampara a Google Workspace de pago, no a una cuenta personal.
 
@@ -53,7 +54,7 @@ Privacy Framework ampara a Google Workspace de pago, no a una cuenta personal.
 Infomaniak o Mailfence lo dan con servidores en Europa y contrato firmado.
 
 **Alternativa que reduce el riesgo sin cambiar de infraestructura:** quitar del
-formulario el selector de motivo y el mensaje libre, dejando solo nombre,
+formulario el campo libre «¿En qué podemos ayudarte?», dejando solo nombre,
 teléfono y franja horaria. Así deja de recoger datos de salud —pasa a ser una
 petición de llamada— y la conversación clínica ocurre por teléfono, donde ya
 existen las garantías del ejercicio profesional. Es aplicar el principio de
