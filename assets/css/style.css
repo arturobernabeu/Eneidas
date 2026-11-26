@@ -1763,16 +1763,20 @@ button { font: inherit; color: inherit; }
 
   .burger { display: block; }
 
+  /* El panel arranca bajo la cabecera: si la cubriera, taparía el logo, el
+     nombre y la X para cerrar el menú. La altura sigue a la de la cabecera,
+     que se compacta al hacer scroll. */
   .nav {
     position: fixed;
-    inset: 0 0 0 auto;
+    inset: var(--header-h) 0 0 auto;
     z-index: 95;
     width: min(340px, 86vw);
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     gap: 0;
-    padding: calc(var(--header-h) + 2.5rem) 2rem 2.5rem;
+    padding: 1.5rem 2rem 2.5rem;
+    border-top: 1px solid var(--line);
     background: var(--paper-2);
     box-shadow: -20px 0 60px -30px rgba(18, 44, 56, .8);
     transform: translateX(102%);
@@ -1781,6 +1785,12 @@ button { font: inherit; color: inherit; }
     overflow-y: auto;
   }
   .nav.is-open { transform: translateX(0); visibility: visible; }
+  .header.is-stuck .nav { top: var(--header-h-stuck); }
+
+  /* Con el menú abierto (body.is-locked) los elementos flotantes no deben
+     taparlo: el botón de WhatsApp y la barra de cita de las fichas. */
+  .is-locked .whatsapp-float,
+  .is-locked .profile-bar { visibility: hidden; }
 
   .nav__list {
     flex-direction: column;
