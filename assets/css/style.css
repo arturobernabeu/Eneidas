@@ -773,6 +773,8 @@ button { font: inherit; color: inherit; }
   color: var(--ink-500);
 }
 .acc__body ul { display: flex; flex-direction: column; gap: .6rem; }
+.acc__body ul:not(:last-child) { margin-bottom: 1.1em; }   /* mismo aire que entre párrafos */
+.acc__body a { color: var(--brand-700); text-decoration: underline; text-underline-offset: 2px; }
 .acc__body li {
   position: relative;
   padding-left: 1.35rem;
@@ -799,6 +801,8 @@ button { font: inherit; color: inherit; }
   align-items: start;
 }
 .faq__aside { position: sticky; top: calc(var(--header-h) + 2rem); }
+/* Botón de cita al cerrar las preguntas, para quien ya ha resuelto sus dudas */
+.faq__cta { margin-top: 2.25rem; }
 
 .faq__help {
   display: flex;
@@ -1760,6 +1764,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 420px) {
   .hero__actions .btn { width: 100%; }
   .method-cta__actions .btn { width: 100%; }
+  .faq__cta .btn { width: 100%; }
   .quote::before { font-size: 4rem; }
 }
 
