@@ -1329,31 +1329,6 @@ button { font: inherit; color: inherit; }
   display: flex;
   flex-wrap: wrap;
   gap: .9rem;
-  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
-}
-
-.hero__facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1.5rem, 3.5vw, 3rem);
-  padding-top: clamp(1.5rem, 3vw, 2.25rem);
-  border-top: 1px solid var(--line);
-}
-.hero__facts li { display: flex; flex-direction: column; }
-.hero__facts strong {
-  font-size: clamp(1.75rem, 2.6vw, 2.35rem);
-  font-weight: 600;
-  letter-spacing: -.02em;
-  line-height: 1;
-  color: var(--ink-800);
-}
-.hero__facts span {
-  font-size: var(--fs-micro);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--ink-400);
-  margin-top: .45rem;
-  max-width: 14ch;
 }
 
 /* --- Pila de fotos del hero ---
@@ -1798,7 +1773,6 @@ button { font: inherit; color: inherit; }
 
   .brand__text strong { font-size: 1.3rem; }
 
-  .hero__facts { gap: 1.5rem 2rem; }
   .stack { --dx: 10px; --dy: -9px; padding: 18px 20px 0 0; }
 
   .form__row { grid-template-columns: 1fr; }
