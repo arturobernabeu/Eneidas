@@ -4,8 +4,6 @@ Estado a 26/11/2026.
 
 ## Ya hecho en la web
 
-- `<title>` de la portada con palabras clave: «Psicólogos en Sevilla | Centro de
-  Psicología Eneidas» (el titular visible «Un espacio para cuidar de ti» se mantiene).
 - Meta description, canonical y Open Graph en todas las páginas; títulos de las
   fichas ≤ 62 caracteres y descripciones ≤ 156.
 - Imagen LCP del hero precargada (`hero/sala-5.webp`); fotos servidas en **WebP**
@@ -19,6 +17,8 @@ Estado a 26/11/2026.
 - `sitemap.xml` con `<lastmod>` y `robots.txt` que lo declara.
 
 **Decidido no hacer:**
+- Palabras clave en el `<title>` de la portada: se mantiene «Centro de Psicología
+  Eneidas». «Sevilla» y «psicólogas» ya aparecen en la meta description.
 - Páginas propias por tratamiento: sería la mayor mejora de posicionamiento
   («psicólogo ansiedad Sevilla»…), pero se mantienen en la portada.
 - Marcar los testimonios con `Review`/`AggregateRating`: Google prohíbe las
