@@ -248,8 +248,12 @@ button { font: inherit; color: inherit; }
   color: var(--ink-500);
   max-width: 62ch;
 }
+.section__lead + .section__lead { margin-top: 1rem; }
+.section__lead strong { font-weight: 600; color: var(--ink-800); }
 .section--ink .section__lead,
 .section--contact .section__lead { color: rgba(255, 255, 255, .7); }
+.section--ink .section__lead strong,
+.section--contact .section__lead strong { color: inherit; }
 
 /* Eyebrow */
 /* Etiqueta de apartado: es lo que te dice dónde estás, así que pesa más que
