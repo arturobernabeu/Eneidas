@@ -9,11 +9,15 @@
    ANTES DE SUBIRLO, revisa el bloque CONFIGURACIÓN.
    ─────────────────────────────────────────────────────────────────────
 
-   Capas antispam, de más a menos silenciosa:
-     1. Trampa (honeypot) revalidada en servidor, no solo en JavaScript
-     2. Tiempo mínimo de cumplimentación
-     3. Límite de envíos por IP
-     4. Comprobación de origen de la petición
+   Capas antispam:
+     1. Comprobación de origen de la petición (rechaza con error visible)
+     2. Trampa (honeypot) revalidada en servidor, no solo en JavaScript
+     3. Tiempo mínimo de cumplimentación (no descarta: marca el asunto)
+     4. Límite de envíos por IP
+
+   Solo la trampa finge éxito: es la única que una persona real no puede
+   activar. Las demás podrían afectar a pacientes, así que avisan o marcan
+   el correo, pero nunca hacen desaparecer una solicitud en silencio.
 
    Nada de esto añade fricción a la persona ni depende de terceros.
    ===================================================================== */
@@ -31,10 +35,13 @@ $DESTINO = 'eneidaspsicologia@gmail.com';
 $REMITENTE = 'web@eneidaspsicologia.com';
 $REMITENTE_NOMBRE = 'Web Eneidas';
 
-// Dominios desde los que se acepta el formulario.
-$ORIGENES = ['eneidaspsicologia.com', 'www.eneidaspsicologia.com', 'localhost:5173'];
+// Dominios desde los que se acepta el formulario. Mientras se prueba en el
+// hosting con su dominio provisional, añádelo aquí y quítalo al publicar.
+$ORIGENES = ['eneidaspsicologia.com', 'www.eneidaspsicologia.com'];
 
-// Segundos mínimos entre cargar el formulario y enviarlo.
+// Segundos mínimos entre cargar el formulario y enviarlo. Por debajo, la
+// solicitud se envía igualmente con «[Revisar]» en el asunto: con el
+// autocompletado del navegador una persona puede tardar muy poco.
 $TIEMPO_MINIMO = 3;
 
 // Límite por IP: nº de envíos permitidos en la ventana indicada.
@@ -80,7 +87,10 @@ if ($origen !== '') {
     $puerto = parse_url($origen, PHP_URL_PORT);
     if ($puerto) { $host .= ':' . $puerto; }
     if (!in_array($host, $ORIGENES, true)) {
-        fingir_exito();
+        // Puede ser una persona real en un dominio mal configurado (sin www,
+        // URL provisional...): se le avisa en vez de fingir que se envió.
+        error_log('[eneidas] formulario rechazado por origen no permitido: ' . $host);
+        responder(false, 403, 'No hemos podido enviar tu solicitud. Escríbenos a eneidaspsicologia@gmail.com o llámanos al 614 18 88 45.');
     }
 }
 
@@ -100,14 +110,13 @@ if (trim($_POST['web'] ?? '') !== '') {
 /* ------------------------------------------------------------------
    3. Tiempo de cumplimentación
 
-   Nadie rellena nombre, teléfono y email y marca la casilla de
-   privacidad en menos de 3 segundos.
+   Un envío muy rápido suele ser un bot, pero con el autocompletado del
+   navegador también puede ser una persona. No se descarta: se envía con
+   «[Revisar]» en el asunto para que quien lo lea lo valore.
    ------------------------------------------------------------------ */
 
 $transcurrido = (int) ($_POST['tiempo'] ?? 0);   // milisegundos
-if ($transcurrido > 0 && $transcurrido < $TIEMPO_MINIMO * 1000) {
-    fingir_exito();
-}
+$sospechoso = $transcurrido > 0 && $transcurrido < $TIEMPO_MINIMO * 1000;
 
 
 /* ------------------------------------------------------------------
@@ -210,7 +219,8 @@ if ($errores) {
    6. Envío
    ------------------------------------------------------------------ */
 
-$asunto = sin_saltos('Solicitud de cita' . ($psicologa !== '' ? ': ' . $psicologa : ''));
+$asunto = sin_saltos(($sospechoso ? '[Revisar] ' : '')
+    . 'Solicitud de cita' . ($psicologa !== '' ? ': ' . $psicologa : ''));
 
 $cuerpo = "Nueva solicitud desde el formulario de la web.\n\n"
         . "Nombre:    {$nombre}\n"

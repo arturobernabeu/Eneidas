@@ -170,6 +170,11 @@ button { font: inherit; color: inherit; }
   border-radius: 4px;
 }
 
+/* Secciones que reciben el foco al saltar desde el menú o el skip-link:
+   el foco tiene que llegar, pero un recuadro alrededor de toda la sección
+   no aporta nada. */
+[tabindex="-1"]:focus { outline: none; }
+
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 .ico {
@@ -1811,7 +1816,9 @@ button { font: inherit; color: inherit; }
     transition: transform .42s var(--ease), visibility .42s;
     overflow-y: auto;
   }
-  .nav.is-open { transform: translateX(0); visibility: visible; }
+  /* Al abrir, visible al instante (si no, el foco no puede entrar en el
+     menú hasta que acaba la transición); al cerrar, se oculta al final. */
+  .nav.is-open { transform: translateX(0); visibility: visible; transition: transform .42s var(--ease), visibility 0s; }
   .header.is-stuck .nav { top: var(--header-h-stuck); }
 
   /* Con el menú abierto (body.is-locked) los elementos flotantes no deben

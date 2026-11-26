@@ -26,7 +26,9 @@ antispam, tiempo mínimo de cumplimentación y límite de 5 envíos/hora por IP)
 - `$DESTINO`: el buzón que recibe las solicitudes (ver B2).
 - `$REMITENTE`: una dirección **que exista en el propio dominio**
   (`web@eneidaspsicologia.com`). Si no existe, muchos servidores rechazan el envío.
-- `$ORIGENES`: quitar `localhost:5173` al publicar.
+- `$ORIGENES`: si se prueba con el dominio provisional del hosting, añadirlo y
+  quitarlo al publicar. Un origen no incluido recibe un error visible (no se
+  pierde en silencio).
 
 **Para que los mensajes no acaben en spam (DNS del dominio):** SPF que autorice
 al servidor del hosting, DKIM activado y DMARC al menos con `p=none`. Si el

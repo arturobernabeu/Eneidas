@@ -32,6 +32,12 @@
   var nav = document.getElementById('nav');
   var overlay = document.getElementById('navOverlay');
 
+  /* Lo que queda tapado por el menú abierto: se marca inert para que el
+     teclado y los lectores de pantalla no salgan del menú hacia la página. */
+  function behindMenu() {
+    return document.querySelectorAll('main, footer, .whatsapp-float, .profile-bar');
+  }
+
   function openMenu() {
     nav.classList.add('is-open');
     burger.classList.add('is-open');
@@ -39,6 +45,9 @@
     burger.setAttribute('aria-label', 'Cerrar menú');
     overlay.hidden = false;
     document.body.classList.add('is-locked');
+    Array.prototype.forEach.call(behindMenu(), function (el) { el.inert = true; });
+    var first = nav.querySelector('a');
+    if (first) first.focus({ preventScroll: true });
   }
 
   function closeMenu() {
@@ -48,6 +57,7 @@
     burger.setAttribute('aria-label', 'Abrir menú');
     overlay.hidden = true;
     document.body.classList.remove('is-locked');
+    Array.prototype.forEach.call(behindMenu(), function (el) { el.inert = false; });
   }
 
   burger.addEventListener('click', function () {
@@ -92,6 +102,14 @@
 
       window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
       history.replaceState(null, '', '#' + id);
+
+      // Al cancelar el salto nativo, el foco se quedaba en el enlace: el
+      // siguiente Tab volvía a la cabecera y el skip-link no servía.
+      // Llevamos el foco al destino (sin que el navegador vuelva a desplazar).
+      if (!target.matches('a, button, input, select, textarea, summary, [tabindex]')) {
+        target.setAttribute('tabindex', '-1');
+      }
+      target.focus({ preventScroll: true });
     });
   });
 
@@ -345,13 +363,27 @@
     };
 
     function showError(name, msg) {
+      var input = document.getElementById(name);
       var slot = form.querySelector('[data-error-for="' + name + '"]');
-      var field = document.getElementById(name).closest('.field');
+      var field = input.closest('.field');
 
       // Al ocultar conservamos el texto: se va con la transición en vez de
       // desaparecer de golpe mientras la fila todavía se está cerrando.
       if (slot && msg) (slot.firstElementChild || slot).textContent = msg;
       if (field) field.classList.toggle('has-error', Boolean(msg));
+
+      // Para lectores de pantalla: el campo se anuncia como no válido y
+      // lee el mensaje de error al recibir el foco.
+      if (msg) {
+        input.setAttribute('aria-invalid', 'true');
+        if (slot) {
+          slot.id = slot.id || 'error-' + name;
+          input.setAttribute('aria-describedby', slot.id);
+        }
+      } else {
+        input.removeAttribute('aria-invalid');
+        input.removeAttribute('aria-describedby');
+      }
     }
 
     function validateField(name) {
@@ -410,6 +442,8 @@
     function avisar(texto, esError) {
       formOk.textContent = texto;
       formOk.classList.toggle('form__ok--error', Boolean(esError));
+      // Un fallo se anuncia de inmediato; el éxito, de forma educada
+      formOk.setAttribute('role', esError ? 'alert' : 'status');
       formOk.hidden = false;
       formOk.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
     }
