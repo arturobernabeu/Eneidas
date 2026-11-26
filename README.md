@@ -5,8 +5,8 @@ JavaScript vanilla, sin build ni dependencias.
 
 ## Arrancar
 
-**Hace falta un servidor**, no vale abrir `index.html` con `file://`: las páginas
-legales son índices de directorio y los enlaces entre páginas son absolutos.
+Se puede abrir `index.html` directamente, pero para verla como en producción
+mejor con un servidor. El formulario solo envía en un servidor con PHP.
 
 ```bash
 npx --yes serve . -l 5173
@@ -18,14 +18,14 @@ Luego visita <http://localhost:5173>.
 
 Lista completa con indicaciones en
 [`docs/pendientes.md`](docs/pendientes.md). Lo que bloquea la publicación:
-el formulario no envía, el buzón de destino y el hosting con sus
-redirecciones.
+probar el formulario en el hosting, el buzón de destino, la validación legal
+y las redirecciones.
 
 ## Antes de desplegar
 
-Las URLs legales (`/politica-de-cookies/`) coinciden con las del sitio actual y
-no necesitan redirección. El resto del WordPress sí: ver
-[`docs/redirecciones.md`](docs/redirecciones.md).
+Solo la portada conserva su URL; el resto del WordPress necesita 301: ver
+[`docs/redirecciones.md`](docs/redirecciones.md). Tras editar CSS o JS, ejecutar
+`python tools/versionar-recursos.py` para que nadie se quede con la versión en caché.
 
 ## Estructura
 
@@ -34,7 +34,7 @@ eneidas/
 ├─ index.html                  Landing completa
 ├─ assets/
 │  ├─ css/style.css            Estilos (tokens, componentes, secciones)
-│  ├─ js/main.js               Menú, scroll, acordeón, formulario
+│  ├─ js/main.js               Menú, scroll, pestañas, carrusel, formulario
 │  ├─ img/
 │  │  ├─ equipo/               Retratos del equipo
 │  │  ├─ hero/                 Imágenes de cabecera
@@ -44,9 +44,13 @@ eneidas/
 │  └─ fonts/                   Montserrat y Bricolage, autoalojadas (3 ficheros)
 ├─ 404.html
 ├─ favicon.ico
-├─ aviso-legal/index.html            Se sirve en /aviso-legal/
-├─ politica-de-privacidad/index.html Se sirve en /politica-de-privacidad/
-├─ politica-de-cookies/index.html    Se sirve en /politica-de-cookies/
+├─ aviso-legal.html                Páginas legales (texto editado a mano;
+├─ politica-de-privacidad.html       cabecera y pie copiados de la portada
+├─ politica-de-cookies.html          por tools/generar-fichas.py)
+├─ equipo/                     Fichas del equipo (generadas)
+├─ enviar.php                  Envío del formulario (PHP)
+├─ tools/                      generar-fichas.py, versionar-recursos.py,
+│                              optimizar-imagenes.py
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ docs/

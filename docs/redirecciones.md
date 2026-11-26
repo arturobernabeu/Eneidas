@@ -9,17 +9,14 @@ los proveedores habituales.
 
 ## Ya resuelto sin redirección
 
-Las páginas legales se sirven como índice de directorio, así que su URL coincide
-con la actual y **no necesitan redirección**:
+Solo la portada (`/`) conserva su URL.
 
-| URL | Estado |
-|---|---|
-| `/politica-de-cookies/` | Se mantiene igual |
-| `/` | Se mantiene igual |
-
-`/aviso-legal/` y `/politica-de-privacidad/` son nuevas: antes eran PDF en el
-dominio del proveedor de protección de datos (`protecciondedatosencadiz.com`),
-no en este sitio.
+Las páginas legales son ahora archivos `.html` en la raíz, con el menú completo
+(`/aviso-legal.html`, `/politica-de-privacidad.html`, `/politica-de-cookies.html`).
+De ellas, solo `/politica-de-cookies/` existía en la web antigua y necesita 301
+(ver el mapa). `/aviso-legal` y `/politica-de-privacidad` eran PDF en el dominio
+del proveedor de protección de datos (`protecciondedatosencadiz.com`), no en
+este sitio.
 
 ## Mapa de redirecciones 301
 
@@ -77,7 +74,8 @@ funcione igual abriendo la web desde disco y en el servidor.
 | `/como-afecta-el-covid-19-a-las-parejas/` | `/` | Entrada de blog |
 | `/deteccion-y-prevencion-de-una-conducta-suicida/` | `/` | Entrada de blog |
 | `/taller-de-mindfulness-online/` | `/` | Entrada de blog |
-| `/informacion-detallada/` | `/politica-de-privacidad/` | Información RGPD del formulario |
+| `/informacion-detallada/` | `/politica-de-privacidad.html` | Información RGPD del formulario |
+| `/politica-de-cookies/` | `/politica-de-cookies.html` | Misma página, ahora como archivo |
 
 ## Decisiones que conviene tomar antes
 
@@ -90,7 +88,7 @@ la pena recuperarlas como páginas propias en lugar de redirigirlas.
 texto original de «Sobre mí», en `/equipo/nombre-apellidos.html` y con 301 desde la URL antigua.
 
 **`/informacion-detallada/`** contenía la información RGPD ampliada que enlaza el
-formulario de contacto. Ya redirige a `/politica-de-privacidad/`, que es su
+formulario de contacto. Ya redirige a `/politica-de-privacidad.html`, que es su
 equivalente correcto.
 
 ## Implementación según hosting

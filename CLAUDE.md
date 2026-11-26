@@ -15,18 +15,20 @@ terceros.
 ```
 index.html              Portada (landing)
 404.html                Página de error
-aviso-legal/, politica-de-privacidad/, politica-de-cookies/
-                        Páginas legales (carpeta + index.html)
+aviso-legal.html, politica-de-privacidad.html, politica-de-cookies.html
+                        Páginas legales: el texto se edita a mano; cabecera, pie
+                        y sprite (entre <!-- comun:… -->) los copia generar-fichas.py
 enviar.php              Recibe el formulario y envía el correo (requiere PHP)
 sitemap.xml, robots.txt SEO
 assets/css/style.css    Hoja de estilos completa (tokens + componentes)
 assets/js/main.js       Interacciones (menú, scroll, pestañas, carrusel, formulario)
-assets/js/enlaces-locales.js  Solo en file://: añade index.html a los enlaces a carpetas
 assets/img/             Imágenes locales (equipo, hero)
 assets/icons/           Favicons
 equipo/                 Fichas individuales del equipo (GENERADAS, no editar a mano)
 tools/generar-fichas.py Genera equipo/*.html y las tarjetas del equipo de index.html
                         (entre <!-- equipo:tarjetas -->): `python tools/generar-fichas.py`
+tools/versionar-recursos.py  Huella ?v= en los enlaces a CSS y JS (la ejecuta
+                        generar-fichas.py); lanzarla tras editar CSS o JS
 tools/optimizar-imagenes.py  Reduce fotos y crea sus .webp (requiere Pillow); el HTML
                         las sirve con <picture> y el JPG como respaldo
 docs/                   Documentación del proyecto y del análisis de marca

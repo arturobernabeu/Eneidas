@@ -63,7 +63,8 @@ solo nombre y teléfono, de modo que el formulario sea una petición de llamada
 
 **Estado:** sin decidir. El WordPress actual tiene ~34 URLs indexadas.
 
-**Ya resuelto sin redirección:** `/` y `/politica-de-cookies/` conservan su URL.
+**Ya resuelto sin redirección:** `/` conserva su URL. `/politica-de-cookies/`
+pasa a `/politica-de-cookies.html` (301 incluida en el mapa).
 
 **Qué hacer:** elegir hosting y aplicar el mapa de
 [`redirecciones.md`](redirecciones.md), que incluye las 5 fichas antiguas
@@ -96,7 +97,7 @@ con el DPO si deben figurar los NIF (hoy solo consta el de Ana María, en el avi
 
 ### B6. Revisar el aviso legal
 
-**Estado:** `aviso-legal/index.html` se reconstruyó a partir de un PDF cuyo
+**Estado:** `aviso-legal.html` se reconstruyó a partir de un PDF cuyo
 texto salía sin tildes ni eñes; se restauraron a mano. Los datos críticos (NIF,
 N.I.C.A. 53610, colegiada AN07176) llegaron intactos.
 
@@ -167,14 +168,16 @@ marca; una alternativa: «Psicología en Sevilla para cuidar de ti».
 
 ### M3. Versionado de CSS y JS
 
-Quien ya visitó la web puede quedarse con un `main.js` o `style.css` antiguo en
-caché. Añadir un número de versión a las rutas (`main.js?v=2`) al publicar cambios.
+**Hecho.** `tools/versionar-recursos.py` añade a cada CSS y JS una huella de su
+contenido (`main.js?v=…`); `tools/generar-fichas.py` lo ejecuta al terminar. Tras
+editar CSS o JS, ejecutar cualquiera de los dos antes de publicar.
 
 ### M4. Páginas legales como archivos sueltos
 
-Pasar `aviso-legal/`, `politica-de-privacidad/` y `politica-de-cookies/` a
-archivos `.html` con el menú completo, como las fichas. Permitiría eliminar
-`assets/js/enlaces-locales.js`. `/politica-de-cookies/` necesitaría una 301.
+**Hecho.** Son `aviso-legal.html`, `politica-de-privacidad.html` y
+`politica-de-cookies.html`, con el menú y el pie de la portada (los copia
+`tools/generar-fichas.py`). `enlaces-locales.js` eliminado. La 301 de
+`/politica-de-cookies/` está en `redirecciones.md`.
 
 ### M5. Antispam de segundo nivel
 

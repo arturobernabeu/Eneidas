@@ -8,6 +8,10 @@ La cabecera, el pie y el sprite de iconos se copian de index.html, así que
 cualquier cambio en el menú o el pie de la portada llega a las fichas al
 regenerarlas. No edites a mano los HTML de equipo/: se perderían los cambios.
 
+También copia esa cabecera, pie y sprite a las páginas legales
+(aviso-legal.html, politica-de-*.html), cuyo texto sí se edita a mano, y al
+final ejecuta tools/versionar-recursos.py (huella ?v= en CSS y JS).
+
 Todo el texto procede de las biografías originales («Sobre mí» de la web
 antigua) o de la propia landing (descripciones de los enfoques). Lo que no
 consta en ninguna fuente se marca como PENDIENTE en la página.
@@ -287,7 +291,7 @@ def page(p):
 }}
 </script>
 </head>
-<body class="page-profile">
+<body class="page-profile" data-root="..">
 
 <a class="skip-link" href="#main">Saltar al contenido</a>
 
@@ -387,7 +391,6 @@ def page(p):
 <!-- ===================== SPRITE SVG ===================== -->
 {SPRITE}
 <script src="assets/js/main.js" defer></script>
-<script src="assets/js/enlaces-locales.js" defer></script>
 <script src="assets/js/cookies.js" defer></script>
 <script src="assets/js/analytics.js" defer></script>
 </body>
@@ -396,7 +399,7 @@ def page(p):
 
 def up(h):
     # Las fichas viven en /equipo/: lo que apunta a la raíz sube un nivel
-    return re.sub(r'\b(href|src|srcset)="((?:assets/|favicon\.ico|index\.html|aviso-legal/|politica-de-[\w-]+/)[^"]*)"', r'\1="../\2"', h)
+    return re.sub(r'\b(href|src|srcset)="((?:assets/|favicon\.ico|index\.html|aviso-legal\.html|politica-de-[\w-]+\.html)[^"]*)"', r'\1="../\2"', h)
 
 INI, FIN = '<!-- equipo:tarjetas -->', '<!-- /equipo:tarjetas -->'
 
@@ -410,9 +413,33 @@ def actualizar_portada():
     io.open(ruta, 'w', encoding='utf-8', newline='').write(raw[:a] + bloque.replace('\n', nl) + raw[b:])
     print('ok index.html (tarjetas del equipo)')
 
+LEGALES = ['aviso-legal.html', 'politica-de-privacidad.html', 'politica-de-cookies.html']
+
+def actualizar_legales():
+    """Copia cabecera, pie y sprite de la portada a las páginas legales.
+
+    Su contenido se edita a mano; solo se sustituye lo que hay entre las
+    marcas <!-- comun:cabecera -->, <!-- comun:pie --> y <!-- comun:sprite -->.
+    """
+    for nombre in LEGALES:
+        ruta = os.path.join(ROOT, nombre)
+        raw = io.open(ruta, encoding='utf-8', newline='').read()
+        nl = '\r\n' if '\r\n' in raw else '\n'
+        txt = raw.replace('\r\n', '\n')
+        for marca, bloque in (('cabecera', HEADER), ('pie', FOOTER), ('sprite', SPRITE)):
+            ini, fin = f'<!-- comun:{marca} -->', f'<!-- /comun:{marca} -->'
+            i, j = txt.index(ini) + len(ini), txt.index(fin)
+            txt = txt[:i] + '\n' + bloque + '\n' + txt[j:]
+        io.open(ruta, 'w', encoding='utf-8', newline='').write(txt.replace('\n', nl))
+        print('ok', nombre, '(cabecera, pie y sprite)')
+
 if __name__ == '__main__':
     actualizar_portada()
+    actualizar_legales()
     os.makedirs(os.path.join(ROOT, 'equipo'), exist_ok=True)
     for p in P:
         io.open(os.path.join(ROOT, 'equipo', p['slug'] + '.html'), 'w', encoding='utf-8', newline='\n').write(up(page(p)))
         print('ok', 'equipo/' + p['slug'] + '.html')
+    # Huella de CSS y JS en todas las páginas (evita versiones viejas en caché)
+    import runpy
+    runpy.run_path(os.path.join(ROOT, 'tools', 'versionar-recursos.py'), run_name='__main__')
