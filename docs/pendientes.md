@@ -152,14 +152,28 @@ tratamiento; Av. Blas Infante, 6 es la consulta. Ambas correctas.
 
 ### 8. Blog y fichas del equipo
 
-**Estado:** desaparecen 8 URLs con contenido propio — 3 entradas de blog, 2
-categorías y 5 fichas individuales del equipo.
+**Blog:** desaparecen 3 entradas y 2 categorías. Redirigirlas todas a la
+portada es lo rápido, pero Google trata la redirección masiva a home como
+*soft 404*. Si reciben visitas, compensa recuperarlas.
 
-**El problema:** redirigirlas todas a la portada es lo rápido, pero Google trata
-la redirección masiva a home como *soft 404* y no traslada autoridad.
+**Fichas del equipo:** ya existen en `equipo/nombre-apellidos.html`, con
+presentación, formación, experiencia, especialidades, metodología y botón de
+cita. El texto es el «Sobre mí» de la web antigua; lo que no constaba ahí está
+marcado en cada página con un recuadro **«Pendiente de completar»**, que no
+debe llegar a publicarse.
 
-**Qué hacer:** si esas páginas reciben visitas, compensa recuperarlas como
-páginas propias. Se decide mirando las analíticas actuales, si las hay.
+| Persona | Falta |
+|---|---|
+| Todas | Foto actualizada (vertical 4:5, mínimo 900×1125 px) |
+| Alicia | Titulación y formación complementaria · trayectoria y años de experiencia · especialidades |
+| Ana | Titulación y centros de formación · trayectoria y años de experiencia |
+| Berta | Titulación y formación complementaria · años de experiencia y centros |
+| Pilar | Presentación personal · titulación y formación en psicodrama y EMDR · trayectoria |
+| Carmen | Titulación y másteres |
+
+**Confirmar además:** que siguen vigentes las sesiones de 50 minutos y la
+primera cita gratuita de media hora (Alicia, Berta, Carmen), y si se quieren
+publicar el móvil, email y Doctoralia personales que tenían las fichas antiguas.
 
 ---
 

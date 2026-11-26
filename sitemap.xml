@@ -6,6 +6,31 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.eneidaspsicologia.com/equipo/alicia-rodriguez-aguilar.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.eneidaspsicologia.com/equipo/ana-fernandez-chaves.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.eneidaspsicologia.com/equipo/berta-bejarano-garcia.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.eneidaspsicologia.com/equipo/pilar-naranjo-gonzalez-quevedo.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.eneidaspsicologia.com/equipo/carmen-nunez-benitez.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.eneidaspsicologia.com/aviso-legal/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

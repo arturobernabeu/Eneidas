@@ -53,15 +53,23 @@ Los 13 tratamientos tienen ahora su contenido en el panel de `#tratamientos`.
 | `/contacto/` | `/#contacto` |
 | `/colaboradores/` | `/#equipo` |
 
+### Fichas del equipo → página propia
+
+Cada ficha es ahora un archivo en `equipo/` (`equipo/nombre-apellidos.html`), para que
+funcione igual abriendo la web desde disco y en el servidor.
+
+| Origen | Destino |
+|---|---|
+| `/alicia-rodriguez-aguilar/` | `/equipo/alicia-rodriguez-aguilar.html` |
+| `/ana-fernandez-chaves/` | `/equipo/ana-fernandez-chaves.html` |
+| `/berta-bejarano-garcia/` | `/equipo/berta-bejarano-garcia.html` |
+| `/pilar-naranjo-gonzalez-quevedo/` | `/equipo/pilar-naranjo-gonzalez-quevedo.html` |
+| `/carmen-nunez-benitez/` | `/equipo/carmen-nunez-benitez.html` |
+
 ### Sin equivalente en la web nueva
 
 | Origen | Destino | Nota |
 |---|---|---|
-| `/alicia-rodriguez-aguilar/` | `/#equipo` | Las fichas individuales no se han replicado |
-| `/ana-fernandez-chaves/` | `/#equipo` | |
-| `/berta-bejarano-garcia/` | `/#equipo` | |
-| `/pilar-naranjo-gonzalez-quevedo/` | `/#equipo` | |
-| `/carmen-nunez-benitez/` | `/#equipo` | |
 | `/blog/` | `/` | **El blog desaparece** |
 | `/category/articulo/` | `/` | |
 | `/category/taller/` | `/` | |
@@ -77,8 +85,8 @@ home es la salida rápida, pero Google trata una redirección masiva a la portad
 como *soft 404* y no traslada autoridad. Si esas entradas tienen visitas, merece
 la pena recuperarlas como páginas propias en lugar de redirigirlas.
 
-**Las fichas del equipo.** Cinco URLs con contenido propio que ahora colapsan en
-una tarjeta sin biografía. Mismo razonamiento.
+**Las fichas del equipo.** Resuelto: las cinco fichas vuelven a existir con el
+texto original de «Sobre mí», en `/equipo/nombre-apellidos.html` y con 301 desde la URL antigua.
 
 **`/informacion-detallada/`** contenía la información RGPD ampliada que enlaza el
 formulario de contacto. Ya redirige a `/politica-de-privacidad/`, que es su

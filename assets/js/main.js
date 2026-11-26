@@ -309,135 +309,138 @@
   var form = document.getElementById('form');
   var formOk = document.getElementById('formOk');
 
-  var RULES = {
-    nombre: {
-      test: function (v) { return v.trim().length >= 2; },
-      msg: 'Indícanos tu nombre.'
-    },
-    telefono: {
-      test: function (v) { return /^[+\d][\d\s().-]{7,}$/.test(v.trim()); },
-      msg: 'Introduce un teléfono válido.'
-    },
-    email: {
-      test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
-      msg: 'Introduce un email válido.'
-    },
-    motivo: {
-      test: function (v) { return v !== ''; },
-      msg: 'Selecciona un motivo de consulta.'
-    },
-    privacidad: {
-      test: function (v, el) { return el.checked; },
-      msg: 'Debes aceptar la Política de Privacidad.'
-    }
-  };
+  /* Solo la portada tiene formulario; las fichas cargan este mismo script. */
+  if (form) {
+    var RULES = {
+      nombre: {
+        test: function (v) { return v.trim().length >= 2; },
+        msg: 'Indícanos tu nombre.'
+      },
+      telefono: {
+        test: function (v) { return /^[+\d][\d\s().-]{7,}$/.test(v.trim()); },
+        msg: 'Introduce un teléfono válido.'
+      },
+      email: {
+        test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
+        msg: 'Introduce un email válido.'
+      },
+      motivo: {
+        test: function (v) { return v !== ''; },
+        msg: 'Selecciona un motivo de consulta.'
+      },
+      privacidad: {
+        test: function (v, el) { return el.checked; },
+        msg: 'Debes aceptar la Política de Privacidad.'
+      }
+    };
 
-  function showError(name, msg) {
-    var slot = form.querySelector('[data-error-for="' + name + '"]');
-    var field = document.getElementById(name).closest('.field');
+    function showError(name, msg) {
+      var slot = form.querySelector('[data-error-for="' + name + '"]');
+      var field = document.getElementById(name).closest('.field');
 
-    // Al ocultar conservamos el texto: se va con la transición en vez de
-    // desaparecer de golpe mientras la fila todavía se está cerrando.
-    if (slot && msg) (slot.firstElementChild || slot).textContent = msg;
-    if (field) field.classList.toggle('has-error', Boolean(msg));
-  }
-
-  function validateField(name) {
-    var el = document.getElementById(name);
-    var rule = RULES[name];
-    var ok = rule.test(el.value, el);
-    showError(name, ok ? '' : rule.msg);
-    return ok;
-  }
-
-  Object.keys(RULES).forEach(function (name) {
-    var el = document.getElementById(name);
-    el.addEventListener('blur', function () { validateField(name); });
-    el.addEventListener('input', function () {
-      if (el.closest('.field').classList.contains('has-error')) validateField(name);
-    });
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    // Trampa antispam: si viene rellena es un bot. Fingimos éxito para no
-    // darle pistas de por qué ha fallado, pero no se procesa nada.
-    var trap = document.getElementById('web');
-    if (trap && trap.value) {
-      formOk.hidden = false;
-      form.reset();
-      return;
+      // Al ocultar conservamos el texto: se va con la transición en vez de
+      // desaparecer de golpe mientras la fila todavía se está cerrando.
+      if (slot && msg) (slot.firstElementChild || slot).textContent = msg;
+      if (field) field.classList.toggle('has-error', Boolean(msg));
     }
 
-    var valid = true;
-    var firstBad = null;
+    function validateField(name) {
+      var el = document.getElementById(name);
+      var rule = RULES[name];
+      var ok = rule.test(el.value, el);
+      showError(name, ok ? '' : rule.msg);
+      return ok;
+    }
 
     Object.keys(RULES).forEach(function (name) {
-      if (!validateField(name)) {
-        valid = false;
-        if (!firstBad) firstBad = document.getElementById(name);
-      }
+      var el = document.getElementById(name);
+      el.addEventListener('blur', function () { validateField(name); });
+      el.addEventListener('input', function () {
+        if (el.closest('.field').classList.contains('has-error')) validateField(name);
+      });
     });
 
-    if (!valid) {
-      formOk.hidden = true;
-      firstBad.focus();
-      return;
-    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-    enviar();
-  });
+      // Trampa antispam: si viene rellena es un bot. Fingimos éxito para no
+      // darle pistas de por qué ha fallado, pero no se procesa nada.
+      var trap = document.getElementById('web');
+      if (trap && trap.value) {
+        formOk.hidden = false;
+        form.reset();
+        return;
+      }
 
-  /* --- Envío real a enviar.php --------------------------------------- */
+      var valid = true;
+      var firstBad = null;
 
-  var cargado = Date.now();
-  var boton = form.querySelector('button[type="submit"]');
-  var etiquetaBoton = boton ? boton.innerHTML : '';
-
-  function avisar(texto, esError) {
-    formOk.textContent = texto;
-    formOk.classList.toggle('form__ok--error', Boolean(esError));
-    formOk.hidden = false;
-    formOk.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
-  }
-
-  function enviar() {
-    var campoTiempo = document.getElementById('tiempo');
-    if (campoTiempo) campoTiempo.value = String(Date.now() - cargado);
-
-    if (boton) {
-      boton.disabled = true;
-      boton.textContent = 'Enviando…';
-    }
-    formOk.hidden = true;
-
-    fetch(form.getAttribute('action') || 'enviar.php', {
-      method: 'POST',
-      body: new FormData(form)
-    })
-      .then(function (r) {
-        return r.json().catch(function () { return { ok: false }; });
-      })
-      .then(function (data) {
-        if (data && data.ok) {
-          avisar('Gracias por escribirnos. Hemos recibido tu solicitud y te responderemos muy pronto.', false);
-          form.reset();
-          cargado = Date.now();          // reinicia el contador de tiempo
-        } else {
-          avisar((data && data.error) ||
-            'No hemos podido enviar tu solicitud. Escríbenos a eneidaspsicologia@gmail.com o llámanos al 614 18 88 45.', true);
-        }
-      })
-      .catch(function () {
-        avisar('No hemos podido conectar. Comprueba tu conexión o llámanos al 614 18 88 45.', true);
-      })
-      .then(function () {
-        if (boton) {
-          boton.disabled = false;
-          boton.innerHTML = etiquetaBoton;
+      Object.keys(RULES).forEach(function (name) {
+        if (!validateField(name)) {
+          valid = false;
+          if (!firstBad) firstBad = document.getElementById(name);
         }
       });
+
+      if (!valid) {
+        formOk.hidden = true;
+        firstBad.focus();
+        return;
+      }
+
+      enviar();
+    });
+
+    /* --- Envío real a enviar.php --------------------------------------- */
+
+    var cargado = Date.now();
+    var boton = form.querySelector('button[type="submit"]');
+    var etiquetaBoton = boton ? boton.innerHTML : '';
+
+    function avisar(texto, esError) {
+      formOk.textContent = texto;
+      formOk.classList.toggle('form__ok--error', Boolean(esError));
+      formOk.hidden = false;
+      formOk.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    }
+
+    function enviar() {
+      var campoTiempo = document.getElementById('tiempo');
+      if (campoTiempo) campoTiempo.value = String(Date.now() - cargado);
+
+      if (boton) {
+        boton.disabled = true;
+        boton.textContent = 'Enviando…';
+      }
+      formOk.hidden = true;
+
+      fetch(form.getAttribute('action') || 'enviar.php', {
+        method: 'POST',
+        body: new FormData(form)
+      })
+        .then(function (r) {
+          return r.json().catch(function () { return { ok: false }; });
+        })
+        .then(function (data) {
+          if (data && data.ok) {
+            avisar('Gracias por escribirnos. Hemos recibido tu solicitud y te responderemos muy pronto.', false);
+            form.reset();
+            cargado = Date.now();          // reinicia el contador de tiempo
+          } else {
+            avisar((data && data.error) ||
+              'No hemos podido enviar tu solicitud. Escríbenos a eneidaspsicologia@gmail.com o llámanos al 614 18 88 45.', true);
+          }
+        })
+        .catch(function () {
+          avisar('No hemos podido conectar. Comprueba tu conexión o llámanos al 614 18 88 45.', true);
+        })
+        .then(function () {
+          if (boton) {
+            boton.disabled = false;
+            boton.innerHTML = etiquetaBoton;
+          }
+        });
+    }
   }
 
   /* ---------------------------------------------------------------
