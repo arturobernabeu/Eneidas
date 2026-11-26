@@ -302,6 +302,19 @@
         selectTab(next, true);
       }
     });
+
+    /* Enlace directo a un área: /#ansiedad, /#trauma… abre esa pestaña.
+       Las URLs de la web antigua (/ansiedad/…) redirigen aquí con una 301. */
+    var abrirDesdeHash = function () {
+      var area = window.location.hash.slice(1);
+      var tab = area && document.getElementById('t-' + area);
+      if (!tab || tabs.indexOf(tab) < 0) return;
+      selectTab(tab, false);
+      var seccion = document.getElementById('tratamientos');
+      if (seccion) seccion.scrollIntoView({ behavior: 'auto', block: 'start' });
+    };
+    abrirDesdeHash();
+    window.addEventListener('hashchange', abrirDesdeHash);
   }
 
   /* ---------------------------------------------------------------

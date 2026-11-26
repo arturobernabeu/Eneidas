@@ -60,7 +60,7 @@ METHODS = {
 P = [
  dict(slug='alicia-rodriguez-aguilar', first='Alicia', name='Alicia Rodríguez Aguilar', img='alicia', col='AN09190',
   chips=['Cognitivo-conductual', 'EMDR', 'Mindfulness', 'Psicodrama'],
-  desc='enfoque cognitivo-conductual integrando EMDR, mindfulness y psicodrama. Terapia individual y de pareja con adultos.',
+  desc='terapia individual y de pareja con adultos. Enfoque cognitivo-conductual con EMDR, mindfulness y psicodrama.',
   intro=['Trabajo integrando distintas corrientes psicológicas, partiendo de un enfoque <strong>cognitivo-conductual</strong>, empleando <strong>EMDR</strong>, <strong>Mindfulness</strong> y <strong>Psicodrama</strong>. El objetivo es poder ofrecer una intervención completa y adaptada a las necesidades personales.'],
   formacion=[('Psicóloga Sanitaria', 'Nº de colegiada AN09190')],
   formacion_pend='titulación universitaria, másteres y formación complementaria (EMDR, mindfulness, psicodrama).',
@@ -75,7 +75,7 @@ P = [
 
  dict(slug='ana-fernandez-chaves', first='Ana', name='Ana Fernández Chaves', img='ana', col='AN07176',
   chips=['Terapia sistémica', 'Psicodrama', 'EMDR', 'Terapia familiar'],
-  desc='psicoterapeuta familiar acreditada por la FEATF, con orientación sistémica y psicodrama. Terapia individual, de pareja y familiar.',
+  desc='terapia individual, de pareja y familiar. Psicoterapeuta familiar (FEATF), orientación sistémica y psicodrama.',
   intro=['Cuando me siento delante de un paciente soy consciente de que tengo delante una persona que pide algo tan básico como ayuda, que tiene alguna pieza por dentro con necesidad de reparar. A veces es difícil encontrar esa pieza, otras salta a la vista, pero trato de actuar siempre desde el profundo respeto que siento hacia el valiente que se pone a trabajar desnudando su alma.',
          'Soy afortunada de decir que para mí se cumple el dicho de Confucio:'],
   quote=('Elige un trabajo que te guste y no tendrás que trabajar ni un día de tu vida.', 'Confucio'),
@@ -95,7 +95,7 @@ P = [
 
  dict(slug='berta-bejarano-garcia', first='Berta', name='Berta Bejarano García', img='berta', col='AN06100',
   chips=['Cognitivo-conductual', 'Adolescentes', 'Adultos'],
-  desc='formación cognitivo-conductual y amplia experiencia en terapia con adolescentes y adultos.',
+  desc='enfoque cognitivo-conductual y amplia experiencia en terapia con adolescentes y adultos.',
   intro=['Tengo como objetivo ayudarte a resolver aquello que te hace sentir mal, en el menor tiempo posible, en un espacio de confianza y seguridad, donde puedas sentirte cómodo/a y escuchado/a.',
          'Trabajaremos juntos, las dificultades que te han llevado a pedir ayuda y te ofreceré un punto de vista profesional y diferente.'],
   formacion=[('Psicóloga Sanitaria', 'Nº de colegiada AN06100'),
@@ -111,7 +111,7 @@ P = [
 
  dict(slug='pilar-naranjo-gonzalez-quevedo', first='Pilar', name='Pilar Naranjo González-Quevedo', img='pilar', col='AN07736',
   chips=['Cognitivo-conductual', 'Psicodrama', 'EMDR', 'Psicooncología'],
-  desc='formación cognitivo-conductual integrando psicodrama y EMDR, especializada en psicooncología.',
+  desc='especializada en psicooncología. Enfoque cognitivo-conductual con psicodrama y EMDR.',
   intro=['Atiendo a adultos, adolescentes, familias y parejas, siendo las sesiones de forma presencial u online.'],
   intro_pend='una presentación personal breve (por qué se dedica a la psicología, cómo acompaña a sus pacientes).',
   formacion=[('Psicóloga Sanitaria', 'Nº de colegiada AN07736'),
@@ -127,7 +127,7 @@ P = [
 
  dict(slug='carmen-nunez-benitez', first='Carmen', name='Carmen Núñez Benítez', img='carmen', col='AN10799',
   chips=['Cognitivo-conductual', 'Psicodrama', 'Habilidades sociales', 'Bienestar emocional'],
-  desc='enfoque cognitivo-conductual con herramientas de psicodrama, experta en habilidades sociales y bienestar emocional.',
+  desc='experta en habilidades sociales y bienestar emocional. Enfoque cognitivo-conductual y psicodrama.',
   intro=['Durante estos años me hice consciente de mi capacidad de empatía y escucha y de mis ganas de querer mejorar la vida de las personas, por lo que seguí formándome en el ámbito de la Intervención. Es muy satisfactorio poder ayudar a aquellas personas que en algún momento de su vida necesitan la mano de un psicólogo para encontrar su camino hacia el bienestar.'],
   formacion=[('Psicóloga Sanitaria', 'Nº de colegiada AN10799'),
              ('Técnico de Prevención de Riesgos Laborales', 'Especialidad en la rama psicosocial'),
@@ -173,13 +173,14 @@ def card(o, home=False):
     ficha = f"equipo/{o['slug']}.html" if home else f"{o['slug']}.html"
     nombre = o['name'].replace('-', '&#8209;')   # guion que no parte «González-Quevedo»
     return f"""      <article class="member reveal">
-        <a class="member__link" href="{ficha}" tabindex="-1" aria-hidden="true"><div class="member__photo"><img src="assets/img/equipo/{o['img']}.jpg" alt="" width="400" height="480" loading="lazy" decoding="async"></div></a>
+        <a class="member__link" href="{ficha}" tabindex="-1" aria-hidden="true"><div class="member__photo"><picture><source srcset="assets/img/equipo/{o['img']}.webp" type="image/webp"><img src="assets/img/equipo/{o['img']}.jpg" alt="{o['name']}, psicóloga" width="400" height="480" loading="lazy" decoding="async"></picture></div></a>
         <h3 class="member__name"><a href="{ficha}">{nombre}</a></h3>
       </article>"""
 
 def page(p):
-    title = f"{p['name']}, psicóloga en Sevilla | Centro de Psicología Eneidas"
-    desc = f"{p['name']}, psicóloga sanitaria (nº colegiada {p['col']}) en el Centro de Psicología Eneidas de Sevilla: {p['desc']}"
+    # Google corta el título hacia los 60 caracteres y la descripción hacia los 155
+    title = f"{p['name']}, psicóloga en Sevilla | Eneidas"
+    desc = f"{p['name']}, psicóloga en Sevilla: {p['desc']}"
     url = BASE + 'equipo/' + p['slug'] + '.html'
     chips = '\n'.join(f'        <li>{c}</li>' for c in p['chips'])
 
@@ -255,21 +256,34 @@ def page(p):
 <link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
-<link rel="preload" as="image" href="assets/img/equipo/{p['img']}.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/equipo/{p['img']}.webp" type="image/webp" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/montserrat-variable.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "{p['name']}",
-  "jobTitle": "Psicóloga Sanitaria",
-  "url": "{url}",
-  "image": "{BASE}assets/img/equipo/{p['img']}.jpg",
-  "knowsAbout": [{knows}],
-  "hasCredential": {{ "@type": "EducationalOccupationalCredential", "credentialCategory": "Colegiación", "identifier": "{p['col']}" }},
-  "worksFor": {{ "@type": "MedicalClinic", "name": "Centro de Psicología Eneidas", "url": "{BASE}" }}
+  "@graph": [
+    {{
+      "@type": "Person",
+      "@id": "{url}#persona",
+      "name": "{p['name']}",
+      "jobTitle": "Psicóloga Sanitaria",
+      "url": "{url}",
+      "image": "{BASE}assets/img/equipo/{p['img']}.jpg",
+      "knowsAbout": [{knows}],
+      "hasCredential": {{ "@type": "EducationalOccupationalCredential", "credentialCategory": "Colegiación", "identifier": "{p['col']}" }},
+      "worksFor": {{ "@id": "{BASE}#centro" }}
+    }},
+    {{
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {{ "@type": "ListItem", "position": 1, "name": "Inicio", "item": "{BASE}" }},
+        {{ "@type": "ListItem", "position": 2, "name": "Equipo", "item": "{BASE}#equipo" }},
+        {{ "@type": "ListItem", "position": 3, "name": "{p['name']}", "item": "{url}" }}
+      ]
+    }}
+  ]
 }}
 </script>
 </head>
@@ -286,7 +300,7 @@ def page(p):
   <div class="wrap profile-hero__inner">
     <figure class="profile__photo">
       <!-- PENDIENTE: fotografía actualizada (vertical 4:5, mínimo 900×1125 px) -->
-      <img src="assets/img/equipo/{p['img']}.jpg" alt="Retrato de {p['name']}" width="400" height="480" fetchpriority="high" decoding="async">
+      <picture><source srcset="assets/img/equipo/{p['img']}.webp" type="image/webp"><img src="assets/img/equipo/{p['img']}.jpg" alt="Retrato de {p['name']}" width="400" height="480" fetchpriority="high" decoding="async"></picture>
     </figure>
     <div class="profile__intro">
       <a class="profile__back" href="index.html#equipo"><svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg> Volver al equipo</a>
@@ -382,7 +396,7 @@ def page(p):
 
 def up(h):
     # Las fichas viven en /equipo/: lo que apunta a la raíz sube un nivel
-    return re.sub(r'(href|src)="((?:assets/|favicon\.ico|index\.html|aviso-legal/|politica-de-[\w-]+/)[^"]*)"', r'\1="../\2"', h)
+    return re.sub(r'\b(href|src|srcset)="((?:assets/|favicon\.ico|index\.html|aviso-legal/|politica-de-[\w-]+/)[^"]*)"', r'\1="../\2"', h)
 
 INI, FIN = '<!-- equipo:tarjetas -->', '<!-- /equipo:tarjetas -->'
 

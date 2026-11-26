@@ -23,25 +23,26 @@ no en este sitio.
 
 ## Mapa de redirecciones 301
 
-### Tratamientos → ancla de Tratamientos
+### Tratamientos → su pestaña en la portada
 
-Los 13 tratamientos tienen ahora su contenido en el panel de `#tratamientos`.
+Cada tratamiento antiguo redirige a su área: `main.js` (bloque 7) abre la
+pestaña correspondiente al llegar con `/#<área>` y desplaza a Tratamientos.
 
 | Origen | Destino |
 |---|---|
-| `/ansiedad/` | `/#tratamientos` |
-| `/depresion/` | `/#tratamientos` |
-| `/dependencia-emocional/` | `/#tratamientos` |
-| `/autoestima-e-inseguridad/` | `/#tratamientos` |
-| `/duelo/` | `/#tratamientos` |
-| `/ira-y-falta-de-control-de-impulsos/` | `/#tratamientos` |
-| `/hipocondria-y-trastornos-psicosomaticos/` | `/#tratamientos` |
-| `/pensamientos-obsesivos/` | `/#tratamientos` |
-| `/falta-de-habilidades-sociales/` | `/#tratamientos` |
-| `/adicciones/` | `/#tratamientos` |
-| `/trastornos-de-personalidad/` | `/#tratamientos` |
-| `/mindfulness/` | `/#tratamientos` |
-| `/psico-oncologia/` | `/#tratamientos` |
+| `/ansiedad/` | `/#ansiedad` |
+| `/depresion/` | `/#depresion` |
+| `/dependencia-emocional/` | `/#dependencia` |
+| `/autoestima-e-inseguridad/` | `/#autoestima` |
+| `/duelo/` | `/#duelo` |
+| `/ira-y-falta-de-control-de-impulsos/` | `/#ira` |
+| `/hipocondria-y-trastornos-psicosomaticos/` | `/#psicosomatico` |
+| `/pensamientos-obsesivos/` | `/#obsesivos` |
+| `/falta-de-habilidades-sociales/` | `/#sociales` |
+| `/adicciones/` | `/#adicciones` |
+| `/trastornos-de-personalidad/` | `/#personalidad` |
+| `/mindfulness/` | `/#mindfulness` |
+| `/psico-oncologia/` | `/#oncologia` |
 
 ### Secciones
 
@@ -98,15 +99,18 @@ equivalente correcto.
 
 ```apache
 RewriteEngine On
-Redirect 301 /ansiedad/ /#tratamientos
-Redirect 301 /metodologia-de-trabajo/ /#metodologia
+# NE (no escape) es imprescindible: sin él Apache convierte «#» en «%23» y la
+# redirección acaba en una URL rota. Por eso no sirve la directiva Redirect.
+RewriteRule ^ansiedad/?$ /#ansiedad [R=301,NE,L]
+RewriteRule ^metodologia-de-trabajo/?$ /#metodologia [R=301,NE,L]
+RewriteRule ^ana-fernandez-chaves/?$ /equipo/ana-fernandez-chaves.html [R=301,L]
 # ... una línea por fila del mapa
 ```
 
 ### Netlify (`_redirects` en la raíz)
 
 ```
-/ansiedad/                 /#tratamientos      301
+/ansiedad/                 /#ansiedad          301
 /metodologia-de-trabajo/   /#metodologia       301
 ```
 
@@ -115,7 +119,7 @@ Redirect 301 /metodologia-de-trabajo/ /#metodologia
 ```json
 {
   "redirects": [
-    { "source": "/ansiedad/", "destination": "/#tratamientos", "permanent": true }
+    { "source": "/ansiedad/", "destination": "/#ansiedad", "permanent": true }
   ]
 }
 ```
@@ -123,7 +127,7 @@ Redirect 301 /metodologia-de-trabajo/ /#metodologia
 ### nginx
 
 ```nginx
-location = /ansiedad/ { return 301 /#tratamientos; }
+location = /ansiedad/ { return 301 /#ansiedad; }
 ```
 
 ### GitHub Pages

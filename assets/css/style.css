@@ -1089,6 +1089,8 @@ button { font: inherit; color: inherit; }
   gap: .7rem;
   color: inherit;
 }
+/* La <picture> (WebP + JPG) no debe encoger la foto en la fila flex */
+.quote__pro picture { display: contents; }
 .quote__pro-photo {
   width: 40px;
   height: 40px;

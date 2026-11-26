@@ -20,6 +20,8 @@ assets/icons/           Favicons
 equipo/                 Fichas individuales del equipo (GENERADAS, no editar a mano)
 tools/generar-fichas.py Genera equipo/*.html y las tarjetas del equipo de index.html
                         (entre <!-- equipo:tarjetas -->): `python tools/generar-fichas.py`
+tools/optimizar-imagenes.py  Reduce fotos y crea sus .webp (requiere Pillow); el HTML
+                        las sirve con <picture> y el JPG como respaldo
 docs/                   Documentación del proyecto y del análisis de marca
 .claude/                Configuración de Claude Code (agentes, skills, comandos)
 ```
